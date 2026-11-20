@@ -372,11 +372,73 @@ table.compact th, table.compact td { padding: 10px 9px; }
   .tl:nth-child(4)::before { display: none; }
   .hbar { grid-template-columns: 100px minmax(0, 1fr) 52px; }
 }
+
+/* ───────── v3 additions ───────── */
+/* popup */
+.pop-bg { position: fixed; inset: 0; z-index: 130; display: none; align-items: center; justify-content: center; padding: 20px; background: rgba(11,31,69,.5); backdrop-filter: blur(5px); }
+.pop-bg.open { display: flex; animation: fadeIn .18s ease-out; }
+.pop { width: min(440px, 100%); background: #fff; border-radius: 24px; padding: 34px 28px 24px; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 12px; box-shadow: 0 30px 80px -20px rgba(11,31,69,.5); animation: popIn .28s cubic-bezier(.2,1.3,.4,1); }
+.pop h3 { font-size: 21px; font-weight: 800; line-height: 1.35; color: var(--ink); }
+.pop-msg { font-size: 14.5px; color: var(--ink-2); line-height: 1.65; width: 100%; }
+.pop-msg ul { text-align: left; margin: 8px 0 0; padding: 12px 14px 12px 32px; background: var(--sunk); border-radius: 12px; display: flex; flex-direction: column; gap: 4px; font-size: 13.5px; }
+.pop-msg .hl { display: block; width: fit-content; min-width: 160px; margin: 10px auto 0; padding: 10px 16px; border-radius: 12px; background: var(--sunk); font-size: 14px; }
+.pop-msg .hl b { font-size: 26px; display: block; line-height: 1.2; color: var(--ink); }
+.pop-acts { display: flex; gap: 10px; width: 100%; margin-top: 10px; }
+.pop-acts .btn { flex: 1; height: 46px; }
+.pop-ic { width: 84px; height: 84px; border-radius: 50%; display: flex; align-items: center; justify-content: center; position: relative; margin-bottom: 4px; }
+.pop-ic::before { content: ''; position: absolute; inset: -10px; border-radius: 50%; background: inherit; opacity: .18; animation: pulse 1.6s ease-out infinite; }
+.pop-ic svg { width: 44px; height: 44px; fill: none; stroke: #fff; stroke-width: 3.2; stroke-linecap: round; stroke-linejoin: round; position: relative; }
+.pop-ic svg path, .pop-ic svg circle.s { stroke-dasharray: 60; stroke-dashoffset: 60; animation: draw .5s .18s ease-out forwards; }
+.pop-ic.success { background: linear-gradient(135deg, #22C55E, #0E9F6E); box-shadow: 0 14px 30px -10px rgba(14,159,110,.7); }
+.pop-ic.error { background: linear-gradient(135deg, #F87171, #DC2626); box-shadow: 0 14px 30px -10px rgba(220,38,38,.6); }
+.pop-ic.warn { background: linear-gradient(135deg, #FBBF24, #F59E0B); box-shadow: 0 14px 30px -10px rgba(245,158,11,.7); }
+.pop-ic.info, .pop-ic.confirm { background: linear-gradient(135deg, #3B82F6, #1C46B5); box-shadow: 0 14px 30px -10px rgba(37,87,214,.65); }
+.pop-ic.danger { background: linear-gradient(135deg, #F87171, #DC2626); box-shadow: 0 14px 30px -10px rgba(220,38,38,.6); }
+.pop-ic.load { background: var(--primary-soft); box-shadow: none; }
+.pop-ic.load::before { display: none; }
+@keyframes popIn { from { transform: scale(.86) translateY(12px); opacity: 0; } to { transform: none; opacity: 1; } }
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes draw { to { stroke-dashoffset: 0; } }
+@keyframes pulse { 0% { transform: scale(.85); opacity: .28; } 100% { transform: scale(1.35); opacity: 0; } }
+.confetti { position: fixed; inset: 0; pointer-events: none; z-index: 131; overflow: hidden; }
+.confetti i { position: absolute; top: -12px; width: 8px; height: 14px; border-radius: 2px; animation: fall 1.6s ease-in forwards; }
+@keyframes fall { to { transform: translateY(105vh) rotate(540deg); opacity: .9; } }
+
+/* grade table */
+.gtable td { vertical-align: top; padding: 10px; }
+.gtable .inp { height: 40px; }
+.gtable select.inp { min-width: 130px; }
+.gtable tr.broken { background: #FFF8F8; }
+.gtable tr.broken td:first-child { box-shadow: inset 3px 0 0 var(--red); }
+.gphotos { display: flex; gap: 8px; }
+.gph { position: relative; width: 92px; height: 70px; border-radius: 10px; border: 1.5px dashed var(--line-2); background: var(--sunk); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; font-size: 11px; color: var(--ink-2); cursor: pointer; overflow: hidden; text-align: center; line-height: 1.25; padding: 4px; transition: border-color .15s, background .15s; }
+.gph:hover { border-color: var(--primary); background: var(--primary-soft); }
+.gph.need { border-color: #F2A7AA; background: #FFF3F3; color: var(--red-ink); }
+.gph input { position: absolute; width: 1px; height: 1px; opacity: 0; }
+.gph img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.gph .x { position: absolute; right: 3px; top: 3px; width: 22px; height: 22px; border-radius: 50%; border: none; background: rgba(11,31,69,.78); color: #fff; cursor: pointer; z-index: 2; font-size: 11px; line-height: 1; }
+.gph svg { width: 18px; height: 18px; }
+.tvsum { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
+.tvsum > div { border-radius: 12px; padding: 12px 14px; }
+.tvsum b { font-size: 26px; display: block; line-height: 1.2; font-weight: 800; }
+.tvsum span { font-size: 12.5px; color: var(--ink-2); }
+.unit-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px; }
+.unit { border: 1px solid var(--line); border-radius: 14px; overflow: hidden; background: #fff; display: flex; flex-direction: column; }
+.unit .ph { aspect-ratio: 4/3; background: var(--sunk); position: relative; display: flex; align-items: center; justify-content: center; color: var(--ink-3); font-size: 12px; }
+.unit .ph img { width: 100%; height: 100%; object-fit: cover; }
+.unit .ph a { display: block; width: 100%; height: 100%; }
+.unit .ph .tag { position: absolute; right: 6px; bottom: 6px; width: 44px; height: 34px; border-radius: 6px; overflow: hidden; border: 2px solid #fff; box-shadow: 0 2px 6px rgba(0,0,0,.2); }
+.unit .bd { padding: 10px 12px; display: flex; flex-direction: column; gap: 4px; font-size: 13px; }
+.unit .bd b { font-size: 14.5px; }
+.unit label.ap { display: flex; align-items: center; gap: 8px; font-weight: 600; font-size: 13px; padding: 8px 12px; border-top: 1px solid var(--line); background: var(--green-soft); color: var(--green-ink); cursor: pointer; }
+.unit label.ap input { width: 17px; height: 17px; accent-color: var(--green); }
+.unit.off label.ap { background: var(--sunk); color: var(--ink-3); }
+.unit.off .ph img { filter: grayscale(.8); opacity: .6; }
+.timeline.t4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+@media (max-width: 900px) { .timeline.t4 { grid-template-columns: repeat(4, minmax(0, 1fr)); } .tl:nth-child(4)::before { display: block; } }
 </style>
 </head>
 <body>
-
-<!-- ═════════ ICONS ═════════ -->
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <symbol id="i-tv" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="13" rx="2"/><path d="M8 21h8M12 17v4"/></symbol>
   <symbol id="i-school" viewBox="0 0 24 24"><path d="M3 21h18M5 21V10l7-5 7 5v11"/><path d="M10 21v-5h4v5"/></symbol>
@@ -409,136 +471,122 @@ table.compact th, table.compact td { padding: 10px 9px; }
 <div id="landing">
   <div class="land-head">
     <div class="land-logo"><svg class="i"><use href="#i-tv"/></svg></div>
-    <h1>ระบบจัดสรร TV 55 นิ้ว พร้อมขาตั้ง<br>สำหรับโรงเรียนเป้าหมาย DLTV</h1>
-    <p>มูลนิธิการศึกษาทางไกลผ่านดาวเทียม · ปีงบประมาณ <span class="fyText">2570</span></p>
+    <h1>ระบบจัดสรร TV 55 นิ้ว พร้อมขาตั้ง<br>ทดแทนเครื่องที่ชำรุด</h1>
+    <p>สำหรับโรงเรียนเป้าหมาย DLTV · มูลนิธิการศึกษาทางไกลผ่านดาวเทียม · ปีงบประมาณ <span class="fyText">2570</span></p>
   </div>
   <div class="land-cards">
     <button class="land-card" onclick="enterUser()">
       <span class="ic t-gold"><svg class="i"><use href="#i-school"/></svg></span>
       <h2>สำหรับโรงเรียน</h2>
-      <p>ยื่นคำขอรับจัดสรร TV แก้ไขคำขอ ติดตามสถานะ และรายงานผลการใช้งานหลังติดตั้ง</p>
+      <p>แจ้ง TV ที่ชำรุดรายชั้นเรียนพร้อมรูปถ่าย ยื่นคำขอรับจัดสรร และติดตามสถานะคำขอ</p>
       <span class="go">เข้าสู่ระบบโรงเรียน <svg class="i"><use href="#i-arrow"/></svg></span>
     </button>
     <button class="land-card" onclick="openLogin()">
       <span class="ic" style="background: rgba(255,255,255,.12); color: #fff"><svg class="i"><use href="#i-shield"/></svg></span>
       <h2>สำหรับเจ้าหน้าที่ (Admin)</h2>
-      <p>Dashboard สรุปผล พิจารณาและอนุมัติการจัดสรร ติดตามการจัดส่ง ติดตั้ง และตั้งค่าระบบ</p>
+      <p>Dashboard สรุปผล ตรวจสอบรูป TV ชำรุดรายเครื่อง พิจารณาอนุมัติ และตั้งค่าระบบ</p>
       <span class="go">เข้าสู่ระบบด้วยรหัสผ่าน <svg class="i"><use href="#i-arrow"/></svg></span>
     </button>
   </div>
   <div class="land-foot" id="landMode"></div>
 </div>
 
-<!-- ═════════ USER (โรงเรียน) ═════════ -->
+<!-- ═════════ USER ═════════ -->
 <div id="user" class="hidden">
   <header class="u-nav"><div class="in">
     <div class="u-brand"><span class="lg"><svg class="i"><use href="#i-tv"/></svg></span><div><b>ระบบจัดสรร TV สำหรับโรงเรียน</b><span>ปีงบประมาณ <span class="fyText">2570</span></span></div></div>
     <div class="toolbar">
-      <div class="seg" id="uTabs"><button class="on" data-t="form" onclick="uTab('form')">ยื่นคำขอ</button><button data-t="status" onclick="uTab('status')">ติดตามสถานะ / รายงานผล</button></div>
-      <button class="btn ghost sm" onclick="goHome()"><svg class="i"><use href="#i-out"/></svg>ออก</button>
+      <div class="seg" id="uTabs"><button class="on" data-t="form" onclick="uTab('form')">ยื่นคำขอ</button><button data-t="status" onclick="uTab('status')">ติดตามสถานะ</button></div>
+      <button class="btn ghost sm" id="uExit" onclick="goHome()"><svg class="i"><use href="#i-out"/></svg>ออก</button>
     </div>
   </div></header>
   <section class="u-hero"><div class="in">
-    <h1 id="uHeroT">ยื่นคำขอรับการจัดสรร TV</h1>
-    <p id="uHeroP">กรอกข้อมูลให้ครบทั้ง 6 หัวข้อ ใช้เวลาประมาณ 10 นาที เตรียมรูปห้องเรียนและจุดตั้งจอไว้ให้พร้อม</p>
-    <div class="flow"><span><i>1</i>ยื่นคำขอ</span><span><i>2</i>เจ้าหน้าที่ตรวจสอบ</span><span><i>3</i>อนุมัติ</span><span><i>4</i>จัดส่ง</span><span><i>5</i>ติดตั้งและตรวจรับ</span><span><i>6</i>รายงานผล 30 วัน</span></div>
+    <h1 id="uHeroT">ยื่นคำขอรับการจัดสรร TV ทดแทนเครื่องที่ชำรุด</h1>
+    <p id="uHeroP">แจ้ง TV ของแต่ละชั้นเรียน พร้อมถ่ายรูปเครื่องที่ชำรุดทีละชั้น จำนวนที่ขอได้เท่ากับจำนวนเครื่องที่ชำรุด</p>
+    <div class="flow"><span><i>1</i>แจ้ง TV ชำรุดรายชั้น</span><span><i>2</i>เจ้าหน้าที่ตรวจสอบรูป</span><span><i>3</i>อนุมัติจัดสรร</span></div>
   </div></section>
   <div class="u-body">
     <div id="uBanner"></div>
-    <!-- FORM -->
     <div id="u-form">
       <div class="form-layout">
         <aside class="form-side">
           <div class="card" style="padding: 16px; gap: 12px">
-            <div class="progress"><div style="display:flex;justify-content:space-between"><b style="color:var(--ink);font-size:13.5px">ความคืบหน้า</b><span id="progText">0/6</span></div><div class="bar" style="margin:0"><i id="progBar" style="width:0;background:var(--green)"></i></div></div>
+            <div class="progress"><div style="display:flex;justify-content:space-between"><b style="color:var(--ink);font-size:13.5px">ความคืบหน้า</b><span id="progText">0/5</span></div><div class="bar" style="margin:0"><i id="progBar" style="width:0;background:var(--green)"></i></div></div>
             <ol class="toc" id="toc">
               <li><a href="#s1" data-sec="1"><span class="no">1</span>ข้อมูลโรงเรียน</a></li>
-              <li><a href="#s2" data-sec="2"><span class="no">2</span>TV ที่มีอยู่เดิม</a></li>
-              <li><a href="#s3" data-sec="3"><span class="no">3</span>ความพร้อมห้องเรียน</a></li>
-              <li><a href="#s4" data-sec="4"><span class="no">4</span>ความต้องการรายห้อง</a></li>
-              <li><a href="#s5" data-sec="5"><span class="no">5</span>การใช้งานและการดูแล</a></li>
-              <li><a href="#s6" data-sec="6"><span class="no">6</span>ผู้ประสานงานและหลักฐาน</a></li>
+              <li><a href="#s2" data-sec="2"><span class="no">2</span>TV รายชั้นเรียน + รูป</a></li>
+              <li><a href="#s3" data-sec="3"><span class="no">3</span>สัญญาณและความพร้อม</a></li>
+              <li><a href="#s4" data-sec="4"><span class="no">4</span>การใช้งานและการดูแล</a></li>
+              <li><a href="#s5" data-sec="5"><span class="no">5</span>ผู้ประสานงานและรับรอง</a></li>
             </ol>
           </div>
-          <div class="sum"><span class="l">คำขอของโรงเรียน</span><span class="v"><span id="sumTv">0</span> <small>ชุด</small></span><span class="l">TV 55 นิ้ว พร้อมขาตั้ง · <span id="sumStu">0</span> นักเรียนได้ใช้</span></div>
+          <div class="sum"><span class="l">ขอรับจัดสรร (เท่ากับเครื่องที่ชำรุด)</span><span class="v"><span id="sumTv">0</span> <small>ชุด</small></span><span class="l">TV 55 นิ้ว พร้อมขาตั้ง · <span id="sumStu">0</span> นักเรียนได้ใช้</span></div>
         </aside>
 
         <form class="form-main" id="reqForm" novalidate onsubmit="event.preventDefault(); submitRequest()">
           <div id="formStatus"></div>
-          <div class="product"><span class="pic"><svg class="i"><use href="#i-tv"/></svg></span><div><b>อุปกรณ์ที่จัดสรร: Smart TV 55 นิ้ว พร้อมขาตั้งล้อเลื่อน</b><span class="muted">จัดสรร 1 ชุดต่อ 1 ห้องเรียน ระบุห้องที่ต้องการในหัวข้อที่ 4</span></div></div>
+          <div class="product"><span class="pic"><svg class="i"><use href="#i-tv"/></svg></span><div><b>จัดสรร Smart TV 55 นิ้ว พร้อมขาตั้ง ทดแทนเครื่องที่ชำรุด</b><span class="muted">1 เครื่องที่ชำรุด = 1 ชุด · ต้องแนบรูปเครื่องที่ชำรุดของแต่ละชั้นเพื่อใช้ตรวจสอบ</span></div></div>
 
           <section class="card" id="s1">
-            <div class="card-t"><span class="sec-no">1</span><div><h2>ข้อมูลโรงเรียน</h2><p>ค้นหาด้วยชื่อโรงเรียน รหัส SMIS หรือรหัสกระทรวง ระบบดึงข้อมูลจากทะเบียนโรงเรียนเป้าหมายให้</p></div></div>
+            <div class="card-t"><span class="sec-no">1</span><div><h2>ข้อมูลโรงเรียน</h2><p>ค้นหาด้วยชื่อโรงเรียน รหัส SMIS หรือรหัสกระทรวง 10 หลัก</p></div></div>
             <div class="school-search">
               <label class="fld"><span class="req">ค้นหาโรงเรียน</span>
                 <span class="search"><svg class="i"><use href="#i-search"/></svg><input class="inp" id="schoolQ" autocomplete="off" placeholder="พิมพ์ชื่อโรงเรียน รหัส SMIS หรือรหัสกระทรวง" oninput="schoolSearch('schoolQ','ac','pickSchool')" onkeydown="acKey(event,'ac','pickSchool')" onfocus="schoolSearch('schoolQ','ac','pickSchool')"></span></label>
               <div class="ac hidden" id="ac" role="listbox"></div>
             </div>
             <div id="schoolBox"></div>
-            <fieldset><legend class="req">ระดับชั้นที่เปิดสอน</legend><div class="opts" id="gradeOpts"></div></fieldset>
+            <fieldset><legend class="req">ระดับชั้นที่เปิดสอน <small class="muted" style="font-weight:400">(ระบบสร้างแถวในหัวข้อที่ 2 ให้ตามชั้นที่เลือก)</small></legend><div class="opts" id="gradeOpts"></div></fieldset>
             <div class="fgrid">
-              <label class="fld"><span class="req">จำนวนห้องเรียนทั้งหมด</span><input class="inp" type="number" min="1" name="classrooms"></label>
-              <label class="fld"><span class="req">จำนวนนักเรียน</span><input class="inp" type="number" min="0" name="students"></label>
+              <label class="fld"><span class="req">จำนวนนักเรียนทั้งหมด</span><input class="inp" type="number" min="0" name="students"></label>
               <label class="fld"><span class="req">จำนวนครู</span><input class="inp" type="number" min="0" name="teachers"></label>
               <label class="fld">พื้นที่พิเศษ<select class="inp" name="special"><option>ไม่ใช่</option><option>พื้นที่สูง / ห่างไกล</option><option>เกาะ</option><option>ชายแดน</option></select></label>
             </div>
           </section>
 
           <section class="card" id="s2">
-            <div class="card-t"><span class="sec-no">2</span><div><h2>TV ที่มีอยู่เดิม</h2><p>ใช้คัดกรองว่าโรงเรียนขาดแคลนจริงและต้องการเพิ่มกี่เครื่อง</p></div></div>
-            <div class="fgrid">
-              <label class="fld"><span class="req">TV ที่มีทั้งหมด (เครื่อง)</span><input class="inp" type="number" min="0" name="tvTotal" oninput="syncBroken()"></label>
-              <label class="fld"><span class="req">ใช้งานได้ปกติ</span><input class="inp" type="number" min="0" name="tvWorking" oninput="syncBroken()"></label>
-              <label class="fld">ชำรุด / ใช้ไม่ได้<input class="inp" type="number" name="tvBroken" readonly></label>
-              <label class="fld">ปีที่ได้รับ TV ล่าสุด (พ.ศ.)<input class="inp" type="number" name="tvYear" placeholder="เช่น 2564"></label>
+            <div class="card-t"><span class="sec-no">2</span><div><h2>TV รายชั้นเรียน และรูปเครื่องที่ชำรุด</h2><p>ระบุสถานะ TV ของทุกชั้น ชั้นที่เลือก “ชำรุด” ต้องแนบรูปเครื่องให้เห็นอาการ · ชั้นที่มีหลายห้องกด “+ ห้อง”</p></div></div>
+            <div class="tvsum" id="tvSum"></div>
+            <div class="tbl-box">
+              <table class="gtable"><thead><tr><th>ชั้น / ห้อง</th><th class="r">นักเรียน</th><th>สถานะ TV</th><th>อาการ / รายละเอียดเครื่อง</th><th>รูปถ่าย</th><th></th></tr></thead>
+              <tbody id="gradeRows"></tbody></table>
             </div>
-            <fieldset><legend>อาการชำรุดที่พบ (เลือกได้หลายข้อ)</legend><div class="opts" data-multi="symptoms"></div></fieldset>
+            <div><button type="button" class="btn ghost sm" onclick="addRoom()"><svg class="i"><use href="#i-plus"/></svg>เพิ่มห้องเรียนอื่น</button></div>
+            <label class="fld"><span class="req">เหตุผลและความจำเป็น</span><textarea class="inp" name="reason" rows="3" placeholder="เช่น TV ชั้น ป.4–ป.6 เปิดไม่ติด ต้องย้ายนักเรียนไปเรียนรวมห้องเดียว"></textarea></label>
+          </section>
+
+          <section class="card" id="s3">
+            <div class="card-t"><span class="sec-no">3</span><div><h2>สัญญาณและความพร้อมของห้องเรียน</h2></div></div>
             <div class="fgrid">
               <label class="fld"><span class="req">ช่องทางรับสัญญาณ DLTV</span><select class="inp" name="signal"><option value="">— เลือก —</option><option>จานดาวเทียม</option><option>อินเทอร์เน็ต</option><option>ทั้งสองช่องทาง</option><option>ยังไม่มี</option></select></label>
               <label class="fld"><span class="req">สภาพจานและกล่องรับสัญญาณ</span><select class="inp" name="dish"><option value="">— เลือก —</option><option>ใช้ได้ครบทุกห้อง</option><option>ใช้ได้บางห้อง</option><option>ชำรุด</option><option>ไม่มี</option></select></label>
               <label class="fld">อินเทอร์เน็ตในห้องเรียน<select class="inp" name="internet"><option>Wi-Fi ครอบคลุมทุกห้อง</option><option>บางห้อง</option><option>ไม่มี</option></select></label>
             </div>
-          </section>
-
-          <section class="card" id="s3">
-            <div class="card-t"><span class="sec-no">3</span><div><h2>ความพร้อมของห้องเรียน</h2><p>ใช้วางแผนการติดตั้ง และป้องกันอุปกรณ์เสียหายหรือสูญหาย</p></div></div>
             <div id="readyQs"></div>
+            <fieldset><legend>อุปกรณ์เสริมที่ต้องการเพิ่ม</legend><div class="opts" data-multi="accessories"></div></fieldset>
           </section>
 
           <section class="card" id="s4">
-            <div class="card-t"><span class="sec-no">4</span><div><h2>ความต้องการรายห้องเรียน</h2><p>ระบุทีละห้อง เรียงจากห้องที่จำเป็นที่สุด · 1 ห้อง = TV 55 นิ้ว พร้อมขาตั้ง 1 ชุด</p></div></div>
-            <div class="tbl-box">
-              <table class="rooms"><thead><tr><th>#</th><th>ห้อง / ชั้น</th><th class="r">จำนวนนักเรียน</th><th>TV ในห้องตอนนี้</th><th></th></tr></thead>
-              <tbody id="roomRows"></tbody></table>
-            </div>
-            <div><button type="button" class="btn ghost" onclick="addRoom()"><svg class="i"><use href="#i-plus"/></svg>เพิ่มห้องเรียน</button></div>
-            <fieldset><legend>อุปกรณ์เสริมที่ต้องการเพิ่ม</legend><div class="opts" data-multi="accessories"></div></fieldset>
-            <label class="fld"><span class="req">เหตุผลและความจำเป็น</span><textarea class="inp" name="reason" rows="3" placeholder="เช่น TV เดิมชำรุด ต้องย้ายนักเรียนไปเรียนรวมห้องเดียว"></textarea></label>
-          </section>
-
-          <section class="card" id="s5">
-            <div class="card-t"><span class="sec-no">5</span><div><h2>การใช้งานและการดูแลรักษา</h2></div></div>
+            <div class="card-t"><span class="sec-no">4</span><div><h2>การใช้งานและการดูแลรักษา</h2></div></div>
             <div class="fgrid">
               <label class="fld"><span class="req">รูปแบบการใช้ DLTV ปัจจุบัน</span><select class="inp" name="dltvUse"><option value="">— เลือก —</option><option>ใช้สอนสดทุกวิชา</option><option>ใช้บางวิชา</option><option>ใช้คลิปย้อนหลังเป็นหลัก</option><option>ยังไม่ได้ใช้</option></select></label>
               <label class="fld">ชั่วโมงที่คาดว่าจะใช้ต่อสัปดาห์ต่อห้อง<input class="inp" type="number" min="0" name="hoursPlan"></label>
               <label class="fld"><span class="req">ครูผู้รับผิดชอบดูแลอุปกรณ์</span><input class="inp" name="caretaker"></label>
             </div>
             <label class="check"><input type="checkbox" name="consent1"><span>โรงเรียนยินยอมขึ้นทะเบียนครุภัณฑ์ และดูแลรักษาอุปกรณ์ตามคู่มือ</span></label>
-            <label class="check"><input type="checkbox" name="consent2"><span>ยินยอมรายงานผลการใช้งานหลังติดตั้ง 30 วัน และเมื่อมีการสุ่มตรวจ</span></label>
+            <label class="check"><input type="checkbox" name="consent2"><span>ยินยอมส่งคืนหรือจำหน่าย TV เครื่องเดิมที่ชำรุดตามระเบียบ เมื่อได้รับเครื่องใหม่</span></label>
           </section>
 
-          <section class="card" id="s6">
-            <div class="card-t"><span class="sec-no">6</span><div><h2>ผู้ประสานงานและหลักฐานประกอบ</h2><p>รูปภาพจะถูกเก็บในโฟลเดอร์ของโรงเรียนใน Google Drive</p></div></div>
+          <section class="card" id="s5">
+            <div class="card-t"><span class="sec-no">5</span><div><h2>ผู้ประสานงานและการรับรอง</h2></div></div>
             <div class="fgrid">
               <label class="fld"><span class="req">ชื่อผู้ประสานงาน</span><input class="inp" name="coordName"></label>
               <label class="fld">ตำแหน่ง<input class="inp" name="coordPos"></label>
               <label class="fld"><span class="req">เบอร์โทรศัพท์</span><input class="inp" type="tel" name="coordPhone"></label>
               <label class="fld">LINE ID<input class="inp" name="coordLine"></label>
             </div>
-            <div class="photos" id="reqPhotos"></div>
-            <div class="toolbar"><button type="button" class="btn ghost" onclick="captureGeo()"><svg class="i"><use href="#i-map"/></svg>ใช้พิกัด GPS ปัจจุบัน</button><span class="muted" id="geoText" style="font-size:13px">ใช้ประกอบการวางแผนเส้นทางจัดส่ง</span></div>
+            <div class="toolbar"><button type="button" class="btn ghost" onclick="captureGeo()"><svg class="i"><use href="#i-map"/></svg>ใช้พิกัด GPS ปัจจุบัน</button><span class="muted" id="geoText" style="font-size:13px">ใช้ประกอบการวางแผนจัดส่ง</span></div>
             <label class="fld" style="max-width: 420px"><span class="req">ชื่อผู้อำนวยการโรงเรียน</span><input class="inp" name="directorName"></label>
-            <label class="check gold"><input type="checkbox" name="certify"><span>ข้าพเจ้าผู้อำนวยการโรงเรียน ขอรับรองว่าข้อมูลข้างต้นเป็นความจริง <b style="color:var(--red)">*</b></span></label>
+            <label class="check gold"><input type="checkbox" name="certify"><span>ข้าพเจ้าผู้อำนวยการโรงเรียน ขอรับรองว่าข้อมูลและรูปถ่าย TV ที่ชำรุดเป็นความจริง <b style="color:var(--red)">*</b></span></label>
           </section>
 
           <div class="form-actions">
@@ -548,12 +596,11 @@ table.compact th, table.compact td { padding: 10px 9px; }
         </form>
       </div>
     </div>
-    <!-- STATUS -->
     <div id="u-status" class="hidden" style="display:flex;flex-direction:column;gap:18px">
       <section class="card">
         <div class="card-t"><span class="tile t-blue"><svg class="i"><use href="#i-search"/></svg></span><div><h2>ค้นหาคำขอของโรงเรียน</h2><p>พิมพ์ชื่อโรงเรียน รหัส SMIS หรือรหัสกระทรวง</p></div></div>
         <div class="school-search">
-          <span class="search"><svg class="i"><use href="#i-search"/></svg><input class="inp" id="stQ" aria-label="ค้นหาโรงเรียน" autocomplete="off" placeholder="เช่น บ้านห้วยตอง" oninput="schoolSearch('stQ','ac2','showStatus')" onkeydown="acKey(event,'ac2','showStatus')" onfocus="schoolSearch('stQ','ac2','showStatus')"></span>
+          <span class="search"><svg class="i"><use href="#i-search"/></svg><input class="inp" id="stQ" aria-label="ค้นหาโรงเรียน" autocomplete="off" placeholder="เช่น บ้านห้วยตอง หรือ 1040050890" oninput="schoolSearch('stQ','ac2','showStatus')" onkeydown="acKey(event,'ac2','showStatus')" onfocus="schoolSearch('stQ','ac2','showStatus')"></span>
           <div class="ac hidden" id="ac2" role="listbox"></div>
         </div>
       </section>
@@ -571,7 +618,6 @@ table.compact th, table.compact td { padding: 10px 9px; }
       <button data-p="dash" class="on" onclick="aPage('dash')"><svg class="i"><use href="#i-grid"/></svg>Dashboard</button>
       <span class="nav-label">การจัดสรร</span>
       <button data-p="approve" onclick="aPage('approve')"><svg class="i"><use href="#i-inbox"/></svg>พิจารณาคำขอ<span class="count" id="cApprove"></span></button>
-      <button data-p="deliver" onclick="aPage('deliver')"><svg class="i"><use href="#i-truck"/></svg>ส่งมอบ / ติดตั้ง<span class="count" id="cDeliver"></span></button>
       <button data-p="proxy" onclick="aPage('proxy')"><svg class="i"><use href="#i-edit"/></svg>ยื่นคำขอแทนโรงเรียน</button>
       <span class="nav-label">ระบบ</span>
       <button data-p="settings" onclick="aPage('settings')"><svg class="i"><use href="#i-gear"/></svg>ตั้งค่า</button>
@@ -582,141 +628,109 @@ table.compact th, table.compact td { padding: 10px 9px; }
     </div>
   </aside>
   <div class="admin-main">
-    <div class="topbar">
-      <div><h1 id="pgTitle">Dashboard</h1><p id="pgSub">ภาพรวมการจัดสรร TV 55 นิ้ว พร้อมขาตั้ง</p></div>
-      <div class="acts" id="pgActs"></div>
-    </div>
+    <div class="topbar"><div><h1 id="pgTitle">Dashboard</h1><p id="pgSub"></p></div><div class="acts" id="pgActs"></div></div>
     <div class="page" style="padding-bottom:0" id="aBanner"></div>
 
-    <!-- DASHBOARD -->
     <div class="page" id="p-dash">
       <div class="toolbar">
         <select class="inp" id="fRegion" aria-label="ภูมิภาค" style="width:200px" onchange="onRegionFilter()"></select>
         <select class="inp" id="fProv" aria-label="จังหวัด" style="width:180px" onchange="renderDash()"></select>
-        <select class="inp" id="fLot" aria-label="ล็อต" style="width:150px" onchange="renderDash()"></select>
       </div>
       <section class="kpis" id="kpis"></section>
 
       <section class="card">
-        <div class="card-h"><div class="card-t"><span class="tile t-blue"><svg class="i"><use href="#i-chart"/></svg></span><div><h2>สถานะโรงเรียนตามขั้นตอน</h2><p>คลิกที่ขั้นตอนเพื่อดูรายชื่อโรงเรียน</p></div></div></div>
+        <div class="card-t"><span class="tile t-blue"><svg class="i"><use href="#i-chart"/></svg></span><div><h2>สถานะโรงเรียนตามขั้นตอน</h2><p>คลิกที่ขั้นตอนเพื่อดูรายชื่อโรงเรียน</p></div></div>
         <div class="stack" id="stageBar"></div>
         <div class="stages" id="stages"></div>
       </section>
 
       <section class="card">
         <div class="card-h"><div class="card-t"><span class="tile t-gold"><svg class="i"><use href="#i-cal"/></svg></span><div><h2>โรงเรียนที่ยื่นคำขอ แยกตามปีที่เคยได้รับจัดสรร</h2><p>ปีที่เป็นโรงเรียนเป้าหมายมูลนิธิ (จากทะเบียนโรงเรียนเดิม) · ขอมากี่โรงเรียน กี่ชุด</p></div></div>
-          <div class="legend"><span><i class="sw" style="background:var(--primary)"></i>โรงเรียนที่ขอ</span><span><i class="sw" style="background:var(--gold)"></i>TV ที่ขอ (ชุด)</span></div></div>
+          <div class="legend"><span><i class="sw" style="background:var(--primary)"></i>โรงเรียนที่ขอ</span><span><i class="sw" style="background:var(--red)"></i>TV ชำรุดที่ขอ (ชุด)</span></div></div>
         <div class="grid yr-grid" style="align-items:start">
           <div id="yearRows"></div>
-          <div class="tbl-box"><table class="compact"><thead><tr><th>ปีที่เคยได้รับ</th><th class="r">เป้าหมาย</th><th class="r">ยื่นคำขอ (โรง)</th><th class="r">% ที่ขอ</th><th class="r">TV ที่ขอ</th><th class="r">TV เดิม</th><th class="r">อนุมัติ</th></tr></thead><tbody id="yearTable"></tbody></table></div>
+          <div class="tbl-box"><table class="compact"><thead><tr><th>ปีที่เคยได้รับ</th><th class="r">เป้าหมาย</th><th class="r">ยื่นคำขอ (โรง)</th><th class="r">% ที่ขอ</th><th class="r">TV ชำรุด</th><th class="r">TV เดิม</th><th class="r">อนุมัติ</th></tr></thead><tbody id="yearTable"></tbody></table></div>
         </div>
       </section>
 
       <div class="grid g3">
         <section class="card">
-          <div class="card-t"><span class="tile t-violet"><svg class="i"><use href="#i-tv"/></svg></span><div><h2>จำนวน TV ที่ขอต่อโรงเรียน</h2><p id="reqSizeSub"></p></div></div>
-          <div class="cols" id="reqCols"></div>
-          <div class="col-labels" id="reqColLabels"></div>
+          <div class="card-t"><span class="tile t-violet"><svg class="i"><use href="#i-tv"/></svg></span><div><h2>จำนวน TV ชำรุดต่อโรงเรียน</h2><p id="reqSizeSub"></p></div></div>
+          <div class="cols" id="reqCols"></div><div class="col-labels" id="reqColLabels"></div>
           <div class="minis" id="reqMinis"></div>
         </section>
         <section class="card">
-          <div class="card-t"><span class="tile t-teal"><svg class="i"><use href="#i-map"/></svg></span><div><h2>ความคืบหน้ารายภูมิภาค</h2></div></div>
-          <div class="legend"><span><i class="sw" style="background:var(--green)"></i>ติดตั้งแล้ว</span><span><i class="sw" style="background:var(--gold)"></i>อนุมัติ รอติดตั้ง</span><span><i class="sw" style="background:#9DB7F0"></i>รอพิจารณา</span></div>
-          <div id="regionBars" style="display:flex;flex-direction:column;gap:14px"></div>
+          <div class="card-t"><span class="tile t-red"><svg class="i"><use href="#i-school"/></svg></span><div><h2>TV ชำรุดแยกตามชั้นเรียน</h2><p>จำนวนเครื่องที่โรงเรียนแจ้ง</p></div></div>
+          <div class="cols" id="gradeCols" style="gap:6px"></div><div class="col-labels" id="gradeColLabels" style="gap:6px"></div>
         </section>
         <section class="card">
-          <div class="card-t"><span class="tile t-red"><svg class="i"><use href="#i-tv"/></svg></span><div><h2>สภาพ TV เดิมของโรงเรียนที่ขอ</h2><p id="condSub"></p></div></div>
-          <div id="condBars" style="display:flex;flex-direction:column;gap:12px"></div>
+          <div class="card-t"><span class="tile t-amber"><svg class="i"><use href="#i-alert"/></svg></span><div><h2>อาการชำรุดที่พบ</h2><p>นับตามเครื่อง</p></div></div>
+          <div id="symBars" style="display:flex;flex-direction:column;gap:12px"></div>
         </section>
       </div>
 
       <div class="grid g3">
         <section class="card">
+          <div class="card-t"><span class="tile t-teal"><svg class="i"><use href="#i-map"/></svg></span><div><h2>ความคืบหน้ารายภูมิภาค</h2></div></div>
+          <div class="legend"><span><i class="sw" style="background:var(--green)"></i>อนุมัติแล้ว</span><span><i class="sw" style="background:#9DB7F0"></i>รอพิจารณา</span></div>
+          <div id="regionBars" style="display:flex;flex-direction:column;gap:14px"></div>
+        </section>
+        <section class="card">
           <div class="card-t"><span class="tile t-green"><svg class="i"><use href="#i-check"/></svg></span><div><h2>ความพร้อมของห้องเรียน</h2><p>สัดส่วนโรงเรียนที่ยื่นคำขอ</p></div></div>
           <div id="readyBars" style="display:flex;flex-direction:column;gap:12px"></div>
-        </section>
-        <section class="card">
-          <div class="card-h"><div class="card-t"><span class="tile t-red"><svg class="i"><use href="#i-alert"/></svg></span><div><h2>ปัญหาหลังติดตั้ง</h2></div></div><span class="badge b-red" id="issueTotal"></span></div>
-          <div id="issueList"></div>
-        </section>
-        <section class="card">
-          <div class="card-t"><span class="tile t-gold"><svg class="i"><use href="#i-star"/></svg></span><div><h2>ผลการใช้งาน 30 วัน</h2></div></div>
-          <div id="followBox" style="display:flex;gap:18px;align-items:center;flex-wrap:wrap"></div>
-        </section>
-      </div>
-
-      <div class="grid g2">
-        <section class="card">
-          <div class="card-t"><span class="tile t-amber"><svg class="i"><use href="#i-truck"/></svg></span><div><h2>จังหวัดที่รอติดตั้งมากที่สุด</h2></div></div>
-          <div class="tbl-box"><table><thead><tr><th>จังหวัด</th><th class="r">อนุมัติ (โรง)</th><th class="r">ติดตั้งแล้ว</th><th class="r">รอติดตั้ง</th><th>ความคืบหน้า</th></tr></thead><tbody id="provTable"></tbody></table></div>
         </section>
         <section class="card">
           <div class="card-t"><span class="tile t-sky"><svg class="i"><use href="#i-clock"/></svg></span><div><h2>ความเคลื่อนไหวล่าสุด</h2></div></div>
           <ul class="feed" id="activity"></ul>
         </section>
       </div>
+
+      <section class="card">
+        <div class="card-t"><span class="tile t-amber"><svg class="i"><use href="#i-map"/></svg></span><div><h2>จังหวัดที่มี TV ชำรุดมากที่สุด</h2></div></div>
+        <div class="tbl-box"><table class="compact"><thead><tr><th>จังหวัด</th><th class="r">โรงเรียนที่ขอ</th><th class="r">TV ชำรุด</th><th class="r">อนุมัติแล้ว</th><th class="r">รอพิจารณา</th><th>สัดส่วนที่อนุมัติ</th></tr></thead><tbody id="provTable"></tbody></table></div>
+      </section>
     </div>
 
-    <!-- APPROVE -->
     <div class="page hidden" id="p-approve">
       <div class="layout-side">
         <section class="card">
           <div class="card-h">
             <div class="seg" id="apSeg"></div>
             <div class="toolbar">
-              <span class="search"><svg class="i"><use href="#i-search"/></svg><input class="inp" type="search" id="apSearch" aria-label="ค้นหา" placeholder="ค้นหาโรงเรียน / จังหวัด" style="width:230px" oninput="renderApprove()"></span>
+              <span class="search"><svg class="i"><use href="#i-search"/></svg><input class="inp" type="search" id="apSearch" aria-label="ค้นหา" placeholder="ชื่อ / รหัส / จังหวัด" style="width:220px" oninput="UI.apLimit=50; renderApprove()"></span>
               <select class="inp" id="apRegion" aria-label="ภูมิภาค" style="width:180px" onchange="renderApprove()"></select>
             </div>
           </div>
           <div class="tbl-box">
-            <table><thead><tr><th style="width:44px"><input type="checkbox" id="apAll" aria-label="เลือกทั้งหมด" onchange="apToggleAll(this.checked)"></th><th>โรงเรียน</th><th>เคยได้รับ</th><th>สภาพ TV เดิม</th><th class="r">นักเรียน</th><th class="r">ขอ</th><th>คะแนน</th><th>ความพร้อม</th><th>สถานะ</th></tr></thead>
+            <table><thead><tr><th style="width:44px"><input type="checkbox" id="apAll" aria-label="เลือกทั้งหมด" onchange="apToggleAll(this.checked)"></th><th>โรงเรียน</th><th>เคยได้รับ</th><th>TV รายชั้น</th><th class="r">ชำรุด</th><th>รูป</th><th>คะแนน</th><th>สถานะ</th></tr></thead>
             <tbody id="apRows"></tbody></table>
           </div>
           <div class="bulkbar" id="apBulk"></div>
         </section>
         <aside style="display:flex;flex-direction:column;gap:18px">
-          <div class="lot" id="lotCard"></div>
+          <div class="lot" id="quotaCard"></div>
           <section class="card">
-            <div class="card-t"><span class="tile t-gold"><svg class="i"><use href="#i-star"/></svg></span><div><h2>เกณฑ์คะแนน</h2><p>คำนวณอัตโนมัติ เต็ม 100</p></div></div>
+            <div class="card-t"><span class="tile t-gold"><svg class="i"><use href="#i-star"/></svg></span><div><h2>เกณฑ์คะแนน</h2><p>ใช้เรียงลำดับความสำคัญ เต็ม 100</p></div></div>
             <div id="criteria" style="display:flex;flex-direction:column;gap:12px"></div>
           </section>
         </aside>
       </div>
     </div>
 
-    <!-- DELIVER -->
-    <div class="page hidden" id="p-deliver">
-      <section class="card">
-        <div class="card-h">
-          <div class="seg" id="dvSeg"></div>
-          <div class="toolbar">
-            <span class="search"><svg class="i"><use href="#i-search"/></svg><input class="inp" type="search" id="dvSearch" aria-label="ค้นหา" placeholder="โรงเรียน / จังหวัด / ทีมติดตั้ง" style="width:250px" oninput="renderDeliver()"></span>
-            <select class="inp" id="dvLot" aria-label="ล็อต" style="width:150px" onchange="renderDeliver()"></select>
-          </div>
-        </div>
-        <div class="tbl-box">
-          <table><thead><tr><th>โรงเรียน</th><th>ล็อต</th><th class="r">เครื่อง</th><th>ทีมติดตั้ง</th><th>ความคืบหน้า</th><th>วันนัด / ตรวจรับ</th><th>รายงานผล 30 วัน</th><th></th></tr></thead>
-          <tbody id="dvRows"></tbody></table>
-        </div>
-      </section>
-    </div>
-
-    <!-- PROXY FORM placeholder: form is moved here at runtime -->
     <div class="page hidden" id="p-proxy"></div>
 
-    <!-- SETTINGS -->
     <div class="page hidden" id="p-settings">
       <div class="grid g2">
         <section class="card">
-          <div class="card-t"><span class="tile t-blue"><svg class="i"><use href="#i-cal"/></svg></span><div><h2>ปีงบประมาณและล็อตจัดสรร</h2><p>ล็อตที่เลือก "ใช้อยู่" จะเป็นค่าเริ่มต้นเมื่ออนุมัติ</p></div></div>
-          <label class="fld" style="max-width:220px">ปีงบประมาณที่ใช้งาน<input class="inp" id="st_fy"></label>
-          <div class="tbl-box"><table><thead><tr><th>ชื่อล็อต</th><th>โควตา (ชุด)</th><th>งบประมาณ (บาท)</th><th>ใช้อยู่</th></tr></thead><tbody id="st_lots"></tbody></table></div>
-          <div><button class="btn ghost sm" onclick="addLotRow()"><svg class="i"><use href="#i-plus"/></svg>เพิ่มล็อต</button></div>
+          <div class="card-t"><span class="tile t-blue"><svg class="i"><use href="#i-cal"/></svg></span><div><h2>ปีงบประมาณและราคา</h2></div></div>
+          <label class="fld" style="max-width:240px">ปีงบประมาณที่ใช้งาน<input class="inp" id="st_fy"></label>
+          <label class="fld" style="max-width:320px">ราคา TV 55 นิ้ว พร้อมขาตั้ง (บาท/ชุด)<input class="inp" type="number" min="0" id="st_price"><small>ใช้คำนวณงบประมาณใน Dashboard</small></label>
+          <label class="fld" style="max-width:320px">งบประมาณทั้งหมด (บาท) <small>ไม่บังคับ</small><input class="inp" type="number" min="0" id="st_budget"></label>
         </section>
         <section class="card">
-          <div class="card-t"><span class="tile t-gold"><svg class="i"><use href="#i-coins"/></svg></span><div><h2>ราคาและการเชื่อมต่อ</h2></div></div>
-          <label class="fld" style="max-width:320px">ราคา TV 55 นิ้ว พร้อมขาตั้ง (บาท/ชุด)<input class="inp" type="number" min="0" id="st_price"><small>ใช้คำนวณงบประมาณใน Dashboard</small></label>
-          <div id="connInfo" class="note b-blue"></div>
+          <div class="card-t"><span class="tile t-gold"><svg class="i"><use href="#i-coins"/></svg></span><div><h2>หลักการจัดสรร</h2></div></div>
+          <div class="note b-blue"><svg class="i"><use href="#i-tv"/></svg><span>โควตาของแต่ละโรงเรียน = จำนวน TV ที่โรงเรียนแจ้งว่าชำรุด (พร้อมรูปถ่ายรายชั้น) เจ้าหน้าที่เลือกอนุมัติทีละเครื่องได้หลังดูรูป</span></div>
+          <div id="connInfo" class="note"></div>
         </section>
       </div>
       <div class="form-actions"><button class="btn lg" onclick="applySettings()"><svg class="i"><use href="#i-check"/></svg>บันทึกการตั้งค่า</button></div>
@@ -741,16 +755,19 @@ table.compact th, table.compact td { padding: 10px 9px; }
     <div class="dw-foot" id="dwFoot"></div>
   </div>
 </div>
+
+<div class="pop-bg" id="popBg" role="alertdialog" aria-modal="true" aria-labelledby="popT">
+  <div class="pop"><div class="pop-ic" id="popIc"></div><h3 id="popT"></h3><div class="pop-msg" id="popM"></div><div class="pop-acts" id="popA"></div></div>
+</div>
 <div class="toast" id="toast" role="status"></div>
-<div class="busy" id="busy"><div class="spin"></div><span id="busyText">กำลังบันทึก…</span></div>
 
 <script>
 /* ═══════════════════════════════════════════════════════════
    ตั้งค่าการเชื่อมต่อ Google Sheets (ดูวิธีติดตั้งในไฟล์ Code.gs)
    ถ้าเว้น APPS_SCRIPT_URL ว่าง ระบบจะทำงานในโหมดทดลอง เก็บข้อมูลในเบราว์เซอร์นี้เท่านั้น
    ═══════════════════════════════════════════════════════════ */
-const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzWP2OihAVF2pBwv1XWJQYiHf4X858y34xon_9Q7nKI0hqNzQ4NBZb84d3O5qcLRohd/exec';
-const LOCAL_ADMIN_PASSWORD = 'admin';   // ใช้เฉพาะโหมดทดลอง · โหมดจริงตั้งรหัสผ่านใน Code.gs (ADMIN_PASSWORD)
+const APPS_SCRIPT_URL = '';
+const LOCAL_ADMIN_PASSWORD = 'admin';   // ใช้เฉพาะโหมดทดลอง · โหมดจริงตั้งที่ ADMIN_PASSWORD ใน Code.gs
 
 /* ทะเบียนโรงเรียนเป้าหมาย
    [ลำดับ, SMIS, รหัสกระทรวง, ชื่อ, ตำบล, อำเภอ, จังหวัด, สังกัด, ภูมิภาค, ประเภท, นักเรียน, ครู, ผู้บริหาร, ผู้ประสานงาน, เบอร์, TV55 เดิม, TV49 เดิม, ปีเป้าหมายมูลนิธิ, เลิก/โอน] */
@@ -759,9 +776,9 @@ const SCHOOL_ROWS = [[1,"11010005","1011570005","วัดบางด้วน"
 const REGIONS = ['ภาคกลาง', 'ภาคเหนือ', 'ภาคตะวันออกเฉียงเหนือ', 'ภาคใต้'];
 const YEARS = ['2562', '2563', '2564', '2565', '2566'];
 const GRADES = ['อ.1', 'อ.2', 'อ.3', 'ป.1', 'ป.2', 'ป.3', 'ป.4', 'ป.5', 'ป.6', 'ม.1', 'ม.2', 'ม.3'];
-const SYMPTOMS = ['เปิดไม่ติด', 'จอเป็นเส้น / ภาพไม่ชัด', 'ไม่มีเสียง', 'ไม่มีช่อง HDMI', 'จอเล็กเกินไปสำหรับห้อง', 'ถูกขโมย / สูญหาย'];
+const TV_STATES = ['ใช้งานได้', 'ชำรุด', 'ไม่มี TV'];
+const SYMPTOMS = ['เปิดไม่ติด', 'จอเป็นเส้น / ภาพไม่ชัด', 'จอแตก / จอดำ', 'ไม่มีเสียง', 'รับสัญญาณไม่ได้ / ช่องต่อเสีย', 'เปิดติดแล้วดับเอง', 'อื่น ๆ'];
 const ACCESSORIES = ['กล่องรับสัญญาณดาวเทียม', 'ปลั๊กกันไฟกระชาก', 'สาย HDMI', 'ตู้ล็อกจอ'];
-const ROOM_HAS = ['ไม่มี', 'มีแต่ชำรุด', 'มี แต่จอเล็ก/เก่า'];
 const READY_QS = [
   { k: 'outlet', t: 'มีเต้ารับไฟฟ้าใกล้จุดตั้งจอในทุกห้องที่ขอ', good: 'yes', dash: 'มีเต้ารับไฟฟ้าในห้องเรียน' },
   { k: 'powerIssue', t: 'ไฟฟ้าตกหรือดับบ่อย (มากกว่า 1 ครั้ง/สัปดาห์)', good: 'no', dash: 'ไฟฟ้าเสถียร' },
@@ -769,20 +786,14 @@ const READY_QS = [
   { k: 'lock', t: 'ห้องปิดล็อกได้ หรือมีลูกกรงหน้าต่าง', good: 'yes', dash: 'ห้องปิดล็อกได้ ปลอดภัย' },
   { k: 'damp', t: 'มีปัญหาฝนรั่ว ความชื้น หรือแดดส่องจอ', good: 'no', dash: 'ไม่มีปัญหาความชื้น' }
 ];
-const REQ_PHOTOS = [['room', 'รูปห้องเรียน มุมกว้าง', true], ['spot', 'รูปจุดที่จะตั้งจอ', true], ['outlet', 'รูปเต้ารับไฟฟ้า', false], ['oldtv', 'รูป TV เดิมที่ชำรุด', false]];
-const INST_PHOTOS = [['after', 'รูปหลังติดตั้ง', true], ['tag', 'รูปป้ายครุภัณฑ์', false], ['doc', 'ใบตรวจรับที่ลงนาม', true]];
-const ISSUES = ['ไม่มีปัญหา', 'ไม่มีสัญญาณ / ภาพไม่ขึ้น', 'ไฟฟ้าไม่พอ / ไฟตก', 'รีโมทหรืออุปกรณ์เสริมหาย', 'จอชำรุด', 'ขาตั้งชำรุด', 'อื่น ๆ'];
-const USES = ['ดูสดตามตาราง DLTV', 'คลิปย้อนหลัง', 'สื่อการสอนของครูเอง', 'ประชุม / อบรมออนไลน์'];
 const STATUS = {
   submitted: { t: 'รอตรวจสอบ', c: 'b-blue', col: '#9DB7F0' },
   returned:  { t: 'ส่งกลับแก้ไข', c: 'b-violet', col: '#B6A6FF' },
   reviewed:  { t: 'ตรวจแล้ว รออนุมัติ', c: 'b-sky', col: '#3B9EFF' },
-  approved:  { t: 'อนุมัติ รอจัดส่ง', c: 'b-gold', col: '#F5B301' },
-  shipped:   { t: 'จัดส่งแล้ว รอติดตั้ง', c: 'b-amber', col: '#F08C1A' },
-  installed: { t: 'ติดตั้งเสร็จ', c: 'b-green', col: '#12A06A' },
+  approved:  { t: 'อนุมัติแล้ว', c: 'b-green', col: '#12A06A' },
   rejected:  { t: 'ไม่อนุมัติ', c: 'b-red', col: '#E5484D' }
 };
-const DEFAULT_SETTINGS = { fy: '2570', currentLot: 'ล็อต 1', lots: [{ name: 'ล็อต 1', quota: 2000, budget: 0 }], price: 0 };
+const DEFAULT_SETTINGS = { fy: '2570', price: 0, budget: 0 };
 const PRODUCT = 'TV 55 นิ้ว พร้อมขาตั้ง';
 
 /* ─── state ─── */
@@ -791,8 +802,8 @@ const SCHOOL_BY_ID = new Map(SCHOOLS.map(s => [s.sid, s]));
 SCHOOLS.forEach(s => { s._q = (s.name + ' ' + s.smis + ' ' + s.moe + ' ' + s.province + ' ' + s.amphoe).toLowerCase(); });
 let RECORDS = [];
 let SETTINGS = clone(DEFAULT_SETTINGS);
-const UI = { role: null, upage: 'form', apage: 'dash', apFilter: 'submitted', dvFilter: 'approved', apSel: new Set(), formSchool: null, rooms: [], photos: {}, geo: null, editing: null, acList: [], acIdx: -1, instPhotos: {}, statusRec: null, apLimit: 50, dvLimit: 50 };
-const LS_REC = 'tvAlloc.v2.records', LS_SET = 'tvAlloc.v2.settings', SS_ADMIN = 'tvAlloc.v2.admin';
+const UI = { role: null, upage: 'form', apage: 'dash', apFilter: 'submitted', apSel: new Set(), apLimit: 50, formSchool: null, rooms: [], geo: null, editing: null, acList: [], acIdx: -1, statusRec: null };
+const LS_REC = 'tvAlloc.v3.records', LS_SET = 'tvAlloc.v3.settings', SS_ADMIN = 'tvAlloc.v3.admin';
 const ONLINE = !!APPS_SCRIPT_URL;
 let ADMIN_KEY = '';
 
@@ -816,44 +827,87 @@ function thDate(v, time) {
   return s;
 }
 function addDays(dateStr, n) { const d = new Date(dateStr + 'T00:00:00'); d.setDate(d.getDate() + n); return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0'); }
-function ic(id, cls) { return `<svg class="i${cls ? ' ' + cls : ''}"><use href="#i-${id}"/></svg>`; }
+function ic(id) { return `<svg class="i"><use href="#i-${id}"/></svg>`; }
 let toastT;
-function toast(msg, err) { const t = $('toast'); t.innerHTML = ic(err ? 'alert' : 'check') + esc(msg); t.className = 'toast show' + (err ? ' err' : ''); clearTimeout(toastT); toastT = setTimeout(() => t.className = 'toast', 3800); }
-function busy(on, text) { $('busy').classList.toggle('on', !!on); if (text) $('busyText').textContent = text; }
+function toast(msg, err) { const t = $('toast'); t.innerHTML = ic(err ? 'alert' : 'check') + esc(msg); t.className = 'toast show' + (err ? ' err' : ''); clearTimeout(toastT); toastT = setTimeout(() => t.className = 'toast', 3200); }
 function badge(status) { const s = STATUS[status] || { t: status, c: 'b-gray' }; return `<span class="badge ${s.c}">${esc(s.t)}</span>`; }
 function schoolOf(r) { return SCHOOL_BY_ID.get(r.sid) || r.school || {}; }
 function curRecs() { return RECORDS.filter(r => String(r.fy) === String(SETTINGS.fy)); }
-function tvRequested(r) { return (r.form && r.form.rooms || []).length; }
+function roomsOf(r) { return (r.form && r.form.rooms) || []; }
+function brokenRooms(r) { return roomsOf(r).filter(x => x.state === 'ชำรุด'); }
+function tvBroken(r) { return brokenRooms(r).length; }
 function tvApproved(r) { return num(r.approval && r.approval.tv); }
-function isApprovedStage(s) { return s === 'approved' || s === 'shipped' || s === 'installed'; }
 function addHistory(r, text, by) { r.history = r.history || []; r.history.unshift({ at: nowIso(), text, by: by || (UI.role === 'admin' ? 'เจ้าหน้าที่' : 'โรงเรียน') }); r.updatedAt = nowIso(); }
-function folderName(s) { return `${s.name} อ.${s.amphoe} จ.${s.province}`; }
+function folderName(s) { return `${s.name} อ.${s.amphoe} จ.${s.province}${s.moe ? ' (' + s.moe + ')' : ''}`; }
 function yearLabel(s) { return s && s.year ? 'ปี ' + s.year : 'ไม่ระบุ'; }
 function oldTv(s) { return num(s.tv55) + num(s.tv49); }
+function codeOf(s) { return s.smis ? 'SMIS ' + s.smis : s.moe ? 'รหัส ' + s.moe : ''; }
+
+/* ═════════ POPUP ═════════ */
+const POP_ICON = {
+  success: '<svg viewBox="0 0 48 48"><path d="M13 25l7 7 15-16"/></svg>',
+  error: '<svg viewBox="0 0 48 48"><path d="M16 16l16 16M32 16L16 32"/></svg>',
+  danger: '<svg viewBox="0 0 48 48"><path d="M16 16l16 16M32 16L16 32"/></svg>',
+  warn: '<svg viewBox="0 0 48 48"><path d="M24 13v14"/><path d="M24 34v1"/></svg>',
+  info: '<svg viewBox="0 0 48 48"><path d="M24 22v13"/><path d="M24 14v1"/></svg>',
+  confirm: '<svg viewBox="0 0 48 48"><path d="M18 18a6 6 0 1 1 8.5 5.5c-1.6.8-2.5 2-2.5 3.8V29"/><path d="M24 35v1"/></svg>',
+  load: '<div class="spin" style="width:52px;height:52px"></div>'
+};
+let popResolve = null;
+/* popup({ type, title, msg(html), ok, cancel, danger, confetti }) → Promise<boolean> */
+function popup(o) {
+  return new Promise(res => {
+    if (popResolve) popResolve(false);
+    popResolve = res;
+    const t = o.type || 'info';
+    $('popIc').className = 'pop-ic ' + t; $('popIc').innerHTML = POP_ICON[t] || POP_ICON.info;
+    $('popT').textContent = o.title || ''; $('popM').innerHTML = o.msg || '';
+    const acts = [];
+    if (o.cancel) acts.push(`<button class="btn ghost" data-v="0">${esc(o.cancel)}</button>`);
+    if (o.ok !== false && t !== 'load') acts.push(`<button class="btn ${o.danger ? 'danger" style="background:var(--red);color:#fff;border-color:var(--red)' : t === 'success' ? 'navy' : ''}" data-v="1">${esc(o.ok || 'ตกลง')}</button>`);
+    $('popA').innerHTML = acts.join(''); $('popA').classList.toggle('hidden', !acts.length);
+    $('popA').querySelectorAll('button').forEach(b => b.onclick = () => closePop(b.dataset.v === '1'));
+    $('popBg').classList.add('open');
+    const f = $('popA').querySelector('[data-v="1"]'); if (f) setTimeout(() => f.focus(), 60);
+    if (o.confetti) confetti();
+  });
+}
+function closePop(v) { $('popBg').classList.remove('open'); const r = popResolve; popResolve = null; if (r) r(v); }
+const confirmPop = (title, msg, ok, danger) => popup({ type: danger ? 'danger' : 'confirm', title, msg, ok: ok || 'ยืนยัน', cancel: 'ยกเลิก', danger });
+function busy(on, text) { if (on) popup({ type: 'load', title: text || 'กำลังบันทึก…', msg: 'กรุณารอสักครู่ อย่าปิดหน้านี้', ok: false }); else if ($('popIc').classList.contains('load')) closePop(false); }
+function confetti() {
+  const box = document.createElement('div'); box.className = 'confetti';
+  const cols = ['#F5B301', '#2557D6', '#12A06A', '#E5484D', '#7C5CFC', '#0EA5A8'];
+  for (let i = 0; i < 70; i++) { const p = document.createElement('i'); p.style.left = Math.random() * 100 + '%'; p.style.background = cols[i % cols.length]; p.style.animationDelay = Math.random() * .5 + 's'; p.style.animationDuration = 1.2 + Math.random() * 1 + 's'; box.appendChild(p); }
+  document.body.appendChild(box); setTimeout(() => box.remove(), 2600);
+}
+document.addEventListener('keydown', (e) => {
+  if (e.key !== 'Escape') return;
+  if ($('popBg').classList.contains('open') && !$('popIc').classList.contains('load')) { closePop(false); return; }
+  if ($('overlay').classList.contains('open')) closeDrawer();
+  if ($('loginBg').classList.contains('open')) closeLogin();
+});
 
 /* ─── scoring ─── */
 const CRITERIA = [
-  { k: 'cond', t: 'ไม่มี TV หรือ TV ชำรุด', w: 35, col: '#E5484D' },
+  { k: 'cond', t: 'สัดส่วนชั้นที่ TV ชำรุด/ไม่มี', w: 35, col: '#E5484D' },
   { k: 'ratio', t: 'นักเรียนต่อจอที่ใช้ได้', w: 25, col: '#F08C1A' },
   { k: 'remote', t: 'พื้นที่ห่างไกล / เกาะ / ชายแดน', w: 20, col: '#0EA5A8' },
   { k: 'ready', t: 'ความพร้อมของห้องเรียน', w: 15, col: '#12A06A' },
-  { k: 'first', t: 'ยังไม่เคยได้รับ TV จากมูลนิธิ', w: 5, col: '#7C5CFC' }
+  { k: 'photo', t: 'แนบรูปครบทุกเครื่องที่ชำรุด', w: 5, col: '#7C5CFC' }
 ];
 function scoreOf(r) {
-  const f = r.form || {}, s = schoolOf(r);
-  const rooms = Math.max(num(f.classrooms), 1), working = num(f.tvWorking);
+  const f = r.form || {}, rooms = roomsOf(r), n = Math.max(rooms.length, 1);
+  const working = rooms.filter(x => x.state === 'ใช้งานได้').length, broken = brokenRooms(r);
   const parts = {
-    cond: 35 * Math.max(0, 1 - working / rooms),
+    cond: 35 * (n - working) / n,
     ratio: 25 * Math.min(num(f.students) / Math.max(working, 1) / 40, 1),
     remote: f.special && f.special !== 'ไม่ใช่' ? 20 : 0,
     ready: 15 * READY_QS.filter(q => (f.ready || {})[q.k] === q.good).length / READY_QS.length,
-    first: oldTv(s) > 0 ? 0 : 5
+    photo: broken.length && broken.every(x => x.photo) ? 5 : 0
   };
   return { total: Math.round(Object.values(parts).reduce((a, b) => a + b, 0)), parts };
 }
-function readyMissing(r) { const f = r.form || {}; return READY_QS.filter(q => (f.ready || {})[q.k] !== q.good).map(q => q.dash); }
-function condText(f) { const t = num(f.tvTotal), w = num(f.tvWorking); if (!t) return 'ไม่มี TV'; if (!w) return 'ชำรุดทั้งหมด'; return `ใช้ได้ ${w} / ${t} เครื่อง`; }
-function condGroup(f) { const t = num(f.tvTotal), w = num(f.tvWorking); if (!t) return 0; if (!w) return 1; if (w < num(f.classrooms)) return 2; return 3; }
 
 /* ═════════ DATA LAYER ═════════ */
 async function api(payload) {
@@ -866,8 +920,7 @@ async function api(payload) {
   } finally { clearTimeout(timer); }
 }
 async function apiGet(params) {
-  const q = new URLSearchParams(Object.assign({ _: Date.now() }, params)).toString();
-  const res = await fetch(APPS_SCRIPT_URL + '?' + q, { cache: 'no-store' });
+  const res = await fetch(APPS_SCRIPT_URL + '?' + new URLSearchParams(Object.assign({ _: Date.now() }, params)), { cache: 'no-store' });
   const j = await res.json();
   if (!j.success) throw new Error(j.error || 'โหลดข้อมูลไม่สำเร็จ');
   return j;
@@ -878,7 +931,7 @@ function loadLocal() {
 }
 function saveLocal() {
   try { localStorage.setItem(LS_REC, JSON.stringify(RECORDS)); localStorage.setItem(LS_SET, JSON.stringify(SETTINGS)); }
-  catch (e) { toast('พื้นที่เก็บข้อมูลในเบราว์เซอร์เต็ม ลองล้างข้อมูลทดลองหรือเชื่อมต่อ Google Sheets', true); throw e; }
+  catch (e) { popup({ type: 'error', title: 'พื้นที่ในเบราว์เซอร์เต็ม', msg: 'โหมดทดลองเก็บรูปในเบราว์เซอร์ ลองล้างข้อมูลทดลอง หรือเชื่อมต่อ Google Sheets เพื่อใช้งานจริง' }); throw e; }
 }
 async function loadPublic() {
   if (ONLINE) { try { const j = await apiGet({ action: 'settings' }); SETTINGS = Object.assign(clone(DEFAULT_SETTINGS), j.settings || {}); } catch (e) {} }
@@ -886,10 +939,8 @@ async function loadPublic() {
   document.querySelectorAll('.fyText').forEach(el => el.textContent = SETTINGS.fy);
 }
 async function loadAdmin() {
-  if (ONLINE) {
-    const j = await apiGet({ action: 'getAll', key: ADMIN_KEY });
-    RECORDS = j.records || []; SETTINGS = Object.assign(clone(DEFAULT_SETTINGS), j.settings || {});
-  } else loadLocal();
+  if (ONLINE) { const j = await apiGet({ action: 'getAll', key: ADMIN_KEY }); RECORDS = j.records || []; SETTINGS = Object.assign(clone(DEFAULT_SETTINGS), j.settings || {}); }
+  else loadLocal();
   RECORDS.forEach(r => { if (r.form) r.score = scoreOf(r).total; });
 }
 async function fetchMine(sid) {
@@ -897,108 +948,90 @@ async function fetchMine(sid) {
   loadLocal();
   return RECORDS.find(r => r.sid === sid && String(r.fy) === String(SETTINGS.fy)) || null;
 }
-async function uploadPhotos(obj, school, prefix) {
-  if (!ONLINE || !obj) return obj;
-  const out = {};
-  for (const [k, v] of Object.entries(obj)) {
-    if (v && String(v).startsWith('data:')) {
-      const label = (REQ_PHOTOS.concat(INST_PHOTOS).find(p => p[0] === k) || [k, k])[1];
-      const j = await api({ action: 'uploadPhoto', folder: folderName(school), name: `${prefix}_${label}_${todayStr()}.jpg`, data: v });
-      out[k] = j.url;
-    } else out[k] = v;
+/* อัปโหลดรูปรายชั้นไปโฟลเดอร์ของโรงเรียน */
+async function uploadRoomPhotos(rec) {
+  if (!ONLINE) return;
+  const s = schoolOf(rec), rooms = roomsOf(rec);
+  let n = 0; const total = rooms.reduce((a, x) => a + (String(x.photo || '').startsWith('data:') ? 1 : 0) + (String(x.photoTag || '').startsWith('data:') ? 1 : 0), 0);
+  for (const room of rooms) {
+    for (const [k, label] of [['photo', 'TV ชำรุด'], ['photoTag', 'ป้ายรุ่น']]) {
+      if (room[k] && String(room[k]).startsWith('data:')) {
+        n++; $('popT').textContent = `กำลังอัปโหลดรูป ${n}/${total}`;
+        const j = await api({ action: 'uploadPhoto', folder: folderName(s), name: `ชั้น ${room.name}_${label}_${todayStr()}.jpg`, data: room[k] });
+        room[k] = j.url;
+      }
+    }
   }
-  return out;
 }
 function upsertLocal(rec) { const i = RECORDS.findIndex(r => r.id === rec.id); if (i >= 0) RECORDS[i] = rec; else RECORDS.push(rec); }
-/* action: submitRequest (โรงเรียน) | saveFollowup (โรงเรียน) | saveRecord (admin) */
-async function persist(action, rec, msg) {
-  const s = schoolOf(rec);
+/* action: submitRequest (โรงเรียน/แอดมินยื่นแทน) | saveRecord (admin) */
+async function persist(action, rec) {
   if (ONLINE) {
     busy(true, 'กำลังบันทึกลง Google Sheets…');
-    try {
-      if (rec.form && rec.form.photos) rec.form.photos = await uploadPhotos(rec.form.photos, s, 'คำขอ');
-      if (rec.install && rec.install.photos) rec.install.photos = await uploadPhotos(rec.install.photos, s, 'ตรวจรับ');
-      await api({ action, key: ADMIN_KEY, record: rec, flat: flatten(rec) });
-    } catch (e) { busy(false); toast('บันทึกไม่สำเร็จ: ' + e.message, true); throw e; }
+    try { await uploadRoomPhotos(rec); await api({ action, key: ADMIN_KEY, record: rec, flat: flatten(rec) }); }
+    catch (e) { busy(false); await popup({ type: 'error', title: 'บันทึกไม่สำเร็จ', msg: esc(e.message) + '<br><span class="muted">ตรวจสอบอินเทอร์เน็ตแล้วลองอีกครั้ง</span>' }); throw e; }
     busy(false);
   } else {
     loadLocal();
-    if (action !== 'saveRecord') {
-      const ex = RECORDS.find(r => r.id === rec.id);
-      if (action === 'submitRequest' && ex && !['submitted', 'returned'].includes(ex.status)) { toast('คำขอนี้อยู่ระหว่างดำเนินการ แก้ไขไม่ได้แล้ว', true); throw new Error('locked'); }
-    }
+    const ex = RECORDS.find(r => r.id === rec.id);
+    if (action === 'submitRequest' && ex && !['submitted', 'returned'].includes(ex.status)) { await popup({ type: 'warn', title: 'แก้ไขไม่ได้แล้ว', msg: 'คำขอนี้อยู่ระหว่างพิจารณาหรืออนุมัติแล้ว' }); throw new Error('locked'); }
     upsertLocal(rec); saveLocal();
   }
   if (UI.role === 'admin') { upsertLocal(rec); renderAdmin(); }
-  if (msg) toast(msg);
 }
 async function saveSettingsRemote() {
-  if (ONLINE) { busy(true, 'กำลังบันทึกการตั้งค่า…'); try { await api({ action: 'saveSettings', key: ADMIN_KEY, settings: SETTINGS }); } catch (e) { busy(false); toast('บันทึกไม่สำเร็จ: ' + e.message, true); throw e; } busy(false); }
+  if (ONLINE) { busy(true, 'กำลังบันทึกการตั้งค่า…'); try { await api({ action: 'saveSettings', key: ADMIN_KEY, settings: SETTINGS }); } catch (e) { busy(false); await popup({ type: 'error', title: 'บันทึกไม่สำเร็จ', msg: esc(e.message) }); throw e; } busy(false); }
   else saveLocal();
 }
 function flatten(r) {
-  const s = schoolOf(r), f = r.form || {}, a = r.approval || {}, sh = r.shipment || {}, ins = r.install || {}, fu = r.followup || {};
+  const s = schoolOf(r), s0 = SCHOOL_BY_ID.get(r.sid) || {}, f = r.form || {}, a = r.approval || {}, rooms = roomsOf(r);
   return {
-    'id': r.id, 'ปีงบประมาณ': r.fy, 'ลำดับโรงเรียน': r.sid, 'SMIS': s.smis || '', 'โรงเรียน': s.name || '', 'อำเภอ': s.amphoe || '', 'จังหวัด': s.province || '', 'ภูมิภาค': s.region || '',
-    'เคยได้รับปี': (SCHOOL_BY_ID.get(r.sid) || {}).year || '', 'สถานะ': (STATUS[r.status] || {}).t || r.status, 'คะแนน': r.score != null ? r.score : '',
-    'TV ที่มี': f.tvTotal, 'TV ใช้ได้': f.tvWorking, 'ขอ (ชุด)': tvRequested(r), 'อนุมัติ (ชุด)': tvApproved(r) || '', 'ล็อต': a.lot || '',
-    'วันที่ยื่น': r.submittedAt || '', 'วันที่อนุมัติ': a.at || '', 'วันที่จัดส่ง': sh.shipDate || '', 'ทีมติดตั้ง': sh.team || '', 'วันที่ติดตั้งเสร็จ': ins.installDate || '', 'ผลตรวจรับ': ins.result || '',
-    'ชั่วโมงใช้/สัปดาห์': fu.hours || '', 'ความพึงพอใจ': fu.sat || '', 'ปัญหาหลังติดตั้ง': fu.issue || '',
-    'ผู้ประสานงาน': f.coordName || '', 'เบอร์โทร': f.coordPhone || '', 'โฟลเดอร์รูป': s.name ? folderName(s) : '', 'อัปเดตล่าสุด': r.updatedAt || ''
+    'id': r.id, 'ปีงบประมาณ': r.fy, 'ลำดับโรงเรียน': r.sid,
+    'รหัสกระทรวง': s0.moe ? "'" + s0.moe : '', 'SMIS': s0.smis ? "'" + s0.smis : '',
+    'โรงเรียน': s.name || '', 'อำเภอ': s.amphoe || '', 'จังหวัด': s.province || '', 'ภูมิภาค': s.region || '', 'เคยได้รับปี': s0.year || '',
+    'สถานะ': (STATUS[r.status] || {}).t || r.status, 'คะแนน': r.score != null ? r.score : '',
+    'จำนวนห้อง/ชั้น': rooms.length, 'TV ใช้งานได้': rooms.filter(x => x.state === 'ใช้งานได้').length, 'TV ชำรุด (ขอ)': tvBroken(r), 'ไม่มี TV': rooms.filter(x => x.state === 'ไม่มี TV').length,
+    'ชั้นที่ชำรุด': brokenRooms(r).map(x => x.name).join(', '), 'อนุมัติ (ชุด)': a.tv || '', 'ชั้นที่อนุมัติ': (a.rooms || []).join(', '),
+    'วันที่ยื่น': r.submittedAt || '', 'วันที่อนุมัติ': a.at || '', 'หมายเหตุเจ้าหน้าที่': (r.review && r.review.note) || a.note || '',
+    'ผู้ประสานงาน': f.coordName || '', 'เบอร์โทร': f.coordPhone ? "'" + f.coordPhone : '', 'ผู้อำนวยการ': f.directorName || '',
+    'โฟลเดอร์รูป': s.name ? folderName(s0.name ? s0 : s) : '', 'อัปเดตล่าสุด': r.updatedAt || ''
   };
 }
 
 /* ═════════ ROLE / NAV ═════════ */
 function showOnly(id) { ['landing', 'user', 'admin'].forEach(x => $(x).classList.toggle('hidden', x !== id)); window.scrollTo({ top: 0 }); }
-function goHome() { UI.role = null; showOnly('landing'); history.replaceState(null, '', location.pathname); }
-async function enterUser() {
-  UI.role = 'user'; showOnly('user'); await loadPublic();
-  mountForm('u-form-slot'); uTab('form'); renderUserBanner();
-}
+function goHome() { UI.role = null; showOnly('landing'); }
+async function enterUser() { UI.role = 'user'; showOnly('user'); await loadPublic(); mountForm('user'); uTab('form'); $('uBanner').innerHTML = ONLINE ? '' : `<div class="banner">${ic('alert')}<span><b>โหมดทดลอง</b> ข้อมูลจะเก็บไว้ในเบราว์เซอร์นี้เท่านั้น</span></div>`; }
 function uTab(t) {
   UI.upage = t;
   document.querySelectorAll('#uTabs button').forEach(b => b.classList.toggle('on', b.dataset.t === t));
   $('u-form').classList.toggle('hidden', t !== 'form'); $('u-status').classList.toggle('hidden', t !== 'status');
-  $('uHeroT').textContent = t === 'form' ? 'ยื่นคำขอรับการจัดสรร TV' : 'ติดตามสถานะคำขอ';
-  $('uHeroP').textContent = t === 'form' ? 'กรอกข้อมูลให้ครบทั้ง 6 หัวข้อ ใช้เวลาประมาณ 10 นาที เตรียมรูปห้องเรียนและจุดตั้งจอไว้ให้พร้อม' : 'ดูความคืบหน้าของคำขอ แก้ไขเมื่อเจ้าหน้าที่ส่งกลับ และรายงานผลการใช้งานหลังติดตั้ง 30 วัน';
+  $('uHeroT').textContent = t === 'form' ? 'ยื่นคำขอรับการจัดสรร TV ทดแทนเครื่องที่ชำรุด' : 'ติดตามสถานะคำขอ';
+  $('uHeroP').textContent = t === 'form' ? 'แจ้ง TV ของแต่ละชั้นเรียน พร้อมถ่ายรูปเครื่องที่ชำรุดทีละชั้น จำนวนที่ขอได้เท่ากับจำนวนเครื่องที่ชำรุด' : 'ดูความคืบหน้าของคำขอ และแก้ไขเมื่อเจ้าหน้าที่ส่งกลับ';
 }
-function renderUserBanner() { $('uBanner').innerHTML = ONLINE ? '' : `<div class="banner">${ic('alert')}<span><b>โหมดทดลอง</b> ข้อมูลจะเก็บไว้ในเบราว์เซอร์นี้เท่านั้น</span></div>`; }
 function openLogin() { $('loginBg').classList.add('open'); $('loginHint').textContent = ONLINE ? 'กรอกรหัสผ่านที่ตั้งไว้ใน Apps Script' : `โหมดทดลอง: รหัสผ่านคือ "${LOCAL_ADMIN_PASSWORD}"`; setTimeout(() => $('loginPw').focus(), 50); }
 function closeLogin() { $('loginBg').classList.remove('open'); $('loginPw').value = ''; }
 async function doLogin() {
-  const pw = $('loginPw').value;
-  if (!pw) return;
+  const pw = $('loginPw').value; if (!pw) return;
   $('loginBtn').disabled = true;
   try {
-    if (ONLINE) await api({ action: 'login', key: pw });
-    else if (pw !== LOCAL_ADMIN_PASSWORD) throw new Error('รหัสผ่านไม่ถูกต้อง');
-    ADMIN_KEY = pw; sessionStorage.setItem(SS_ADMIN, pw);
-    closeLogin(); await enterAdmin();
-  } catch (e) { toast(e.message || 'เข้าสู่ระบบไม่สำเร็จ', true); }
+    if (ONLINE) await api({ action: 'login', key: pw }); else if (pw !== LOCAL_ADMIN_PASSWORD) throw new Error('รหัสผ่านไม่ถูกต้อง');
+    ADMIN_KEY = pw; sessionStorage.setItem(SS_ADMIN, pw); closeLogin(); await enterAdmin();
+  } catch (e) { popup({ type: 'error', title: 'เข้าสู่ระบบไม่สำเร็จ', msg: esc(e.message || 'รหัสผ่านไม่ถูกต้อง') }); }
   finally { $('loginBtn').disabled = false; }
 }
 function logout() { ADMIN_KEY = ''; sessionStorage.removeItem(SS_ADMIN); RECORDS = []; goHome(); }
-async function enterAdmin() {
-  UI.role = 'admin'; showOnly('admin');
-  await reloadAdmin();
-  aPage('dash');
-}
+async function enterAdmin() { UI.role = 'admin'; showOnly('admin'); await reloadAdmin(); aPage('dash'); }
 async function reloadAdmin() {
   $('syncText').textContent = 'กำลังโหลด…';
   try { await loadAdmin(); }
-  catch (e) { toast('โหลดข้อมูลไม่สำเร็จ: ' + e.message, true); if (/รหัสผ่าน/.test(e.message)) { logout(); return; } }
+  catch (e) { await popup({ type: 'error', title: 'โหลดข้อมูลไม่สำเร็จ', msg: esc(e.message) }); if (/รหัสผ่าน/.test(e.message)) { logout(); return; } }
   $('syncDot').classList.toggle('off', !ONLINE);
   $('syncText').textContent = ONLINE ? 'ซิงก์ ' + thDate(nowIso(), true) : 'โหมดทดลอง';
   document.querySelectorAll('.fyText').forEach(el => el.textContent = SETTINGS.fy);
   renderAdmin();
 }
-const PAGES = {
-  dash: ['Dashboard', 'ภาพรวมการจัดสรร ' + PRODUCT],
-  approve: ['พิจารณาคำขอ', 'ตรวจสอบ ให้คะแนน และอนุมัติจัดสรรเป็นล็อต'],
-  deliver: ['ส่งมอบ / ติดตั้ง', 'บันทึกการจัดส่ง ตรวจรับ และติดตามผล 30 วัน'],
-  proxy: ['ยื่นคำขอแทนโรงเรียน', 'กรอกแบบคำขอแทนโรงเรียนที่ไม่สะดวกยื่นเอง'],
-  settings: ['ตั้งค่า', 'ปีงบประมาณ ล็อตจัดสรร และราคา']
-};
+const PAGES = { dash: ['Dashboard', 'ภาพรวมการจัดสรร ' + PRODUCT + ' ทดแทนเครื่องที่ชำรุด'], approve: ['พิจารณาคำขอ', 'ตรวจรูป TV ชำรุดรายชั้น และอนุมัติทีละเครื่อง'], proxy: ['ยื่นคำขอแทนโรงเรียน', 'กรอกแบบคำขอแทนโรงเรียนที่ไม่สะดวกยื่นเอง'], settings: ['ตั้งค่า', 'ปีงบประมาณและราคา'] };
 function aPage(p) {
   UI.apage = p;
   document.querySelectorAll('.nav button').forEach(b => b.classList.toggle('on', b.dataset.p === p));
@@ -1006,183 +1039,157 @@ function aPage(p) {
   $('pgTitle').textContent = PAGES[p][0]; $('pgSub').textContent = PAGES[p][1];
   const refresh = `<button class="btn ghost sm" onclick="reloadAdmin()">${ic('refresh')}รีเฟรช</button>`;
   $('pgActs').innerHTML = p === 'dash' ? `${refresh}<button class="btn ghost sm" onclick="exportCsv()">${ic('down')}ส่งออก Excel</button>` : p === 'proxy' ? '' : refresh;
-  if (p === 'proxy') { mountForm('p-proxy'); }
+  if (p === 'proxy') mountForm('admin');
   if (p === 'settings') renderSettings();
   window.scrollTo({ top: 0 });
 }
-function mountForm(target) {
+function mountForm(where) {
   const form = $('u-form');
-  const host = target === 'p-proxy' ? $('p-proxy') : $('user').querySelector('.u-body');
-  if (form.parentElement !== host) { if (target === 'p-proxy') host.appendChild(form); else host.insertBefore(form, $('u-status')); }
+  if (where === 'admin') $('p-proxy').appendChild(form); else $('user').querySelector('.u-body').insertBefore(form, $('u-status'));
   form.classList.remove('hidden');
-  $('reqForm').querySelector('.form-actions').style.display = '';
-  document.querySelector('.form-side').style.top = target === 'p-proxy' ? '20px' : '84px';
+  document.querySelector('.form-side').style.top = where === 'admin' ? '20px' : '84px';
 }
 function renderAdmin() {
-  fillFilters(); renderBannerAdmin(); renderDash(); renderApprove(); renderDeliver(); renderApproveSide();
-  const recs = curRecs();
-  $('cApprove').textContent = recs.filter(r => r.status === 'submitted' || r.status === 'reviewed').length || '';
-  $('cDeliver').textContent = recs.filter(r => r.status === 'approved' || r.status === 'shipped').length || '';
+  fillFilters(); renderBannerAdmin(); renderDash(); renderApprove(); renderQuota();
+  $('cApprove').textContent = curRecs().filter(r => r.status === 'submitted' || r.status === 'reviewed').length || '';
 }
 function renderBannerAdmin() {
   $('aBanner').innerHTML = ONLINE ? '' : `<div class="banner">${ic('alert')}<span><b>โหมดทดลอง</b> ยังไม่ได้เชื่อม Google Sheets ข้อมูลเก็บในเบราว์เซอร์นี้เท่านั้น</span><span class="sp"></span>
     <button class="btn gold sm" onclick="seedDemo()">ใส่ข้อมูลตัวอย่าง</button>${RECORDS.length ? '<button class="btn danger sm" onclick="clearDemo()">ล้างข้อมูลทดลอง</button>' : ''}</div>`;
   $('aBanner').classList.toggle('hidden', ONLINE);
 }
-
-/* ─── filters ─── */
 function setOpts(el, list, first) { const cur = el.value; el.innerHTML = `<option value="">${first}</option>` + list.map(v => `<option>${esc(v)}</option>`).join(''); if ([...el.options].some(o => o.value === cur)) el.value = cur; }
 function fillFilters() {
   setOpts($('fRegion'), REGIONS, 'ทุกภูมิภาค'); setOpts($('apRegion'), REGIONS, 'ทุกภูมิภาค');
-  const provs = [...new Set(SCHOOLS.filter(s => !$('fRegion').value || s.region === $('fRegion').value).map(s => s.province))].sort((a, b) => a.localeCompare(b, 'th'));
-  setOpts($('fProv'), provs, 'ทุกจังหวัด');
-  const lots = SETTINGS.lots.map(l => l.name);
-  setOpts($('fLot'), lots, 'ทุกล็อต'); setOpts($('dvLot'), lots, 'ทุกล็อต');
+  setOpts($('fProv'), [...new Set(SCHOOLS.filter(s => !$('fRegion').value || s.region === $('fRegion').value).map(s => s.province))].sort((a, b) => a.localeCompare(b, 'th')), 'ทุกจังหวัด');
 }
 function onRegionFilter() { $('fProv').value = ''; fillFilters(); renderDash(); }
 
 /* ═════════ DASHBOARD ═════════ */
 function renderDash() {
-  const reg = $('fRegion').value, prov = $('fProv').value, lot = $('fLot').value;
+  const reg = $('fRegion').value, prov = $('fProv').value;
   const inScope = (s) => (!reg || s.region === reg) && (!prov || s.province === prov);
-  const schools = SCHOOLS.filter(s => inScope(s) && !s.closed);
-  let recs = curRecs().filter(r => inScope(schoolOf(r)));
-  if (lot) recs = recs.filter(r => r.approval && r.approval.lot === lot);
-  const total = lot ? recs.length : schools.length;
+  const schools = SCHOOLS.filter(s => inScope(s) && !s.closed), total = schools.length;
+  const recs = curRecs().filter(r => inScope(schoolOf(r)));
   const by = (st) => recs.filter(r => st.includes(r.status));
-  const active = recs.filter(r => r.status !== 'rejected');
-  const appr = by(['approved', 'shipped', 'installed']), inst = by(['installed']);
-  const tvReq = active.reduce((a, r) => a + tvRequested(r), 0);
-  const tvApp = appr.reduce((a, r) => a + tvApproved(r), 0), tvInst = inst.reduce((a, r) => a + tvApproved(r), 0);
-  const price = num(SETTINGS.price), spent = tvApp * price, budget = SETTINGS.lots.reduce((a, l) => a + num(l.budget), 0);
+  const active = recs.filter(r => r.status !== 'rejected'), appr = by(['approved']), pending = by(['submitted', 'returned', 'reviewed']);
+  const broken = active.reduce((a, r) => a + tvBroken(r), 0), tvApp = appr.reduce((a, r) => a + tvApproved(r), 0);
+  const brokenPending = pending.reduce((a, r) => a + tvBroken(r), 0);
+  const price = num(SETTINGS.price), spent = tvApp * price, budget = num(SETTINGS.budget);
   const kpi = (cls, tile, icon, l, v, s, extra) => `<div class="kpi ${cls}"><div class="top"><span class="l">${l}</span><span class="tile ${tile}">${ic(icon)}</span></div><span class="v">${v}</span><span class="s">${s}</span>${extra || ''}</div>`;
+  const bar = (p, c) => `<div class="bar"><i style="width:${Math.min(100, p)}%;background:${c}"></i></div>`;
   $('kpis').innerHTML =
-    kpi('lead', 't-navy', 'school', lot ? 'โรงเรียนใน' + esc(lot) : 'โรงเรียนเป้าหมาย', fmt(total), lot ? 'แห่ง' : 'แห่ง (ไม่รวมที่เลิก/โอน)') +
-    kpi('', 't-blue', 'inbox', 'ยื่นคำขอแล้ว', `${fmt(active.length)}<small>โรง</small>`, `ขอรวม ${fmt(tvReq)} ชุด · ${lot ? '' : pct(active.length, total).toFixed(1) + '% ของเป้าหมาย'}`, `<div class="bar"><i style="width:${Math.min(100, pct(active.length, total))}%;background:var(--primary)"></i></div>`) +
-    kpi('', 't-gold', 'check', 'อนุมัติแล้ว', `${fmt(tvApp)}<small>ชุด</small>`, `${fmt(appr.length)} โรงเรียน · ${pct(tvApp, tvReq).toFixed(0)}% ของที่ขอ`, `<div class="bar"><i style="width:${Math.min(100, pct(tvApp, tvReq))}%;background:var(--gold)"></i></div>`) +
-    kpi('', 't-green', 'truck', 'ติดตั้งเสร็จ', `${fmt(tvInst)}<small>ชุด</small>`, `${fmt(inst.length)} โรงเรียน · ${pct(inst.length, appr.length).toFixed(0)}% ของที่อนุมัติ`, `<div class="bar"><i style="width:${Math.min(100, pct(inst.length, appr.length))}%;background:var(--green)"></i></div>`) +
-    (price ? kpi('', 't-violet', 'coins', 'งบประมาณที่ใช้', `${(spent / 1e6).toLocaleString('th-TH', { maximumFractionDigits: 2 })}<small>ล้านบาท</small>`, budget ? `จากงบรวม ${(budget / 1e6).toLocaleString('th-TH', { maximumFractionDigits: 2 })} ล้านบาท` : `ชุดละ ${fmt(price)} บาท`, budget ? `<div class="bar"><i style="width:${Math.min(100, pct(spent, budget))}%;background:var(--violet)"></i></div>` : '')
-      : kpi('', 't-violet', 'coins', 'งบประมาณที่ใช้', '<span style="font-size:17px">ยังไม่ได้ตั้งราคา</span>', `<a href="#" onclick="event.preventDefault(); aPage('settings')">ตั้งราคาต่อชุด</a>`));
+    kpi('lead', 't-navy', 'school', 'โรงเรียนเป้าหมาย', fmt(total), 'แห่ง (ไม่รวมที่เลิก/โอน)') +
+    kpi('', 't-blue', 'inbox', 'ยื่นคำขอแล้ว', `${fmt(active.length)}<small>โรง</small>`, `${pct(active.length, total).toFixed(1)}% ของเป้าหมาย`, bar(pct(active.length, total), 'var(--primary)')) +
+    kpi('', 't-red', 'alert', 'TV ชำรุดที่แจ้ง (โควตา)', `${fmt(broken)}<small>เครื่อง</small>`, `เฉลี่ย ${(active.length ? broken / active.length : 0).toFixed(1)} เครื่อง/โรง · รอพิจารณา ${fmt(brokenPending)}`) +
+    kpi('', 't-green', 'check', 'อนุมัติแล้ว', `${fmt(tvApp)}<small>ชุด</small>`, `${fmt(appr.length)} โรงเรียน · ${pct(tvApp, broken).toFixed(0)}% ของที่ชำรุด`, bar(pct(tvApp, broken), 'var(--green)')) +
+    (price ? kpi('', 't-violet', 'coins', 'งบประมาณ (อนุมัติแล้ว)', `${(spent / 1e6).toLocaleString('th-TH', { maximumFractionDigits: 2 })}<small>ล้านบาท</small>`, budget ? `จากงบ ${(budget / 1e6).toLocaleString('th-TH', { maximumFractionDigits: 2 })} ล้านบาท` : `ถ้าอนุมัติครบทุกเครื่อง ${((broken * price) / 1e6).toLocaleString('th-TH', { maximumFractionDigits: 2 })} ล้านบาท`, budget ? bar(pct(spent, budget), 'var(--violet)') : '')
+      : kpi('', 't-violet', 'coins', 'งบประมาณ', '<span style="font-size:17px">ยังไม่ได้ตั้งราคา</span>', `<a href="#" onclick="event.preventDefault(); aPage('settings')">ตั้งราคาต่อชุด</a>`));
 
   const stages = [
-    { k: 'none', t: 'ยังไม่ยื่น', n: lot ? 0 : Math.max(0, total - recs.length), col: '#D5DCE8' },
-    { k: 'submitted', t: 'รอตรวจ / แก้ไข', n: by(['submitted', 'returned']).length, col: STATUS.submitted.col },
+    { k: 'none', t: 'ยังไม่ยื่น', n: Math.max(0, total - recs.length), col: '#D5DCE8' },
+    { k: 'submitted', t: 'รอตรวจสอบ', n: by(['submitted']).length, col: STATUS.submitted.col },
+    { k: 'returned', t: 'ส่งกลับแก้ไข', n: by(['returned']).length, col: STATUS.returned.col },
     { k: 'reviewed', t: 'รออนุมัติ', n: by(['reviewed']).length, col: STATUS.reviewed.col },
-    { k: 'approved', t: 'รอจัดส่ง', n: by(['approved']).length, col: STATUS.approved.col },
-    { k: 'shipped', t: 'รอติดตั้ง', n: by(['shipped']).length, col: STATUS.shipped.col },
-    { k: 'installed', t: 'ติดตั้งเสร็จ', n: inst.length, col: STATUS.installed.col },
+    { k: 'approved', t: 'อนุมัติแล้ว', n: appr.length, col: STATUS.approved.col },
     { k: 'rejected', t: 'ไม่อนุมัติ', n: by(['rejected']).length, col: STATUS.rejected.col }
   ];
   const stT = stages.reduce((a, s) => a + s.n, 0) || 1;
   $('stageBar').innerHTML = stages.filter(s => s.n).map(s => `<i style="width:${pct(s.n, stT)}%;background:${s.col}" title="${s.t} ${fmt(s.n)}"></i>`).join('');
   $('stages').innerHTML = stages.map(s => `<button class="stage" onclick="gotoStage('${s.k}')"><span class="t"><i class="sw" style="background:${s.col}"></i>${s.t}</span><span class="n">${fmt(s.n)}</span><span class="muted" style="font-size:12px">${pct(s.n, stT).toFixed(1)}%</span></button>`).join('');
 
-  /* ปีที่เคยได้รับ */
   const yr = YEARS.concat(['']).map(y => {
-    const sc = schools.filter(s => (s.year || '') === y);
-    const rr = active.filter(r => ((SCHOOL_BY_ID.get(r.sid) || {}).year || '') === y);
-    return { y, label: y ? 'ปี ' + y : 'ไม่ระบุ', target: lot ? rr.length : sc.length, req: rr.length, tv: rr.reduce((a, r) => a + tvRequested(r), 0), old: rr.reduce((a, r) => a + oldTv(schoolOf(r)), 0), appr: rr.filter(r => isApprovedStage(r.status)).reduce((a, r) => a + tvApproved(r), 0) };
+    const sc = schools.filter(s => (s.year || '') === y), rr = active.filter(r => ((SCHOOL_BY_ID.get(r.sid) || {}).year || '') === y);
+    return { label: y ? 'ปี ' + y : 'ไม่ระบุ', target: sc.length, req: rr.length, tv: rr.reduce((a, r) => a + tvBroken(r), 0), old: rr.reduce((a, r) => a + oldTv(schoolOf(r)), 0), appr: rr.filter(r => r.status === 'approved').reduce((a, r) => a + tvApproved(r), 0) };
   }).filter(x => x.target || x.req);
   const maxReq = Math.max(1, ...yr.map(x => x.req)), maxTv = Math.max(1, ...yr.map(x => x.tv));
   $('yearRows').innerHTML = yr.map(x => `<div class="yr"><span class="y">${x.label}<small>${fmt(x.target)} โรงเป้าหมาย</small></span><div class="bars">
       <div class="ln"><div class="track"><i style="width:${pct(x.req, maxReq)}%;background:var(--primary)"></i></div><span><b>${fmt(x.req)}</b> โรง (${pct(x.req, x.target).toFixed(0)}%)</span></div>
-      <div class="ln"><div class="track"><i style="width:${pct(x.tv, maxTv)}%;background:var(--gold)"></i></div><span><b>${fmt(x.tv)}</b> ชุด</span></div></div></div>`).join('') || '<div class="empty">ยังไม่มีคำขอ</div>';
+      <div class="ln"><div class="track"><i style="width:${pct(x.tv, maxTv)}%;background:var(--red)"></i></div><span><b>${fmt(x.tv)}</b> ชุด</span></div></div></div>`).join('');
   const sum = (k) => yr.reduce((a, x) => a + x[k], 0);
   $('yearTable').innerHTML = yr.map(x => `<tr><td><b>${x.label}</b></td><td class="r num">${fmt(x.target)}</td><td class="r num"><b>${fmt(x.req)}</b></td><td class="r num">${pct(x.req, x.target).toFixed(1)}%</td><td class="r num"><b>${fmt(x.tv)}</b></td><td class="r num">${fmt(x.old)}</td><td class="r num">${fmt(x.appr)}</td></tr>`).join('')
     + `<tr style="background:var(--sunk)"><td><b>รวม</b></td><td class="r num"><b>${fmt(sum('target'))}</b></td><td class="r num"><b>${fmt(sum('req'))}</b></td><td class="r num"><b>${pct(sum('req'), sum('target')).toFixed(1)}%</b></td><td class="r num"><b>${fmt(sum('tv'))}</b></td><td class="r num"><b>${fmt(sum('old'))}</b></td><td class="r num"><b>${fmt(sum('appr'))}</b></td></tr>`;
 
-  /* จำนวนที่ขอต่อโรงเรียน */
-  const buckets = ['1', '2', '3', '4', '5', '6+'].map((b, i) => ({ b, n: active.filter(r => { const t = tvRequested(r); return i < 5 ? t === i + 1 : t >= 6; }).length }));
-  const bmax = Math.max(1, ...buckets.map(x => x.n));
-  const bcol = ['#C7D7FB', '#9DB7F0', '#6E95EA', '#3F72E0', '#2557D6', '#1C46B5'];
-  $('reqSizeSub').textContent = `${fmt(active.length)} โรงเรียน ขอรวม ${fmt(tvReq)} ชุด`;
+  const buckets = ['1', '2', '3', '4', '5', '6+'].map((b, i) => ({ b, n: active.filter(r => { const t = tvBroken(r); return i < 5 ? t === i + 1 : t >= 6; }).length }));
+  const bmax = Math.max(1, ...buckets.map(x => x.n)), bcol = ['#C7D7FB', '#9DB7F0', '#6E95EA', '#3F72E0', '#2557D6', '#1C46B5'];
+  $('reqSizeSub').textContent = `${fmt(active.length)} โรงเรียน · ชำรุดรวม ${fmt(broken)} เครื่อง`;
   $('reqCols').innerHTML = buckets.map((x, i) => `<div><b>${fmt(x.n)}</b><i style="height:${x.n / bmax * 150}px;background:${bcol[i]}"></i></div>`).join('');
-  $('reqColLabels').innerHTML = buckets.map(x => `<span>${x.b} ชุด</span>`).join('');
-  const avg = active.length ? tvReq / active.length : 0;
-  $('reqMinis').innerHTML = `<div style="background:var(--primary-soft)"><span>เฉลี่ยต่อโรง</span><b style="color:var(--primary-2)">${avg.toFixed(1)}</b><span>ชุด</span></div>
+  $('reqColLabels').innerHTML = buckets.map(x => `<span>${x.b} เครื่อง</span>`).join('');
+  $('reqMinis').innerHTML = `<div style="background:var(--primary-soft)"><span>เฉลี่ยต่อโรง</span><b style="color:var(--primary-2)">${(active.length ? broken / active.length : 0).toFixed(1)}</b><span>เครื่อง</span></div>
     <div style="background:var(--gold-soft)"><span>เคยได้รับมาก่อน</span><b style="color:var(--gold-ink)">${fmt(active.filter(r => oldTv(schoolOf(r)) > 0).length)}</b><span>โรง</span></div>
     <div style="background:var(--violet-soft)"><span>ไม่เคยได้รับ</span><b style="color:var(--violet-ink)">${fmt(active.filter(r => !oldTv(schoolOf(r))).length)}</b><span>โรง</span></div>`;
 
+  const gc = {}; GRADES.forEach(g => gc[g] = 0);
+  active.forEach(r => brokenRooms(r).forEach(x => { const g = GRADES.find(g => String(x.name).startsWith(g)) || 'อื่น ๆ'; gc[g] = (gc[g] || 0) + 1; }));
+  const gk = Object.keys(gc).filter(k => gc[k] || GRADES.includes(k)), gmax = Math.max(1, ...gk.map(k => gc[k]));
+  $('gradeCols').innerHTML = gk.map(k => `<div><b style="font-size:11.5px">${fmt(gc[k])}</b><i style="height:${gc[k] / gmax * 150}px;background:${k.startsWith('อ') ? '#F5B301' : k.startsWith('ป') ? '#E5484D' : '#7C5CFC'}"></i></div>`).join('');
+  $('gradeColLabels').innerHTML = gk.map(k => `<span style="font-size:11px">${k}</span>`).join('');
+
+  const sc = {}; active.forEach(r => brokenRooms(r).forEach(x => { const k = x.symptom || 'ไม่ระบุ'; sc[k] = (sc[k] || 0) + 1; }));
+  const se = Object.entries(sc).sort((a, b) => b[1] - a[1]), smax = Math.max(1, ...se.map(x => x[1]));
+  const scol = ['#E5484D', '#F08C1A', '#F5B301', '#7C5CFC', '#0EA5A8', '#3B9EFF', '#94A3B8', '#94A3B8'];
+  $('symBars').innerHTML = se.length ? se.map(([k, v], i) => `<div class="hbar"><span>${esc(k)}</span><div class="track"><i style="width:${pct(v, smax)}%;background:${scol[i] || '#94A3B8'}"></i></div><b>${fmt(v)}</b></div>`).join('') : '<div class="empty">ยังไม่มีข้อมูล</div>';
+
   $('regionBars').innerHTML = REGIONS.filter(r => !reg || r === reg).map(rg => {
-    const tot = lot ? recs.filter(r => schoolOf(r).region === rg).length : schools.filter(s => s.region === rg).length;
-    const rr = recs.filter(r => schoolOf(r).region === rg);
-    const done = rr.filter(r => r.status === 'installed').length, wait = rr.filter(r => r.status === 'approved' || r.status === 'shipped').length, sub = rr.filter(r => ['submitted', 'returned', 'reviewed'].includes(r.status)).length;
-    return `<div class="rg"><div class="top"><b>${rg}</b><span class="muted">ติดตั้ง ${fmt(done)} · ขอ ${fmt(rr.length)} / ${fmt(tot)} แห่ง</span></div>
-      <div class="stack" style="height:12px">${done ? `<i style="width:${pct(done, tot)}%;background:var(--green)"></i>` : ''}${wait ? `<i style="width:${pct(wait, tot)}%;background:var(--gold)"></i>` : ''}${sub ? `<i style="width:${pct(sub, tot)}%;background:#9DB7F0"></i>` : ''}</div></div>`;
+    const tot = schools.filter(s => s.region === rg).length, rr = recs.filter(r => schoolOf(r).region === rg);
+    const ok = rr.filter(r => r.status === 'approved').length, wait = rr.filter(r => ['submitted', 'returned', 'reviewed'].includes(r.status)).length;
+    return `<div class="rg"><div class="top"><b>${rg}</b><span class="muted">อนุมัติ ${fmt(ok)} · ขอ ${fmt(rr.length)} / ${fmt(tot)}</span></div>
+      <div class="stack" style="height:12px">${ok ? `<i style="width:${pct(ok, tot)}%;background:var(--green)"></i>` : ''}${wait ? `<i style="width:${pct(wait, tot)}%;background:#9DB7F0"></i>` : ''}</div></div>`;
   }).join('');
-
-  const groups = [['ไม่มี TV เลย', '#E5484D'], ['มีแต่ชำรุดทั้งหมด', '#F08C1A'], ['ใช้ได้แต่ไม่ครบห้อง', '#F5B301'], ['ครบทุกห้องแล้ว', '#12A06A']];
-  const gc = [0, 0, 0, 0]; active.forEach(r => gc[condGroup(r.form || {})]++);
-  const gmax = Math.max(...gc, 1);
-  $('condSub').textContent = `จากคำตอบในแบบคำขอ ${fmt(active.length)} โรงเรียน`;
-  $('condBars').innerHTML = groups.map((g, i) => `<div class="hbar"><span>${g[0]}</span><div class="track"><i style="width:${pct(gc[i], gmax)}%;background:${g[1]}"></i></div><b>${fmt(gc[i])}</b></div>`).join('');
-
-  $('readyBars').innerHTML = READY_QS.map(q => {
-    const ok = active.filter(r => ((r.form || {}).ready || {})[q.k] === q.good).length, p = Math.round(pct(ok, active.length));
-    return `<div class="pct"><div class="top"><span>${q.dash}</span><b>${active.length ? p + '%' : '—'}</b></div><div class="bar" style="margin:0"><i style="width:${p}%;background:var(--green)"></i></div></div>`;
-  }).join('');
-
-  const ic2 = {};
-  inst.forEach(r => {
-    if (r.followup && r.followup.issue && r.followup.issue !== 'ไม่มีปัญหา' && !r.followup.resolved) ic2[r.followup.issue] = (ic2[r.followup.issue] || 0) + 1;
-    if (r.install && r.install.result && r.install.result !== 'รับครบ ใช้งานได้ทุกชุด' && !r.install.resolved) ic2['ตรวจรับไม่ผ่านบางชุด'] = (ic2['ตรวจรับไม่ผ่านบางชุด'] || 0) + 1;
-  });
-  const itot = Object.values(ic2).reduce((a, b) => a + b, 0);
-  $('issueTotal').textContent = 'ค้าง ' + fmt(itot);
-  $('issueList').innerHTML = itot ? Object.entries(ic2).sort((a, b) => b[1] - a[1]).map(([k, v]) => `<div class="listrow"><span>${esc(k)}</span><span class="badge b-red plain">${fmt(v)}</span></div>`).join('')
-    + `<a href="#" style="font-size:13.5px;font-weight:600" onclick="event.preventDefault(); UI.dvFilter='issue'; aPage('deliver'); renderDeliver()">ดูรายการที่มีปัญหา →</a>` : '<div class="empty">ยังไม่มีการแจ้งปัญหา</div>';
-
-  const fus = inst.filter(r => r.followup && r.followup.at);
-  const avgH = fus.length ? fus.reduce((a, r) => a + num(r.followup.hours), 0) / fus.length : 0;
-  const avgS = fus.length ? fus.reduce((a, r) => a + num(r.followup.sat), 0) / fus.length : 0;
-  const rp = Math.round(pct(fus.length, inst.length));
-  $('followBox').innerHTML = `<div class="ring" style="background:conic-gradient(var(--green) ${rp * 3.6}deg, #EEF1F6 0)"><div><b>${rp}%</b><span>รายงานแล้ว</span></div></div>
-    <div style="display:flex;flex-direction:column;gap:10px;flex:1;min-width:150px">
-      <div class="listrow"><span>รายงานแล้ว</span><b>${fmt(fus.length)} / ${fmt(inst.length)}</b></div>
-      <div class="listrow"><span>ใช้งานเฉลี่ย</span><b>${fus.length ? avgH.toFixed(1) + ' ชม./สัปดาห์' : '—'}</b></div>
-      <div class="listrow"><span>ความพึงพอใจ</span><b>${fus.length ? avgS.toFixed(1) + ' / 5' : '—'}</b></div></div>`;
+  $('readyBars').innerHTML = READY_QS.map(q => { const ok = active.filter(r => ((r.form || {}).ready || {})[q.k] === q.good).length, p = Math.round(pct(ok, active.length)); return `<div class="pct"><div class="top"><span>${q.dash}</span><b>${active.length ? p + '%' : '—'}</b></div><div class="bar" style="margin:0"><i style="width:${p}%;background:var(--green)"></i></div></div>`; }).join('');
 
   const pm = {};
-  appr.forEach(r => { const p = schoolOf(r).province || '-'; pm[p] = pm[p] || { ok: 0, done: 0 }; pm[p].ok++; if (r.status === 'installed') pm[p].done++; });
-  const pr = Object.entries(pm).map(([p, v]) => ({ p, ...v, wait: v.ok - v.done })).filter(x => x.wait > 0).sort((a, b) => b.wait - a.wait).slice(0, 8);
-  $('provTable').innerHTML = pr.length ? pr.map(x => `<tr><td><b style="font-weight:600">${esc(x.p)}</b></td><td class="r num">${fmt(x.ok)}</td><td class="r num">${fmt(x.done)}</td><td class="r num"><span class="badge b-gold plain">${fmt(x.wait)}</span></td><td><div class="bar" style="width:140px;margin:0"><i style="width:${pct(x.done, x.ok)}%;background:var(--primary)"></i></div></td></tr>`).join('')
-    : '<tr><td colspan="5" class="empty">ยังไม่มีโรงเรียนที่รอติดตั้ง</td></tr>';
+  active.forEach(r => { const p = schoolOf(r).province || '-'; pm[p] = pm[p] || { n: 0, tv: 0, ok: 0, wait: 0 }; pm[p].n++; pm[p].tv += tvBroken(r); if (r.status === 'approved') pm[p].ok += tvApproved(r); else pm[p].wait += tvBroken(r); });
+  const pr = Object.entries(pm).map(([p, v]) => ({ p, ...v })).sort((a, b) => b.tv - a.tv).slice(0, 10);
+  $('provTable').innerHTML = pr.length ? pr.map(x => `<tr><td><b style="font-weight:600">${esc(x.p)}</b></td><td class="r num">${fmt(x.n)}</td><td class="r num"><b>${fmt(x.tv)}</b></td><td class="r num">${fmt(x.ok)}</td><td class="r num">${x.wait ? `<span class="badge b-gold plain">${fmt(x.wait)}</span>` : '0'}</td><td><div class="bar" style="width:160px;margin:0"><i style="width:${pct(x.ok, x.tv)}%;background:var(--green)"></i></div></td></tr>`).join('')
+    : '<tr><td colspan="6" class="empty">ยังไม่มีคำขอ</td></tr>';
 
-  const acts = [];
-  recs.forEach(r => (r.history || []).slice(0, 3).forEach(h => acts.push({ at: h.at, text: h.text, name: schoolOf(r).name })));
+  const acts = []; recs.forEach(r => (r.history || []).slice(0, 3).forEach(h => acts.push({ at: h.at, text: h.text, name: schoolOf(r).name })));
   acts.sort((a, b) => String(b.at).localeCompare(String(a.at)));
-  $('activity').innerHTML = acts.slice(0, 8).map(a => `<li><div><b style="font-weight:600">${esc(a.name)}</b> · ${esc(a.text)}<time>${thDate(a.at, true)}</time></div></li>`).join('') || '<li class="muted" style="display:block">ยังไม่มีความเคลื่อนไหว</li>';
+  $('activity').innerHTML = acts.slice(0, 7).map(a => `<li><div><b style="font-weight:600">${esc(a.name)}</b> · ${esc(a.text)}<time>${thDate(a.at, true)}</time></div></li>`).join('') || '<li class="muted" style="display:block">ยังไม่มีความเคลื่อนไหว</li>';
 }
-function gotoStage(k) {
-  if (k === 'none') return;
-  if (['approved', 'shipped', 'installed'].includes(k)) { UI.dvFilter = k; aPage('deliver'); renderDeliver(); return; }
-  UI.apFilter = k; aPage('approve'); renderApprove();
-}
+function gotoStage(k) { if (k === 'none') return; UI.apFilter = k; UI.apLimit = 50; aPage('approve'); renderApprove(); }
 
-/* ═════════ FORM (ใช้ร่วม user / admin) ═════════ */
+/* ═════════ FORM ═════════ */
 function buildFormStatic() {
-  $('gradeOpts').innerHTML = GRADES.map(g => `<label class="opt"><input type="checkbox" name="grades" value="${g}">${g}</label>`).join('');
-  document.querySelector('[data-multi="symptoms"]').innerHTML = SYMPTOMS.map(g => `<label class="opt"><input type="checkbox" name="symptoms" value="${g}">${g}</label>`).join('');
+  $('gradeOpts').innerHTML = GRADES.map(g => `<label class="opt"><input type="checkbox" name="grades" value="${g}" onchange="syncGradeRows()">${g}</label>`).join('');
   document.querySelector('[data-multi="accessories"]').innerHTML = ACCESSORIES.map(g => `<label class="opt"><input type="checkbox" name="accessories" value="${g}">${g}</label>`).join('');
   $('readyQs').innerHTML = READY_QS.map(q => `<div class="yn"><span class="req">${q.t}</span><div class="opts"><label class="opt"><input type="radio" name="ready_${q.k}" value="yes">ใช่</label><label class="opt"><input type="radio" name="ready_${q.k}" value="no">ไม่ใช่</label></div></div>`).join('');
-  renderPhotoSlots('reqPhotos', REQ_PHOTOS, UI.photos, 'req');
-  $('reqForm').addEventListener('change', updateToc); $('reqForm').addEventListener('input', updateToc);
+  const clr = (e) => { if (e.target.classList) e.target.classList.remove('invalid'); updateToc(); };
+  $('reqForm').addEventListener('change', clr); $('reqForm').addEventListener('input', clr);
 }
-function renderPhotoSlots(boxId, defs, store, ns) {
-  $(boxId).innerHTML = defs.map(([k, label, req]) => {
-    const v = store[k];
-    return `<label class="photo">${v ? `<img src="${esc(v)}" alt="${label}"><span class="cap">${label}</span><button type="button" class="x" aria-label="ลบรูป ${label}" onclick="event.preventDefault(); removePhoto('${boxId}','${ns}','${k}')">✕</button>`
-      : `<span class="ic">${ic('camera')}</span><span${req ? ' class="req"' : ''}>${label}</span>`}<input type="file" accept="image/*" onchange="pickPhoto(this,'${boxId}','${ns}','${k}')"></label>`;
-  }).join('');
+/* แถวตามชั้นที่เลือก: เพิ่มแถวให้ชั้นที่ยังไม่มี และลบแถวที่ยังไม่ได้กรอกของชั้นที่ถูกเอาออก */
+function syncGradeRows() {
+  const sel = [...document.querySelectorAll('[name=grades]:checked')].map(x => x.value);
+  UI.rooms = UI.rooms.filter(r => r.custom || sel.includes(r.grade) || r.photo || r.state === 'ชำรุด');
+  sel.forEach(g => { if (!UI.rooms.some(r => r.grade === g)) UI.rooms.push(newRoom(g)); });
+  UI.rooms.sort((a, b) => (GRADES.indexOf(a.grade) + 99 * !!a.custom) - (GRADES.indexOf(b.grade) + 99 * !!b.custom) || String(a.name).localeCompare(String(b.name), 'th'));
+  renderRooms();
 }
-function photoStore(ns) { return ns === 'req' ? UI.photos : UI.instPhotos; }
-function photoDefs(ns) { return ns === 'req' ? REQ_PHOTOS : INST_PHOTOS; }
-async function pickPhoto(input, boxId, ns, k) {
+function newRoom(g, name) { return { grade: g, name: name || g, students: '', state: '', symptom: '', detail: '', photo: '', photoTag: '' }; }
+function addRoom() { UI.rooms.push(Object.assign(newRoom('', ''), { custom: true })); renderRooms(); const ins = $('gradeRows').querySelectorAll('tr:last-child input'); if (ins[0]) ins[0].focus(); }
+function addSection(i) { const r = UI.rooms[i]; const same = UI.rooms.filter(x => x.grade === r.grade).length; UI.rooms.splice(i + 1, 0, newRoom(r.grade, r.grade + '/' + (same + 1))); if (same === 1 && r.name === r.grade) r.name = r.grade + '/1'; renderRooms(); }
+function renderRooms() {
+  $('gradeRows').innerHTML = UI.rooms.length ? UI.rooms.map((r, i) => {
+    const br = r.state === 'ชำรุด';
+    const ph = (k, label, need) => r[k] ? `<label class="gph"><img src="${esc(r[k])}" alt="${label} ${esc(r.name)}"><button type="button" class="x" aria-label="ลบรูป" onclick="event.preventDefault(); UI.rooms[${i}].${k}=''; renderRooms()">✕</button><input type="file" accept="image/*" onchange="pickRoomPhoto(this,${i},'${k}')"></label>`
+      : `<label class="gph${need ? ' need' : ''}">${ic('camera')}<span>${label}${need ? ' *' : ''}</span><input type="file" accept="image/*" capture="environment" onchange="pickRoomPhoto(this,${i},'${k}')"></label>`;
+    return `<tr class="${br ? 'broken' : ''}">
+      <td style="min-width:130px"><input class="inp" aria-label="ชั้น/ห้อง" value="${esc(r.name)}" placeholder="เช่น ป.4/1" oninput="UI.rooms[${i}].name=this.value; updateToc()">${r.custom ? '' : `<button type="button" class="btn ghost sm" style="margin-top:6px;height:28px;padding:0 9px;font-size:12px" onclick="addSection(${i})">+ ห้อง</button>`}</td>
+      <td><input class="inp" type="number" min="0" aria-label="นักเรียน ${esc(r.name)}" value="${esc(r.students)}" oninput="UI.rooms[${i}].students=this.value; updateSummary()" style="width:84px;text-align:right"></td>
+      <td><select class="inp" aria-label="สถานะ TV ${esc(r.name)}" onchange="UI.rooms[${i}].state=this.value; renderRooms()"><option value="">— เลือก —</option>${TV_STATES.map(o => `<option${o === r.state ? ' selected' : ''}>${o}</option>`).join('')}</select></td>
+      <td style="min-width:200px">${br ? `<select class="inp" aria-label="อาการ" onchange="UI.rooms[${i}].symptom=this.value; updateToc()"><option value="">— อาการ —</option>${SYMPTOMS.map(o => `<option${o === r.symptom ? ' selected' : ''}>${o}</option>`).join('')}</select>
+        <input class="inp" style="margin-top:6px" aria-label="ยี่ห้อ/ขนาดเครื่องเดิม" placeholder="ยี่ห้อ / ขนาด / ปีที่ได้รับ" value="${esc(r.detail)}" oninput="UI.rooms[${i}].detail=this.value">` : `<span class="muted" style="font-size:12.5px">${r.state === 'ใช้งานได้' ? 'ไม่ต้องแนบรูป' : r.state === 'ไม่มี TV' ? 'ไม่อยู่ในเกณฑ์ทดแทน' : ''}</span>`}</td>
+      <td>${br ? `<div class="gphotos">${ph('photo', 'รูป TV ชำรุด', true)}${ph('photoTag', 'ป้ายรุ่น/ครุภัณฑ์', false)}</div>` : '<span class="muted">—</span>'}</td>
+      <td class="r"><button type="button" class="btn danger sm" style="height:32px;padding:0 10px" onclick="UI.rooms.splice(${i},1); renderRooms()" aria-label="ลบแถว ${esc(r.name)}">ลบ</button></td></tr>`;
+  }).join('') : '<tr><td colspan="6" class="empty">เลือกระดับชั้นที่เปิดสอนในหัวข้อที่ 1 ระบบจะสร้างแถวให้อัตโนมัติ</td></tr>';
+  updateSummary(); updateToc();
+}
+async function pickRoomPhoto(input, i, k) {
   const file = input.files && input.files[0]; if (!file) return;
-  try { photoStore(ns)[k] = await resizeImage(file, ONLINE ? 1280 : 720, ONLINE ? 0.8 : 0.6); renderPhotoSlots(boxId, photoDefs(ns), photoStore(ns), ns); updateToc(); }
-  catch (e) { toast('อ่านรูปไม่ได้ ลองเลือกรูปอื่น', true); }
+  try { UI.rooms[i][k] = await resizeImage(file, ONLINE ? 1280 : 640, ONLINE ? 0.8 : 0.55); renderRooms(); }
+  catch (e) { popup({ type: 'error', title: 'อ่านรูปไม่ได้', msg: 'ลองเลือกรูปอื่น หรือถ่ายใหม่อีกครั้ง' }); }
 }
-function removePhoto(boxId, ns, k) { delete photoStore(ns)[k]; renderPhotoSlots(boxId, photoDefs(ns), photoStore(ns), ns); updateToc(); }
 function resizeImage(file, max, q) {
   return new Promise((ok, bad) => {
     const img = new Image(), url = URL.createObjectURL(file);
@@ -1190,14 +1197,18 @@ function resizeImage(file, max, q) {
     img.onerror = bad; img.src = url;
   });
 }
-/* school search (ใช้ทั้งฟอร์มและหน้าติดตามสถานะ) */
+function updateSummary() {
+  const ok = UI.rooms.filter(r => r.state === 'ใช้งานได้').length, br = UI.rooms.filter(r => r.state === 'ชำรุด'), none = UI.rooms.filter(r => r.state === 'ไม่มี TV').length;
+  $('sumTv').textContent = br.length; $('sumStu').textContent = fmt(br.reduce((a, r) => a + num(r.students), 0));
+  $('tvSum').innerHTML = `<div style="background:var(--green-soft)"><span>ใช้งานได้</span><b style="color:var(--green-ink)">${ok}</b></div><div style="background:var(--red-soft)"><span>ชำรุด (ขอทดแทน)</span><b style="color:var(--red-ink)">${br.length}</b></div><div style="background:#EEF1F6"><span>ไม่มี TV</span><b style="color:var(--ink-2)">${none}</b></div>`;
+}
+/* school search */
 function schoolSearch(inputId, boxId, cb) {
   const q = $(inputId).value.trim().toLowerCase(), box = $(boxId);
   if (q.length < 2) { box.classList.add('hidden'); return; }
   const terms = q.split(/\s+/);
   UI.acList = SCHOOLS.filter(s => terms.every(t => s._q.includes(t))).slice(0, 30); UI.acIdx = -1;
-  box.innerHTML = UI.acList.length ? UI.acList.map((s, i) => `<button type="button" role="option" onmousedown="event.preventDefault(); ${cb}(${s.sid})">${esc(s.name)}${s.closed ? ' <span class="badge b-red plain">เลิก/โอน</span>' : ''}<small>อ.${esc(s.amphoe)} จ.${esc(s.province)} · เป้าหมาย${yearLabel(s)}${s.smis ? ' · SMIS ' + esc(s.smis) : ''}</small></button>`).join('')
-    : '<div class="empty">ไม่พบโรงเรียนในทะเบียนเป้าหมาย</div>';
+  box.innerHTML = UI.acList.length ? UI.acList.map(s => `<button type="button" role="option" onmousedown="event.preventDefault(); ${cb}(${s.sid})">${esc(s.name)}${s.closed ? ' <span class="badge b-red plain">เลิก/โอน</span>' : ''}<small>อ.${esc(s.amphoe)} จ.${esc(s.province)} · ${esc(codeOf(s))} · เป้าหมาย${yearLabel(s)}</small></button>`).join('') : '<div class="empty">ไม่พบโรงเรียนในทะเบียนเป้าหมาย</div>';
   box.classList.remove('hidden');
 }
 function acKey(e, boxId, cb) {
@@ -1207,104 +1218,91 @@ function acKey(e, boxId, cb) {
   if (e.key === 'Escape') $(boxId).classList.add('hidden');
 }
 document.addEventListener('click', (e) => { if (!e.target.closest('.school-search')) document.querySelectorAll('.ac').forEach(a => a.classList.add('hidden')); });
-
 function schoolBoxHtml(s) {
-  return `<div class="sbox"><div><small>ชื่อโรงเรียน</small><b>${esc(s.name)}</b></div><div><small>อำเภอ / จังหวัด</small><b>${esc(s.amphoe)}, ${esc(s.province)}</b></div><div><small>สังกัด</small><b>${esc(s.aff || '—')}</b></div><div><small>ภูมิภาค / ขนาด</small><b>${esc(s.region)} · ${esc(s.size || '—')}</b></div>
+  return `<div class="sbox"><div><small>ชื่อโรงเรียน</small><b>${esc(s.name)}</b></div><div><small>รหัสกระทรวง / SMIS</small><b>${esc(s.moe || '—')} / ${esc(s.smis || '—')}</b></div><div><small>อำเภอ / จังหวัด</small><b>${esc(s.amphoe)}, ${esc(s.province)}</b></div><div><small>สังกัด</small><b>${esc(s.aff || '—')}</b></div>
     <div><small>เป็นโรงเรียนเป้าหมายมูลนิธิ</small><b>${yearLabel(s)}</b></div><div><small>TV ที่เคยได้รับจากมูลนิธิ</small><b>55" × ${fmt(s.tv55)} · 49" × ${fmt(s.tv49)}</b></div></div>`;
 }
 async function pickSchool(sid) {
   const s = SCHOOL_BY_ID.get(sid); if (!s) return;
   document.querySelectorAll('.ac').forEach(a => a.classList.add('hidden'));
-  $('schoolQ').value = s.name;
-  if (s.closed) { resetForm(false); $('schoolQ').value = s.name; $('formStatus').innerHTML = `<div class="note b-red">${ic('alert')}<span>โรงเรียนนี้มีสถานะเลิกสถานศึกษา/โอน ในทะเบียนเดิม จึงยื่นคำขอไม่ได้ หากข้อมูลไม่ถูกต้องกรุณาติดต่อเจ้าหน้าที่</span></div>`; $('submitBtn').disabled = true; return; }
+  if (s.closed) { resetForm(false); $('schoolQ').value = s.name; popup({ type: 'warn', title: 'ยื่นคำขอไม่ได้', msg: `<b>${esc(s.name)}</b> มีสถานะเลิกสถานศึกษา/โอน ในทะเบียนเดิม<br>หากข้อมูลไม่ถูกต้องกรุณาติดต่อเจ้าหน้าที่` }); return; }
   let ex = null;
   if (UI.role === 'admin') ex = curRecs().find(r => r.sid === sid) || null;
-  else { busy(true, 'กำลังตรวจสอบคำขอเดิม…'); try { ex = await fetchMine(sid); } catch (e) { toast('ตรวจสอบคำขอเดิมไม่ได้: ' + e.message, true); } busy(false); }
+  else { busy(true, 'กำลังตรวจสอบคำขอเดิม…'); try { ex = await fetchMine(sid); } catch (e) {} busy(false); }
   if (ex && !['submitted', 'returned'].includes(ex.status)) {
-    resetForm(false); $('schoolQ').value = s.name; $('schoolBox').innerHTML = schoolBoxHtml(s);
-    $('formStatus').innerHTML = `<div class="note b-gold">${ic('alert')}<span>โรงเรียนนี้ยื่นคำขอปีงบประมาณ ${esc(SETTINGS.fy)} แล้ว สถานะ ${badge(ex.status)} จึงแก้ไขไม่ได้ · <a href="#" onclick="event.preventDefault(); ${UI.role === 'admin' ? `openRequest('${ex.id}')` : `uTab('status'); showStatus(${sid})`}">ดูสถานะ</a></span></div>`;
-    $('submitBtn').disabled = true; return;
+    resetForm(false); $('schoolQ').value = s.name; $('schoolBox').innerHTML = schoolBoxHtml(s); $('submitBtn').disabled = true;
+    const go = await popup({ type: 'info', title: 'โรงเรียนนี้ยื่นคำขอแล้ว', msg: `<b>${esc(s.name)}</b><br>สถานะปัจจุบัน ${badge(ex.status)}<br>จึงแก้ไขแบบคำขอไม่ได้`, ok: 'ดูสถานะ', cancel: 'ปิด' });
+    if (go) { if (UI.role === 'admin') openRequest(ex.id); else { uTab('status'); showStatus(sid); } }
+    return;
   }
-  if (ex) { loadIntoForm(ex); return; }
+  if (ex) {
+    const go = await popup({ type: 'confirm', title: 'พบคำขอที่ยื่นไว้แล้ว', msg: `<b>${esc(s.name)}</b> ยื่นคำขอไว้เมื่อ ${thDate(ex.submittedAt)} สถานะ ${badge(ex.status)}<br>ต้องการเปิดคำขอเดิมขึ้นมาแก้ไขหรือไม่?`, ok: 'แก้ไขคำขอเดิม', cancel: 'ยกเลิก' });
+    if (go) loadIntoForm(ex); else $('schoolQ').value = '';
+    return;
+  }
   resetForm(false);
   UI.formSchool = s; $('schoolQ').value = s.name; $('schoolBox').innerHTML = schoolBoxHtml(s);
   const f = $('reqForm');
-  f.students.value = s.students || ''; f.teachers.value = s.teachers || ''; f.tvYear.value = s.year || '';
+  f.students.value = s.students || ''; f.teachers.value = s.teachers || '';
   f.coordName.value = s.coord || ''; f.coordPhone.value = s.phone || ''; f.directorName.value = s.director || '';
-  if (!UI.rooms.length) addRoom();
   updateToc();
 }
-function addRoom(room) { UI.rooms.push(room || { name: '', students: '', has: 'ไม่มี' }); renderRooms(); }
-function renderRooms() {
-  $('roomRows').innerHTML = UI.rooms.length ? UI.rooms.map((r, i) => `<tr>
-    <td style="font-weight:700;color:var(--ink-3)">${i + 1}</td>
-    <td><input class="inp" aria-label="ห้อง/ชั้น ลำดับ ${i + 1}" value="${esc(r.name)}" placeholder="เช่น ป.4" oninput="UI.rooms[${i}].name=this.value" style="min-width:120px"></td>
-    <td><input class="inp" type="number" min="0" aria-label="จำนวนนักเรียน ห้อง ${i + 1}" value="${esc(r.students)}" oninput="UI.rooms[${i}].students=this.value; updateSummary()" style="width:110px;text-align:right;margin-left:auto;display:block"></td>
-    <td><select class="inp" aria-label="TV ในห้องตอนนี้" onchange="UI.rooms[${i}].has=this.value">${ROOM_HAS.map(o => `<option${o === r.has ? ' selected' : ''}>${o}</option>`).join('')}</select></td>
-    <td class="r"><button type="button" class="btn danger sm" onclick="UI.rooms.splice(${i},1); renderRooms()" aria-label="ลบห้อง ${i + 1}">ลบ</button></td></tr>`).join('')
-    : '<tr><td colspan="5" class="empty">ยังไม่มีห้องเรียน กด “เพิ่มห้องเรียน”</td></tr>';
-  updateSummary(); updateToc();
-}
-function syncBroken() { const f = $('reqForm'); f.tvBroken.value = f.tvTotal.value === '' ? '' : Math.max(0, num(f.tvTotal.value) - num(f.tvWorking.value)); }
-function updateSummary() { $('sumTv').textContent = UI.rooms.length; $('sumStu').textContent = fmt(UI.rooms.reduce((a, r) => a + num(r.students), 0)); }
 function sectionDone() {
   const f = $('reqForm'), v = (n) => String(f[n] && f[n].value || '').trim(), checked = (n) => f.querySelectorAll(`[name="${n}"]:checked`).length > 0;
+  const br = UI.rooms.filter(r => r.state === 'ชำรุด');
   return {
-    1: !!UI.formSchool && checked('grades') && v('classrooms') && v('students') && v('teachers'),
-    2: v('tvTotal') !== '' && v('tvWorking') !== '' && v('signal') && v('dish'),
-    3: READY_QS.every(q => checked('ready_' + q.k)),
-    4: UI.rooms.length > 0 && UI.rooms.every(r => String(r.name).trim() && String(r.students) !== '') && v('reason'),
-    5: v('dltvUse') && v('caretaker') && f.consent1.checked && f.consent2.checked,
-    6: v('coordName') && v('coordPhone') && v('directorName') && f.certify.checked && REQ_PHOTOS.filter(p => p[2]).every(p => UI.photos[p[0]])
+    1: !!UI.formSchool && checked('grades') && v('students') && v('teachers'),
+    2: UI.rooms.length > 0 && UI.rooms.every(r => String(r.name).trim() && r.state) && br.length > 0 && br.every(r => r.photo && r.symptom) && v('reason'),
+    3: v('signal') && v('dish') && READY_QS.every(q => checked('ready_' + q.k)),
+    4: v('dltvUse') && v('caretaker') && f.consent1.checked && f.consent2.checked,
+    5: v('coordName') && v('coordPhone') && v('directorName') && f.certify.checked
   };
 }
 function updateToc() {
   const d = sectionDone(), n = Object.values(d).filter(Boolean).length;
   document.querySelectorAll('#toc a').forEach(a => { const ok = !!d[a.dataset.sec]; a.classList.toggle('done', ok); a.querySelector('.no').innerHTML = ok ? '✓' : a.dataset.sec; });
-  $('progText').textContent = n + '/6'; $('progBar').style.width = (n / 6 * 100) + '%';
+  $('progText').textContent = n + '/5'; $('progBar').style.width = (n / 5 * 100) + '%';
 }
 function collectForm() {
   const f = $('reqForm'), v = (n) => String(f[n].value || '').trim(), multi = (n) => [...f.querySelectorAll(`[name="${n}"]:checked`)].map(x => x.value);
   const ready = {}; READY_QS.forEach(q => { const el = f.querySelector(`[name="ready_${q.k}"]:checked`); ready[q.k] = el ? el.value : ''; });
   return {
-    product: PRODUCT, grades: multi('grades'), classrooms: num(v('classrooms')), students: num(v('students')), teachers: num(v('teachers')), special: v('special'),
-    tvTotal: num(v('tvTotal')), tvWorking: num(v('tvWorking')), tvBroken: num(v('tvBroken')), tvYear: v('tvYear'), symptoms: multi('symptoms'),
-    signal: v('signal'), dish: v('dish'), internet: v('internet'), ready,
-    rooms: UI.rooms.map(r => ({ name: String(r.name).trim(), students: num(r.students), has: r.has })),
-    accessories: multi('accessories'), reason: v('reason'), dltvUse: v('dltvUse'), hoursPlan: num(v('hoursPlan')), caretaker: v('caretaker'),
-    consent1: f.consent1.checked, consent2: f.consent2.checked, coordName: v('coordName'), coordPos: v('coordPos'), coordPhone: v('coordPhone'), coordLine: v('coordLine'),
-    photos: Object.assign({}, UI.photos), geo: UI.geo, directorName: v('directorName'), certify: f.certify.checked
+    product: PRODUCT, grades: multi('grades'), students: num(v('students')), teachers: num(v('teachers')), special: v('special'),
+    rooms: UI.rooms.map(r => ({ grade: r.grade, name: String(r.name).trim(), students: num(r.students), state: r.state, symptom: r.state === 'ชำรุด' ? r.symptom : '', detail: r.state === 'ชำรุด' ? r.detail : '', photo: r.state === 'ชำรุด' ? r.photo : '', photoTag: r.state === 'ชำรุด' ? r.photoTag : '', custom: !!r.custom })),
+    reason: v('reason'), signal: v('signal'), dish: v('dish'), internet: v('internet'), ready, accessories: multi('accessories'),
+    dltvUse: v('dltvUse'), hoursPlan: num(v('hoursPlan')), caretaker: v('caretaker'), consent1: f.consent1.checked, consent2: f.consent2.checked,
+    coordName: v('coordName'), coordPos: v('coordPos'), coordPhone: v('coordPhone'), coordLine: v('coordLine'), geo: UI.geo, directorName: v('directorName'), certify: f.certify.checked
   };
 }
 function loadIntoForm(rec) {
   resetForm(false);
-  const s = schoolOf(rec), d = rec.form || {}, f = $('reqForm');
-  UI.formSchool = SCHOOL_BY_ID.get(rec.sid); UI.editing = clone(rec);
-  $('schoolQ').value = s.name; $('schoolBox').innerHTML = schoolBoxHtml(UI.formSchool || s);
-  ['classrooms', 'students', 'teachers', 'special', 'tvTotal', 'tvWorking', 'tvYear', 'signal', 'dish', 'internet', 'reason', 'dltvUse', 'hoursPlan', 'caretaker', 'coordName', 'coordPos', 'coordPhone', 'coordLine', 'directorName'].forEach(k => { if (f[k] && d[k] != null) f[k].value = d[k]; });
-  syncBroken();
-  ['grades', 'symptoms', 'accessories'].forEach(n => f.querySelectorAll(`[name="${n}"]`).forEach(x => x.checked = (d[n] || []).includes(x.value)));
+  const s = SCHOOL_BY_ID.get(rec.sid) || schoolOf(rec), d = rec.form || {}, f = $('reqForm');
+  UI.formSchool = s; UI.editing = clone(rec);
+  $('schoolQ').value = s.name; $('schoolBox').innerHTML = schoolBoxHtml(s);
+  ['students', 'teachers', 'special', 'reason', 'signal', 'dish', 'internet', 'dltvUse', 'hoursPlan', 'caretaker', 'coordName', 'coordPos', 'coordPhone', 'coordLine', 'directorName'].forEach(k => { if (f[k] && d[k] != null) f[k].value = d[k]; });
+  ['grades', 'accessories'].forEach(n => f.querySelectorAll(`[name="${n}"]`).forEach(x => x.checked = (d[n] || []).includes(x.value)));
   READY_QS.forEach(q => f.querySelectorAll(`[name="ready_${q.k}"]`).forEach(x => x.checked = (d.ready || {})[q.k] === x.value));
   f.consent1.checked = !!d.consent1; f.consent2.checked = !!d.consent2; f.certify.checked = false;
-  UI.rooms = (d.rooms || []).map(r => ({ name: r.name, students: r.students, has: r.has || 'ไม่มี' })); UI.photos = Object.assign({}, d.photos || {}); UI.geo = d.geo || null;
-  $('geoText').textContent = UI.geo ? `พิกัด ${UI.geo.lat.toFixed(5)}, ${UI.geo.lng.toFixed(5)}` : 'ใช้ประกอบการวางแผนเส้นทางจัดส่ง';
-  renderRooms(); renderPhotoSlots('reqPhotos', REQ_PHOTOS, UI.photos, 'req');
+  UI.rooms = (d.rooms || []).map(r => Object.assign(newRoom(r.grade, r.name), r)); UI.geo = d.geo || null;
+  $('geoText').textContent = UI.geo ? `พิกัด ${UI.geo.lat.toFixed(5)}, ${UI.geo.lng.toFixed(5)}` : 'ใช้ประกอบการวางแผนจัดส่ง';
+  renderRooms();
   const note = rec.status === 'returned' && rec.review && rec.review.note ? `<br><b>สิ่งที่เจ้าหน้าที่ขอให้แก้ไข:</b> ${esc(rec.review.note)}` : '';
   $('formStatus').innerHTML = `<div class="note b-blue">${ic('edit')}<span>กำลังแก้ไขคำขอที่ยื่นไว้แล้ว (${badge(rec.status)}) กรุณาติ๊กรับรองข้อมูลอีกครั้งก่อนส่ง${note}</span></div>`;
   $('submitBtn').innerHTML = ic('check') + 'บันทึกการแก้ไขคำขอ';
   updateToc();
 }
-function resetForm(confirmIt) {
-  if (confirmIt && !confirm('ล้างข้อมูลในแบบฟอร์มทั้งหมด?')) return;
-  $('reqForm').reset();
-  UI.formSchool = null; UI.rooms = []; UI.photos = {}; UI.geo = null; UI.editing = null;
-  $('schoolQ').value = ''; $('schoolBox').innerHTML = ''; $('formStatus').innerHTML = '';
-  $('geoText').textContent = 'ใช้ประกอบการวางแผนเส้นทางจัดส่ง'; $('submitBtn').innerHTML = ic('check') + 'ส่งคำขอรับจัดสรร'; $('submitBtn').disabled = false;
-  $('reqForm').querySelectorAll('.invalid').forEach(x => x.classList.remove('invalid'));
-  renderRooms(); renderPhotoSlots('reqPhotos', REQ_PHOTOS, UI.photos, 'req'); updateToc();
+function resetForm(ask) {
+  const go = () => {
+    $('reqForm').reset(); UI.formSchool = null; UI.rooms = []; UI.geo = null; UI.editing = null;
+    $('schoolQ').value = ''; $('schoolBox').innerHTML = ''; $('formStatus').innerHTML = '';
+    $('geoText').textContent = 'ใช้ประกอบการวางแผนจัดส่ง'; $('submitBtn').innerHTML = ic('check') + 'ส่งคำขอรับจัดสรร'; $('submitBtn').disabled = false;
+    $('reqForm').querySelectorAll('.invalid').forEach(x => x.classList.remove('invalid')); renderRooms();
+  };
+  if (!ask) return go();
+  confirmPop('ล้างแบบฟอร์ม?', 'ข้อมูลและรูปที่กรอกไว้จะหายทั้งหมด', 'ล้างข้อมูล', true).then(ok => { if (ok) go(); });
 }
 function captureGeo() {
-  if (!navigator.geolocation) { toast('อุปกรณ์นี้ไม่รองรับการระบุตำแหน่ง', true); return; }
+  if (!navigator.geolocation) { popup({ type: 'warn', title: 'ใช้ตำแหน่งไม่ได้', msg: 'อุปกรณ์นี้ไม่รองรับการระบุตำแหน่ง' }); return; }
   $('geoText').textContent = 'กำลังหาตำแหน่ง…';
   navigator.geolocation.getCurrentPosition(p => { UI.geo = { lat: p.coords.latitude, lng: p.coords.longitude, acc: Math.round(p.coords.accuracy) }; $('geoText').textContent = `พิกัด ${UI.geo.lat.toFixed(5)}, ${UI.geo.lng.toFixed(5)} (±${UI.geo.acc} ม.)`; },
     () => { $('geoText').textContent = 'ไม่ได้รับอนุญาตให้ใช้ตำแหน่ง'; }, { enableHighAccuracy: true, timeout: 15000 });
@@ -1314,26 +1312,35 @@ async function submitRequest() {
   f.querySelectorAll('.invalid').forEach(x => x.classList.remove('invalid'));
   const d = sectionDone(), miss = Object.entries(d).filter(([, ok]) => !ok).map(([k]) => k);
   if (miss.length) {
-    const names = { 1: 'ข้อมูลโรงเรียน', 2: 'TV เดิม', 3: 'ความพร้อมห้องเรียน', 4: 'ความต้องการรายห้อง', 5: 'การใช้งานและการดูแล', 6: 'ผู้ประสานงานและหลักฐาน' };
-    ['classrooms', 'students', 'teachers', 'tvTotal', 'tvWorking', 'signal', 'dish', 'reason', 'dltvUse', 'caretaker', 'coordName', 'coordPhone', 'directorName'].forEach(n => { if (!String(f[n].value).trim()) f[n].classList.add('invalid'); });
-    if (!UI.formSchool) $('schoolQ').classList.add('invalid');
-    toast('ยังกรอกไม่ครบ: ' + miss.map(k => names[k]).join(', '), true);
+    const tips = [];
+    if (!UI.formSchool) { tips.push('เลือกโรงเรียนจากรายชื่อ'); $('schoolQ').classList.add('invalid'); }
+    if (!f.querySelector('[name=grades]:checked')) tips.push('เลือกระดับชั้นที่เปิดสอน');
+    const br = UI.rooms.filter(r => r.state === 'ชำรุด');
+    if (UI.rooms.some(r => !r.state)) tips.push('ระบุสถานะ TV ให้ครบทุกชั้น');
+    if (UI.rooms.length && !br.length && UI.rooms.every(r => r.state)) tips.push('ต้องมี TV ที่ชำรุดอย่างน้อย 1 เครื่องจึงจะขอทดแทนได้');
+    const noPhoto = br.filter(r => !r.photo).map(r => r.name); if (noPhoto.length) tips.push('แนบรูป TV ชำรุดของชั้น ' + noPhoto.join(', '));
+    const noSym = br.filter(r => !r.symptom).map(r => r.name); if (noSym.length) tips.push('เลือกอาการชำรุดของชั้น ' + noSym.join(', '));
+    ['students', 'teachers', 'reason', 'signal', 'dish', 'dltvUse', 'caretaker', 'coordName', 'coordPhone', 'directorName'].forEach(n => { if (!String(f[n].value).trim()) f[n].classList.add('invalid'); });
+    const names = { 1: 'ข้อมูลโรงเรียน', 2: 'TV รายชั้นเรียน', 3: 'สัญญาณและความพร้อม', 4: 'การใช้งานและการดูแล', 5: 'ผู้ประสานงานและรับรอง' };
+    miss.forEach(k => { if (k === '3' && !READY_QS.every(q => f.querySelector(`[name=ready_${q.k}]:checked`))) tips.push('ตอบคำถามความพร้อมให้ครบ 5 ข้อ'); if (k === '4' && !(f.consent1.checked && f.consent2.checked)) tips.push('ติ๊กยินยอมการดูแลอุปกรณ์ทั้ง 2 ข้อ'); if (k === '5' && !f.certify.checked) tips.push('ติ๊กรับรองข้อมูลโดยผู้อำนวยการ'); });
+    await popup({ type: 'warn', title: 'ยังกรอกข้อมูลไม่ครบ', msg: `หัวข้อที่ต้องแก้: <b>${miss.map(k => names[k]).join(', ')}</b><ul>${[...new Set(tips)].slice(0, 6).map(t => `<li>${esc(t)}</li>`).join('') || '<li>ช่องที่มีกรอบสีแดง</li>'}</ul>`, ok: 'ไปแก้ไข' });
     $('s' + miss[0]).scrollIntoView({ behavior: 'smooth', block: 'start' });
     return;
   }
-  if (num(f.tvWorking.value) > num(f.tvTotal.value)) { f.tvWorking.classList.add('invalid'); toast('จำนวน TV ที่ใช้ได้ต้องไม่เกินจำนวนที่มีทั้งหมด', true); return; }
-  const form = collectForm(), s = UI.formSchool;
+  const form = collectForm(), s = UI.formSchool, nb = form.rooms.filter(r => r.state === 'ชำรุด');
+  const ok = await confirmPop('ยืนยันการส่งคำขอ', `<b>${esc(s.name)}</b><div class="hl"><b>${nb.length} ชุด</b>${PRODUCT}</div><br><span class="muted">ชั้นที่ขอ: ${esc(nb.map(r => r.name).join(', '))}</span>`, 'ส่งคำขอ');
+  if (!ok) return;
   let rec = UI.editing;
-  if (rec) { rec.form = form; rec.status = 'submitted'; addHistory(rec, 'แก้ไขและส่งคำขออีกครั้ง'); }
+  if (rec) { rec.form = form; rec.status = 'submitted'; addHistory(rec, `แก้ไขและส่งคำขออีกครั้ง (${nb.length} ชุด)`); }
   else {
-    rec = { id: uid(), fy: SETTINGS.fy, sid: s.sid, school: { name: s.name, amphoe: s.amphoe, province: s.province, region: s.region, smis: s.smis, year: s.year }, status: 'submitted', createdAt: nowIso(), submittedAt: todayStr(), form, history: [] };
-    addHistory(rec, `ยื่นคำขอ ${form.rooms.length} ชุด` + (UI.role === 'admin' ? ' (เจ้าหน้าที่ยื่นแทน)' : ''));
+    rec = { id: uid(), fy: SETTINGS.fy, sid: s.sid, school: { name: s.name, amphoe: s.amphoe, province: s.province, region: s.region, smis: s.smis, moe: s.moe, year: s.year }, status: 'submitted', createdAt: nowIso(), submittedAt: todayStr(), form, history: [] };
+    addHistory(rec, `ยื่นคำขอ ${nb.length} ชุด (TV ชำรุด ชั้น ${nb.map(r => r.name).join(', ')})` + (UI.role === 'admin' ? ' · เจ้าหน้าที่ยื่นแทน' : ''));
   }
   rec.score = scoreOf(rec).total;
-  try { await persist('submitRequest', rec, 'ส่งคำขอเรียบร้อยแล้ว'); } catch (e) { return; }
+  try { await persist('submitRequest', rec); } catch (e) { return; }
   resetForm(false);
-  $('formStatus').innerHTML = `<div class="note b-green">${ic('check')}<span><b>ส่งคำขอของ ${esc(s.name)} เรียบร้อยแล้ว</b> จำนวน ${rec.form.rooms.length} ชุด · ติดตามผลได้ที่เมนู “ติดตามสถานะ”</span></div>`;
   window.scrollTo({ top: 0, behavior: 'smooth' });
+  await popup({ type: 'success', title: 'ส่งคำขอเรียบร้อยแล้ว', msg: `<b>${esc(s.name)}</b><div class="hl"><b>${nb.length} ชุด</b>${PRODUCT}</div><br>เจ้าหน้าที่จะตรวจสอบรูปและแจ้งผลผ่านผู้ประสานงาน<br>ติดตามได้ที่เมนู “ติดตามสถานะ”`, ok: 'เรียบร้อย', confetti: true });
 }
 
 /* ═════════ USER STATUS ═════════ */
@@ -1342,338 +1349,203 @@ async function showStatus(sid) {
   document.querySelectorAll('.ac').forEach(a => a.classList.add('hidden'));
   $('stQ').value = s.name;
   busy(true, 'กำลังโหลดสถานะ…');
-  let r = null; try { r = await fetchMine(sid); } catch (e) { toast('โหลดสถานะไม่สำเร็จ: ' + e.message, true); }
+  let r = null; try { r = await fetchMine(sid); } catch (e) { busy(false); popup({ type: 'error', title: 'โหลดสถานะไม่สำเร็จ', msg: esc(e.message) }); return; }
   busy(false);
   UI.statusRec = r;
   if (!r) { $('statusBox').innerHTML = `<section class="card">${schoolBoxHtml(s)}<div class="empty">ยังไม่พบคำขอของโรงเรียนนี้ในปีงบประมาณ ${esc(SETTINGS.fy)}<br><br><button class="btn" onclick="uTab('form'); pickSchool(${sid})">${ic('plus')}ยื่นคำขอ</button></div></section>`; return; }
-  const order = ['submitted', 'reviewed', 'approved', 'shipped', 'installed', 'follow'];
-  const labels = [['ยื่นคำขอ', thDate(r.submittedAt)], ['ตรวจสอบ', r.review ? thDate(r.review.at) : ''], ['อนุมัติ', r.approval ? thDate(r.approval.at) : ''], ['จัดส่ง', r.shipment ? thDate(r.shipment.shipDate) : ''], ['ติดตั้ง', r.install ? thDate(r.install.installDate) : ''], ['รายงานผล', r.followup && r.followup.at ? thDate(r.followup.at) : '']];
-  let cur = { submitted: 1, returned: 1, reviewed: 2, approved: 3, shipped: 4, installed: 5, rejected: 2 }[r.status];
-  if (r.status === 'installed' && r.followup && r.followup.at) cur = 6;
-  const tl = labels.map((l, i) => { const cls = r.status === 'rejected' && i === 2 ? 'bad' : i < cur ? 'done' : i === cur ? 'cur' : ''; return `<div class="tl ${cls}"><span class="c">${cls === 'done' ? '✓' : cls === 'bad' ? '✕' : i + 1}</span><b>${l[0]}</b><span>${l[1] || ''}</span></div>`; }).join('');
+  const labels = [['ยื่นคำขอ', thDate(r.submittedAt)], ['ตรวจสอบรูป', r.review ? thDate(r.review.at) : ''], ['พิจารณา', ''], ['อนุมัติ', r.approval ? thDate(r.approval.at) : '']];
+  let cur = { submitted: 1, returned: 1, reviewed: 2, approved: 4, rejected: 3 }[r.status];
+  const tl = labels.map((l, i) => { const cls = r.status === 'rejected' && i === 3 ? 'bad' : r.status === 'returned' && i === 1 ? 'bad' : i < cur ? 'done' : i === cur ? 'cur' : ''; return `<div class="tl ${cls}"><span class="c">${cls === 'done' ? '✓' : cls === 'bad' ? '!' : i + 1}</span><b>${l[0]}</b><span>${l[1] || ''}</span></div>`; }).join('');
   let action = '';
   if (r.status === 'returned') action = `<div class="note b-violet">${ic('edit')}<div><b>เจ้าหน้าที่ส่งคำขอกลับให้แก้ไข</b><br>${esc(r.review && r.review.note || '')}<div style="margin-top:10px"><button class="btn" onclick="uTab('form'); loadIntoForm(UI.statusRec)">แก้ไขคำขอ</button></div></div></div>`;
-  else if (r.status === 'submitted') action = `<div class="note b-blue">${ic('clock')}<span>อยู่ระหว่างเจ้าหน้าที่ตรวจสอบ ยังแก้ไขคำขอได้ <a href="#" onclick="event.preventDefault(); uTab('form'); loadIntoForm(UI.statusRec)">แก้ไขคำขอ</a></span></div>`;
-  else if (r.status === 'reviewed') action = `<div class="note b-sky">${ic('clock')}<span>ตรวจสอบเอกสารแล้ว รอพิจารณาอนุมัติ</span></div>`;
+  else if (r.status === 'submitted') action = `<div class="note b-blue">${ic('clock')}<span>อยู่ระหว่างเจ้าหน้าที่ตรวจสอบรูป ยังแก้ไขคำขอได้ · <a href="#" onclick="event.preventDefault(); uTab('form'); loadIntoForm(UI.statusRec)">แก้ไขคำขอ</a></span></div>`;
+  else if (r.status === 'reviewed') action = `<div class="note b-sky">${ic('clock')}<span>ตรวจสอบรูปแล้ว รอพิจารณาอนุมัติ</span></div>`;
   else if (r.status === 'rejected') action = `<div class="note b-red">${ic('alert')}<span>คำขอไม่ได้รับการอนุมัติ${r.review && r.review.note ? ': ' + esc(r.review.note) : ''}</span></div>`;
-  else if (r.status === 'approved') action = `<div class="note b-gold">${ic('check')}<span>ได้รับอนุมัติ <b>${tvApproved(r)} ชุด</b> (${esc(r.approval.lot)}) รอจัดส่ง เจ้าหน้าที่จะติดต่อนัดหมายผ่านผู้ประสานงาน</span></div>`;
-  else if (r.status === 'shipped') action = `<div class="note b-amber">${ic('truck')}<span>จัดส่งแล้วโดย ${esc(r.shipment.team)}${r.shipment.appointment ? ' · นัดติดตั้ง <b>' + thDate(r.shipment.appointment) + '</b>' : ''}</span></div>`;
-  else if (r.status === 'installed') {
-    const due = addDays(r.install.installDate, 30);
-    action = r.followup && r.followup.at ? `<div class="note b-green">${ic('check')}<span>ขอบคุณที่รายงานผลการใช้งาน (${thDate(r.followup.at)})</span></div>`
-      : `<div class="note ${due <= todayStr() ? 'b-red' : 'b-green'}">${ic('cal')}<span>ติดตั้งเสร็จเมื่อ ${thDate(r.install.installDate)} · กรุณารายงานผลการใช้งาน${due <= todayStr() ? ' (ครบกำหนดแล้ว)' : ' ภายใน ' + thDate(due)}</span></div>${followFormHtml(r)}`;
-  }
+  else if (r.status === 'approved') action = `<div class="note b-green">${ic('check')}<span>ได้รับอนุมัติ <b>${tvApproved(r)} ชุด</b>${r.approval.rooms && r.approval.rooms.length ? ' สำหรับชั้น ' + esc(r.approval.rooms.join(', ')) : ''} · เจ้าหน้าที่จะติดต่อนัดหมายการจัดส่งผ่านผู้ประสานงาน${r.approval.note ? '<br>หมายเหตุ: ' + esc(r.approval.note) : ''}</span></div>`;
   $('statusBox').innerHTML = `<section class="card">
-    <div class="card-h"><div class="card-t"><span class="tile t-blue">${ic('school')}</span><div><h2>${esc(s.name)}</h2><p>อ.${esc(s.amphoe)} จ.${esc(s.province)} · ยื่นเมื่อ ${thDate(r.submittedAt)}</p></div></div>${badge(r.status)}</div>
-    <div class="timeline">${tl}</div>${action}
-    <div class="kv"><div><small>ขอรับ</small><b>${tvRequested(r)} ชุด</b> (${PRODUCT})</div><div><small>อนุมัติ</small><b>${tvApproved(r) ? tvApproved(r) + ' ชุด' : '—'}</b></div><div><small>ผู้ประสานงาน</small>${esc(r.form.coordName)} · ${esc(r.form.coordPhone)}</div></div>
+    <div class="card-h"><div class="card-t"><span class="tile t-blue">${ic('school')}</span><div><h2>${esc(s.name)}</h2><p>${esc(codeOf(s))} · อ.${esc(s.amphoe)} จ.${esc(s.province)} · ยื่นเมื่อ ${thDate(r.submittedAt)}</p></div></div>${badge(r.status)}</div>
+    <div class="timeline t4">${tl}</div>${action}
+    <div class="dsec"><h3>TV ชำรุดที่แจ้ง ${tvBroken(r)} เครื่อง</h3>${unitCards(r, false)}</div>
     <div class="dsec"><h3>ประวัติ</h3><ul class="history">${(r.history || []).map(h => `<li><time>${thDate(h.at, true)}</time><span>${esc(h.text)}</span></li>`).join('')}</ul></div></section>`;
 }
-function followFormHtml(r) {
-  const fu = r.followup || {};
-  return `<div class="card" style="box-shadow:none;background:var(--sunk)"><div class="card-t"><span class="tile t-green">${ic('star')}</span><div><h2>แบบรายงานผลการใช้งาน 30 วัน</h2></div></div>
-    <label class="fld" style="max-width:340px"><span class="req">ใช้งาน TV เฉลี่ยกี่ชั่วโมงต่อสัปดาห์ต่อห้อง</span><input class="inp" type="number" min="0" id="fu_h" value="${esc(fu.hours || '')}"></label>
-    <fieldset><legend>ใช้ประกอบการสอนรูปแบบใด (เลือกได้หลายข้อ)</legend><div class="opts">${USES.map(u => `<label class="opt"><input type="checkbox" name="fu_use" value="${u}" ${(fu.uses || []).includes(u) ? 'checked' : ''}>${u}</label>`).join('')}</div></fieldset>
-    <fieldset><legend class="req">ความพึงพอใจต่ออุปกรณ์</legend><div class="opts">${[1, 2, 3, 4, 5].map(n => `<label class="opt"><input type="radio" name="fu_sat" value="${n}" ${String(fu.sat) === String(n) ? 'checked' : ''}>${n}${n === 1 ? ' น้อยที่สุด' : n === 5 ? ' มากที่สุด' : ''}</label>`).join('')}</div></fieldset>
-    <label class="fld"><span class="req">ปัญหาที่พบหลังติดตั้ง</span><select class="inp" id="fu_issue">${ISSUES.map(i => `<option${i === fu.issue ? ' selected' : ''}>${i}</option>`).join('')}</select></label>
-    <label class="fld">ผลที่เกิดกับการเรียนการสอน<textarea class="inp" id="fu_eff" rows="3">${esc(fu.effect || '')}</textarea></label>
-    ${UI.role === 'admin' && (hasIssue(r)) ? `<label class="check gold"><input type="checkbox" id="fu_res"><span>แก้ไขปัญหาเรียบร้อยแล้ว (ปิดเรื่อง)</span></label>` : ''}
-    ${UI.role === 'user' ? `<div class="form-actions"><button class="btn" onclick="saveFollow('${r.id}')">${ic('check')}ส่งรายงานผล</button></div>` : ''}</div>`;
-}
-async function saveFollow(id) {
-  const sat = document.querySelector('[name=fu_sat]:checked');
-  if (!$('fu_h').value || !sat) { toast('กรุณากรอกชั่วโมงใช้งานและความพึงพอใจ', true); return; }
-  const base = UI.role === 'admin' ? RECORDS.find(x => x.id === id) : UI.statusRec;
-  const r = clone(base);
-  const resolved = $('fu_res') ? $('fu_res').checked : false;
-  r.followup = { hours: num($('fu_h').value), uses: [...document.querySelectorAll('[name=fu_use]:checked')].map(x => x.value), sat: num(sat.value), issue: $('fu_issue').value, effect: $('fu_eff').value.trim(), resolved, at: nowIso() };
-  if (resolved && r.install) r.install.resolved = true;
-  addHistory(r, resolved ? 'ปิดเรื่องปัญหาหลังติดตั้ง' : `รายงานผล 30 วัน: ${r.followup.hours} ชม./สัปดาห์ พึงพอใจ ${r.followup.sat}/5`);
-  try { await persist(UI.role === 'admin' ? 'saveRecord' : 'saveFollowup', r, 'บันทึกรายงานผลแล้ว'); } catch (e) { return; }
-  if (UI.role === 'admin') closeDrawer(); else showStatus(r.sid);
+function unitCards(r, selectable) {
+  const ap = r.approval && r.approval.rooms;
+  const list = brokenRooms(r);
+  if (!list.length) return '<span class="muted">—</span>';
+  return `<div class="unit-grid">${list.map((x, i) => {
+    const on = selectable ? (ap ? ap.includes(x.name) : true) : !ap || ap.includes(x.name);
+    return `<div class="unit${on ? '' : ' off'}" data-u="${i}"><div class="ph">${x.photo ? `<a href="${esc(x.photo)}" target="_blank" rel="noopener"><img src="${esc(x.photo)}" alt="TV ชำรุด ${esc(x.name)}" loading="lazy"></a>` : 'ไม่มีรูป'}${x.photoTag ? `<a class="tag" href="${esc(x.photoTag)}" target="_blank" rel="noopener" title="ป้ายรุ่น/ครุภัณฑ์"><img src="${esc(x.photoTag)}" alt="ป้ายรุ่น ${esc(x.name)}"></a>` : ''}</div>
+      <div class="bd"><b>ชั้น ${esc(x.name)}</b><span class="badge b-red plain" style="align-self:flex-start">${esc(x.symptom || 'ไม่ระบุอาการ')}</span>${x.detail ? `<span class="muted">${esc(x.detail)}</span>` : ''}<span class="muted">นักเรียน ${fmt(x.students)} คน</span></div>
+      ${selectable ? `<label class="ap"><input type="checkbox" class="apUnit" value="${esc(x.name)}" ${on ? 'checked' : ''} onchange="this.closest('.unit').classList.toggle('off', !this.checked); updApCount()">อนุมัติเครื่องนี้</label>` : ap ? `<label class="ap" style="cursor:default">${on ? '✓ อนุมัติ' : 'ไม่อนุมัติ'}</label>` : ''}</div>`;
+  }).join('')}</div>`;
 }
 
 /* ═════════ APPROVE ═════════ */
-function lotUsage(name) { return curRecs().filter(r => isApprovedStage(r.status) && r.approval && r.approval.lot === name).reduce((a, r) => a + tvApproved(r), 0); }
-function lotOf(name) { return SETTINGS.lots.find(l => l.name === name) || SETTINGS.lots[0]; }
-function renderApproveSide() {
-  const lot = lotOf(SETTINGS.currentLot) || { name: '—', quota: 0 }, used = lotUsage(lot.name), left = num(lot.quota) - used;
-  $('lotCard').innerHTML = `<h3>ล็อตที่กำลังจัดสรร · ${esc(lot.name)}</h3><div class="big">${fmt(left)} <span style="font-size:14px;font-weight:600;color:#C9D5EE">ชุดคงเหลือ</span></div>
-    <div class="bar"><i style="width:${Math.min(100, pct(used, lot.quota))}%"></i></div>
-    <div class="row"><span>อนุมัติแล้ว ${fmt(used)}</span><span>โควตา ${fmt(lot.quota)} ชุด</span></div>
-    ${num(lot.budget) ? `<div class="row"><span>งบประมาณล็อต</span><b>${fmt(lot.budget)} บาท</b></div>` : ''}`;
+function renderQuota() {
+  const recs = curRecs().filter(r => r.status !== 'rejected');
+  const broken = recs.reduce((a, r) => a + tvBroken(r), 0), ok = recs.filter(r => r.status === 'approved').reduce((a, r) => a + tvApproved(r), 0);
+  const waitN = recs.filter(r => ['submitted', 'reviewed', 'returned'].includes(r.status)).reduce((a, r) => a + tvBroken(r), 0);
+  $('quotaCard').innerHTML = `<h3>โควตารวม = TV ชำรุดที่โรงเรียนแจ้ง</h3><div class="big">${fmt(broken)} <span style="font-size:14px;font-weight:600;color:#C9D5EE">เครื่อง</span></div>
+    <div class="bar"><i style="width:${Math.min(100, pct(ok, broken))}%"></i></div>
+    <div class="row"><span>อนุมัติแล้ว <b>${fmt(ok)}</b></span><span>รอพิจารณา <b>${fmt(waitN)}</b></span></div>
+    ${num(SETTINGS.price) ? `<div class="row"><span>งบที่อนุมัติแล้ว</span><b>${fmt(ok * num(SETTINGS.price))} บาท</b></div>` : ''}`;
   $('criteria').innerHTML = CRITERIA.map(c => `<div class="crit"><div class="top"><span>${c.t}</span><b>${c.w}</b></div><div class="bar" style="margin:0"><i style="width:${c.w / 35 * 100}%;background:${c.col}"></i></div></div>`).join('');
 }
-const AP_F = [['submitted', 'รอตรวจสอบ', ['submitted']], ['reviewed', 'รออนุมัติ', ['reviewed']], ['returned', 'ส่งกลับแก้ไข', ['returned']], ['approved', 'อนุมัติแล้ว', ['approved', 'shipped', 'installed']], ['rejected', 'ไม่อนุมัติ', ['rejected']], ['all', 'ทั้งหมด', null]];
+const AP_F = [['submitted', 'รอตรวจสอบ', ['submitted']], ['reviewed', 'รออนุมัติ', ['reviewed']], ['returned', 'ส่งกลับแก้ไข', ['returned']], ['approved', 'อนุมัติแล้ว', ['approved']], ['rejected', 'ไม่อนุมัติ', ['rejected']], ['all', 'ทั้งหมด', null]];
 function renderApprove() {
   const recs = curRecs();
   $('apSeg').innerHTML = AP_F.map(([k, t, st]) => `<button class="${UI.apFilter === k ? 'on' : ''}" onclick="UI.apFilter='${k}'; UI.apSel.clear(); UI.apLimit=50; renderApprove()">${t}<span>${fmt(st ? recs.filter(r => st.includes(r.status)).length : recs.length)}</span></button>`).join('');
-  const flt = AP_F.find(f => f[0] === UI.apFilter) || AP_F[0];
-  const q = $('apSearch').value.trim().toLowerCase(), reg = $('apRegion').value;
-  const rows = recs.filter(r => !flt[2] || flt[2].includes(r.status)).filter(r => { const s = schoolOf(r); return (!reg || s.region === reg) && (!q || (s.name + ' ' + s.province + ' ' + s.amphoe).toLowerCase().includes(q)); }).sort((a, b) => (b.score || 0) - (a.score || 0));
+  const flt = AP_F.find(f => f[0] === UI.apFilter) || AP_F[0], q = $('apSearch').value.trim().toLowerCase(), reg = $('apRegion').value;
+  const rows = recs.filter(r => !flt[2] || flt[2].includes(r.status)).filter(r => { const s = SCHOOL_BY_ID.get(r.sid) || schoolOf(r); return (!reg || s.region === reg) && (!q || (s.name + ' ' + s.province + ' ' + s.amphoe + ' ' + (s.moe || '') + ' ' + (s.smis || '')).toLowerCase().includes(q)); }).sort((a, b) => (b.score || 0) - (a.score || 0));
   const canSel = ['submitted', 'reviewed'].includes(UI.apFilter);
   $('apAll').disabled = !canSel; $('apAll').checked = false;
-  UI.apRowsAll = rows.length; const shown = rows.slice(0, UI.apLimit);
+  const shown = rows.slice(0, UI.apLimit);
   $('apRows').innerHTML = rows.length ? shown.map(r => {
-    const s = schoolOf(r), s0 = SCHOOL_BY_ID.get(r.sid) || {}, f = r.form || {}, miss = readyMissing(r), sc = r.score || 0;
+    const s = SCHOOL_BY_ID.get(r.sid) || schoolOf(r), rooms = roomsOf(r), br = brokenRooms(r), sc = r.score || 0;
+    const ok = rooms.filter(x => x.state === 'ใช้งานได้').length, none = rooms.filter(x => x.state === 'ไม่มี TV').length;
+    const photos = br.filter(x => x.photo).length;
     const scStyle = sc >= 70 ? 'background:var(--red-soft);color:var(--red-ink)' : sc >= 50 ? 'background:var(--gold-soft);color:var(--gold-ink)' : 'background:#EEF1F6;color:var(--ink-2)';
     return `<tr class="click" onclick="openRequest('${r.id}')">
       <td onclick="event.stopPropagation()"><input type="checkbox" aria-label="เลือก ${esc(s.name)}" ${canSel ? '' : 'disabled'} ${UI.apSel.has(r.id) ? 'checked' : ''} onchange="apToggle('${r.id}', this.checked)"></td>
-      <td><b style="font-weight:600">${esc(s.name)}</b><br><span class="muted" style="font-size:12px">จ.${esc(s.province)} · ยื่น ${thDate(r.submittedAt)}</span></td>
-      <td><span class="badge b-gray plain">${yearLabel(s0)}</span><br><span class="muted" style="font-size:12px">TV เดิม ${fmt(oldTv(s0))}</span></td>
-      <td>${condText(f)}</td><td class="r num">${fmt(f.students)}</td>
-      <td class="r num"><b>${isApprovedStage(r.status) ? fmt(tvApproved(r)) + '<span class="muted" style="font-weight:400">/' + tvRequested(r) + '</span>' : tvRequested(r)}</b></td>
+      <td><b style="font-weight:600">${esc(s.name)}</b><br><span class="muted" style="font-size:12px">${esc(codeOf(s))} · จ.${esc(s.province)}</span></td>
+      <td><span class="badge b-gray plain">${yearLabel(s)}</span><br><span class="muted" style="font-size:12px">TV เดิม ${fmt(oldTv(s))}</span></td>
+      <td style="font-size:12.5px"><span style="color:var(--green-ink)">ใช้ได้ ${ok}</span> · <span style="color:var(--red-ink)">ชำรุด ${br.length}</span>${none ? ` · ไม่มี ${none}` : ''}<br><span class="muted">${esc(br.map(x => x.name).join(', '))}</span></td>
+      <td class="r num"><b style="font-size:16px">${r.status === 'approved' ? fmt(tvApproved(r)) + '<span class="muted" style="font-weight:400;font-size:13px">/' + br.length + '</span>' : br.length}</b></td>
+      <td>${photos === br.length && br.length ? `<span class="badge b-green">${photos}/${br.length}</span>` : `<span class="badge b-amber">${photos}/${br.length}</span>`}</td>
       <td><span class="score-pill" style="${scStyle}">${sc}</span></td>
-      <td>${miss.length ? `<span class="badge b-amber" title="${esc(miss.join(', '))}">ขาด ${miss.length} ข้อ</span>` : '<span class="badge b-green">พร้อม</span>'}</td>
       <td>${badge(r.status)}</td></tr>`;
-  }).join('') + (rows.length > shown.length ? `<tr><td colspan="9" style="text-align:center"><button class="btn ghost sm" onclick="UI.apLimit+=50; renderApprove()">แสดงเพิ่ม (เหลืออีก ${fmt(rows.length - shown.length)} รายการ)</button></td></tr>` : '') : '<tr><td colspan="9" class="empty">ไม่มีคำขอในสถานะนี้</td></tr>';
+  }).join('') + (rows.length > shown.length ? `<tr><td colspan="8" style="text-align:center"><button class="btn ghost sm" onclick="UI.apLimit+=50; renderApprove()">แสดงเพิ่ม (เหลืออีก ${fmt(rows.length - shown.length)} รายการ)</button></td></tr>` : '') : '<tr><td colspan="8" class="empty">ไม่มีคำขอในสถานะนี้</td></tr>';
   renderBulk();
 }
 function apToggle(id, on) { on ? UI.apSel.add(id) : UI.apSel.delete(id); renderBulk(); }
 function apToggleAll(on) { document.querySelectorAll('#apRows input[type=checkbox]:not(:disabled)').forEach(cb => { cb.checked = on; cb.dispatchEvent(new Event('change')); }); }
 function renderBulk() {
-  const sel = curRecs().filter(r => UI.apSel.has(r.id)), tv = sel.reduce((a, r) => a + tvRequested(r), 0);
-  const lot = lotOf(SETTINGS.currentLot), left = num(lot && lot.quota) - lotUsage(lot && lot.name);
-  const bar = $('apBulk');
-  if (!sel.length) { bar.className = 'bulkbar idle'; bar.innerHTML = `<span>${['submitted', 'reviewed'].includes(UI.apFilter) ? 'ติ๊กเลือกหลายโรงเรียนเพื่อดำเนินการพร้อมกัน หรือคลิกแถวเพื่อดูรายละเอียด' : 'คลิกแถวเพื่อดูรายละเอียดคำขอ'}</span>`; return; }
+  const sel = curRecs().filter(r => UI.apSel.has(r.id)), tv = sel.reduce((a, r) => a + tvBroken(r), 0), bar = $('apBulk');
+  if (!sel.length) { bar.className = 'bulkbar idle'; bar.innerHTML = `<span>${['submitted', 'reviewed'].includes(UI.apFilter) ? 'ติ๊กเลือกหลายโรงเรียนเพื่ออนุมัติพร้อมกัน หรือคลิกแถวเพื่อดูรูป TV ชำรุดรายเครื่อง' : 'คลิกแถวเพื่อดูรายละเอียดคำขอ'}</span>`; return; }
   bar.className = 'bulkbar';
-  bar.innerHTML = `<span>เลือก <b>${fmt(sel.length)} โรงเรียน · ${fmt(tv)} ชุด</b> · คงเหลือใน${esc(lot.name)}หลังอนุมัติ <b>${fmt(left - tv)}</b> ชุด</span>
-    <span class="toolbar">${UI.apFilter === 'submitted' ? `<button class="btn ghost sm" onclick="bulkReview()">ตรวจผ่าน</button>` : ''}<button class="btn gold sm" onclick="bulkApprove()">${ic('check')}อนุมัติตามที่ขอ</button></span>`;
+  bar.innerHTML = `<span>เลือก <b>${fmt(sel.length)} โรงเรียน · ${fmt(tv)} ชุด</b>${num(SETTINGS.price) ? ` · ประมาณ <b>${fmt(tv * num(SETTINGS.price))}</b> บาท` : ''}</span>
+    <span class="toolbar">${UI.apFilter === 'submitted' ? `<button class="btn ghost sm" onclick="bulkReview()">ตรวจผ่าน</button>` : ''}<button class="btn gold sm" onclick="bulkApprove()">${ic('check')}อนุมัติทุกเครื่องที่ชำรุด</button></span>`;
 }
 async function bulkReview() {
   const sel = curRecs().filter(r => UI.apSel.has(r.id) && r.status === 'submitted');
-  if (!confirm(`ยืนยันตรวจผ่าน ${sel.length} โรงเรียน?`)) return;
-  for (const r0 of sel) { const r = clone(r0); r.status = 'reviewed'; r.review = { note: '', at: nowIso() }; addHistory(r, 'ตรวจสอบเอกสารผ่าน'); try { await persist('saveRecord', r); } catch (e) { return; } }
-  UI.apSel.clear(); toast('ตรวจผ่าน ' + sel.length + ' โรงเรียน'); renderApprove();
+  if (!await confirmPop('ตรวจผ่านหลายโรงเรียน', `ยืนยันตรวจผ่าน <b>${sel.length} โรงเรียน</b>?`, 'ตรวจผ่าน')) return;
+  for (const r0 of sel) { const r = clone(r0); r.status = 'reviewed'; r.review = { note: '', at: nowIso() }; addHistory(r, 'ตรวจสอบรูปผ่าน'); try { await persist('saveRecord', r); } catch (e) { return; } }
+  UI.apSel.clear(); renderApprove(); popup({ type: 'success', title: 'ตรวจผ่านแล้ว', msg: `${sel.length} โรงเรียน ย้ายไปที่ “รออนุมัติ”` });
 }
 async function bulkApprove() {
-  const sel = curRecs().filter(r => UI.apSel.has(r.id) && ['submitted', 'reviewed'].includes(r.status)), tv = sel.reduce((a, r) => a + tvRequested(r), 0);
-  const lot = lotOf(SETTINGS.currentLot), left = num(lot.quota) - lotUsage(lot.name);
-  if (tv > left && !confirm(`จำนวนที่อนุมัติ (${tv}) เกินโควตาคงเหลือ (${left}) ของ${lot.name} ต้องการอนุมัติต่อหรือไม่?`)) return;
-  if (!confirm(`ยืนยันอนุมัติ ${sel.length} โรงเรียน รวม ${tv} ชุด เข้า${lot.name}?`)) return;
-  for (const r0 of sel) { const r = clone(r0); r.status = 'approved'; r.approval = { tv: tvRequested(r), lot: lot.name, at: todayStr(), note: '' }; addHistory(r, `อนุมัติ ${tvApproved(r)} ชุด (${lot.name})`); try { await persist('saveRecord', r); } catch (e) { return; } }
-  UI.apSel.clear(); toast(`อนุมัติ ${sel.length} โรงเรียน ${tv} ชุดแล้ว`); renderApprove();
+  const sel = curRecs().filter(r => UI.apSel.has(r.id) && ['submitted', 'reviewed'].includes(r.status)), tv = sel.reduce((a, r) => a + tvBroken(r), 0);
+  const noPhoto = sel.filter(r => brokenRooms(r).some(x => !x.photo)).length;
+  if (!await confirmPop('ยืนยันการอนุมัติ', `อนุมัติ <b>${sel.length} โรงเรียน</b><div class="hl"><b>${fmt(tv)} ชุด</b>เท่ากับจำนวน TV ที่ชำรุดทั้งหมด</div>${noPhoto ? `<br><span style="color:var(--red-ink)">มี ${noPhoto} โรงเรียนที่แนบรูปไม่ครบ</span>` : ''}`, 'อนุมัติ')) return;
+  for (const r0 of sel) { const r = clone(r0); const rooms = brokenRooms(r).map(x => x.name); r.status = 'approved'; r.approval = { tv: rooms.length, rooms, at: todayStr(), note: '' }; addHistory(r, `อนุมัติ ${rooms.length} ชุด (ชั้น ${rooms.join(', ')})`); try { await persist('saveRecord', r); } catch (e) { return; } }
+  UI.apSel.clear(); renderApprove(); popup({ type: 'success', title: 'อนุมัติเรียบร้อย', msg: `<div class="hl"><b>${fmt(tv)} ชุด</b>${sel.length} โรงเรียน</div>`, confetti: true });
 }
 
 /* drawer */
 function openDrawer(title, sub, body, foot) { $('dwTitle').innerHTML = title; $('dwSub').innerHTML = sub || ''; $('dwBody').innerHTML = body; $('dwFoot').innerHTML = foot || ''; $('dwFoot').classList.toggle('hidden', !foot); $('overlay').classList.add('open'); $('dwBody').parentElement.scrollTop = 0; document.body.style.overflow = 'hidden'; }
 function closeDrawer() { $('overlay').classList.remove('open'); document.body.style.overflow = ''; }
-document.addEventListener('keydown', (e) => { if (e.key === 'Escape') { if ($('overlay').classList.contains('open')) closeDrawer(); if ($('loginBg').classList.contains('open')) closeLogin(); } });
 function kv(pairs) { return `<div class="kv">${pairs.map(([k, v]) => `<div><small>${k}</small>${v === '' || v == null ? '—' : v}</div>`).join('')}</div>`; }
-function thumbs(obj, defs) { const items = defs.filter(([k]) => obj && obj[k]); return items.length ? `<div class="thumbs">${items.map(([k, l]) => `<a href="${esc(obj[k])}" target="_blank" rel="noopener"><img src="${esc(obj[k])}" alt="${l}" loading="lazy"><em>${l}</em></a>`).join('')}</div>` : '<span class="muted">ไม่มีรูป</span>'; }
+function updApCount() { const n = document.querySelectorAll('.apUnit:checked').length; const el = $('apCount'); if (el) el.textContent = n; }
 function openRequest(id) {
   const r = RECORDS.find(x => x.id === id); if (!r) return;
-  const s = schoolOf(r), s0 = SCHOOL_BY_ID.get(r.sid) || {}, f = r.form || {}, sc = scoreOf(r);
+  const s = SCHOOL_BY_ID.get(r.sid) || schoolOf(r), f = r.form || {}, sc = scoreOf(r), rooms = roomsOf(r);
+  const editable = ['submitted', 'reviewed', 'returned'].includes(r.status);
   const yn = (q) => { const v = (f.ready || {})[q.k]; return v ? `<span class="badge ${v === q.good ? 'b-green' : 'b-amber'}">${v === 'yes' ? 'ใช่' : 'ไม่ใช่'}</span>` : '—'; };
   const body = `
-    <div class="dsec"><h3>คะแนนลำดับความสำคัญ ${sc.total} / 100</h3><div style="display:flex;flex-direction:column;gap:8px">${CRITERIA.map(c => `<div class="hbar" style="grid-template-columns:minmax(150px,220px) minmax(0,1fr) 54px"><span style="font-size:13px">${c.t}</span><div class="track"><i style="width:${pct(sc.parts[c.k], c.w)}%;background:${c.col}"></i></div><b>${sc.parts[c.k].toFixed(0)}/${c.w}</b></div>`).join('')}</div></div>
-    <div class="dsec"><h3>ข้อมูลโรงเรียน</h3>${kv([['อำเภอ / จังหวัด', esc(s.amphoe + ', ' + s.province)], ['สังกัด', esc(s0.aff || '')], ['เป็นเป้าหมายมูลนิธิ', yearLabel(s0)], ['TV เดิมจากมูลนิธิ', `55" × ${fmt(s0.tv55)} · 49" × ${fmt(s0.tv49)}`], ['ระดับชั้นที่เปิดสอน', esc((f.grades || []).join(', '))], ['ห้องเรียน / นักเรียน / ครู', `${fmt(f.classrooms)} / ${fmt(f.students)} / ${fmt(f.teachers)}`], ['พื้นที่พิเศษ', esc(f.special)]])}</div>
-    <div class="dsec"><h3>TV ที่มีอยู่เดิม</h3>${kv([['ทั้งหมด / ใช้ได้ / ชำรุด', `${fmt(f.tvTotal)} / ${fmt(f.tvWorking)} / ${fmt(f.tvBroken)}`], ['ปีที่ได้รับล่าสุด', esc(f.tvYear)], ['อาการชำรุด', esc((f.symptoms || []).join(', '))], ['ช่องทางรับสัญญาณ', esc(f.signal)], ['จานและกล่องรับสัญญาณ', esc(f.dish)], ['อินเทอร์เน็ต', esc(f.internet)]])}</div>
-    <div class="dsec"><h3>ความพร้อมของห้องเรียน</h3>${kv(READY_QS.map(q => [q.t, yn(q)]))}</div>
-    <div class="dsec"><h3>ความต้องการ ${tvRequested(r)} ชุด (${PRODUCT})</h3>
-      <div class="tbl-box"><table><thead><tr><th>#</th><th>ห้อง</th><th class="r">นักเรียน</th><th>TV ในห้องตอนนี้</th></tr></thead><tbody>${(f.rooms || []).map((x, i) => `<tr><td>${i + 1}</td><td>${esc(x.name)}</td><td class="r">${fmt(x.students)}</td><td>${esc(x.has)}</td></tr>`).join('')}</tbody></table></div>
-      ${kv([['อุปกรณ์เสริม', esc((f.accessories || []).join(', '))], ['เหตุผล', esc(f.reason)]])}</div>
-    <div class="dsec"><h3>การใช้งานและผู้ประสานงาน</h3>${kv([['การใช้ DLTV', esc(f.dltvUse)], ['ชั่วโมงที่คาดว่าจะใช้', f.hoursPlan ? f.hoursPlan + ' ชม./สัปดาห์' : ''], ['ครูผู้ดูแล', esc(f.caretaker)], ['ผู้ประสานงาน', esc(f.coordName) + (f.coordPos ? ' (' + esc(f.coordPos) + ')' : '')], ['โทร / LINE', esc(f.coordPhone) + (f.coordLine ? ' · ' + esc(f.coordLine) : '')], ['ผู้อำนวยการ', esc(f.directorName)], ['พิกัด', f.geo ? `<a href="https://www.google.com/maps?q=${f.geo.lat},${f.geo.lng}" target="_blank" rel="noopener">${f.geo.lat.toFixed(5)}, ${f.geo.lng.toFixed(5)}</a>` : '']])}</div>
-    <div class="dsec"><h3>รูปภาพ <span class="muted" style="font-weight:400;font-size:12.5px">โฟลเดอร์: ${esc(folderName(s))}</span></h3>${thumbs(f.photos, REQ_PHOTOS)}</div>
-    ${r.approval ? `<div class="dsec"><h3>ผลการอนุมัติ</h3>${kv([['ล็อต', esc(r.approval.lot)], ['จำนวน', `<b>${tvApproved(r)} ชุด</b>`], ['วันที่อนุมัติ', thDate(r.approval.at)], ['หมายเหตุ', esc(r.approval.note)]])}</div>` : ''}
-    ${['submitted', 'reviewed', 'returned'].includes(r.status) ? `<div class="dsec"><h3>พิจารณาอนุมัติ</h3><div class="fgrid">
-      <label class="fld">จำนวนที่อนุมัติ (${PRODUCT})<input class="inp" type="number" min="0" id="ap_tv" value="${tvRequested(r)}"></label>
-      <label class="fld">ล็อต<select class="inp" id="ap_lot">${SETTINGS.lots.map(l => `<option${l.name === SETTINGS.currentLot ? ' selected' : ''}>${esc(l.name)}</option>`).join('')}</select></label></div>
-      <label class="fld">หมายเหตุ / สิ่งที่ต้องแก้ไข (โรงเรียนจะเห็นเมื่อส่งกลับ)<textarea class="inp" id="ap_note" rows="2">${esc(r.review && r.review.note || '')}</textarea></label></div>` : ''}
+    <div class="dsec"><h3>TV ชำรุดที่แจ้ง ${tvBroken(r)} เครื่อง ${editable ? '<span class="muted" style="font-weight:400;font-size:12.5px">· ติ๊กออกเครื่องที่รูปไม่ชัดหรือไม่ผ่านเกณฑ์</span>' : ''}</h3>${unitCards(r, editable)}</div>
+    <div class="dsec"><h3>TV ทุกชั้นเรียน</h3><div class="tbl-box"><table class="compact"><thead><tr><th>ชั้น/ห้อง</th><th class="r">นักเรียน</th><th>สถานะ TV</th><th>อาการ</th></tr></thead><tbody>${rooms.map(x => `<tr><td>${esc(x.name)}</td><td class="r">${fmt(x.students)}</td><td><span class="badge ${x.state === 'ชำรุด' ? 'b-red' : x.state === 'ใช้งานได้' ? 'b-green' : 'b-gray'} plain">${esc(x.state)}</span></td><td>${esc(x.symptom || '')}</td></tr>`).join('')}</tbody></table></div></div>
+    <div class="dsec"><h3>คะแนนลำดับความสำคัญ ${sc.total} / 100</h3><div style="display:flex;flex-direction:column;gap:8px">${CRITERIA.map(c => `<div class="hbar" style="grid-template-columns:minmax(150px,230px) minmax(0,1fr) 54px"><span style="font-size:13px">${c.t}</span><div class="track"><i style="width:${pct(sc.parts[c.k], c.w)}%;background:${c.col}"></i></div><b>${sc.parts[c.k].toFixed(0)}/${c.w}</b></div>`).join('')}</div></div>
+    <div class="dsec"><h3>ข้อมูลโรงเรียน</h3>${kv([['รหัสกระทรวง / SMIS', `${esc(s.moe || '—')} / ${esc(s.smis || '—')}`], ['อำเภอ / จังหวัด', esc(s.amphoe + ', ' + s.province)], ['สังกัด', esc(s.aff || '')], ['เป็นเป้าหมายมูลนิธิ', yearLabel(s)], ['TV เดิมจากมูลนิธิ', `55" × ${fmt(s.tv55)} · 49" × ${fmt(s.tv49)}`], ['นักเรียน / ครู', `${fmt(f.students)} / ${fmt(f.teachers)}`], ['พื้นที่พิเศษ', esc(f.special)], ['เหตุผล', esc(f.reason)]])}</div>
+    <div class="dsec"><h3>สัญญาณและความพร้อม</h3>${kv([['ช่องทางรับสัญญาณ', esc(f.signal)], ['จานและกล่องรับสัญญาณ', esc(f.dish)], ['อินเทอร์เน็ต', esc(f.internet)], ['อุปกรณ์เสริมที่ขอ', esc((f.accessories || []).join(', '))]].concat(READY_QS.map(q => [q.t, yn(q)])))}</div>
+    <div class="dsec"><h3>การใช้งานและผู้ประสานงาน</h3>${kv([['การใช้ DLTV', esc(f.dltvUse)], ['ครูผู้ดูแล', esc(f.caretaker)], ['ผู้ประสานงาน', esc(f.coordName) + (f.coordPos ? ' (' + esc(f.coordPos) + ')' : '')], ['โทร / LINE', esc(f.coordPhone) + (f.coordLine ? ' · ' + esc(f.coordLine) : '')], ['ผู้อำนวยการ', esc(f.directorName)], ['พิกัด', f.geo ? `<a href="https://www.google.com/maps?q=${f.geo.lat},${f.geo.lng}" target="_blank" rel="noopener">${f.geo.lat.toFixed(5)}, ${f.geo.lng.toFixed(5)}</a>` : ''], ['โฟลเดอร์รูปใน Drive', esc(folderName(s))]])}</div>
+    ${editable ? `<div class="dsec"><h3>หมายเหตุถึงโรงเรียน</h3><label class="fld">จำเป็นเมื่อส่งกลับแก้ไข เช่น “รูปชั้น ป.3 ไม่เห็นหน้าจอ”<textarea class="inp" id="ap_note" rows="2">${esc(r.review && r.review.note || '')}</textarea></label></div>` : ''}
+    ${r.approval ? `<div class="dsec"><h3>ผลการอนุมัติ</h3>${kv([['จำนวน', `<b>${tvApproved(r)} ชุด</b>`], ['ชั้นที่อนุมัติ', esc((r.approval.rooms || []).join(', '))], ['วันที่อนุมัติ', thDate(r.approval.at)], ['หมายเหตุ', esc(r.approval.note)]])}</div>` : ''}
     <div class="dsec"><h3>ประวัติ</h3><ul class="history">${(r.history || []).map(h => `<li><time>${thDate(h.at, true)}</time><span>${esc(h.text)}${h.by ? ' <span class="muted">· ' + esc(h.by) + '</span>' : ''}</span></li>`).join('')}</ul></div>`;
   let foot = '';
-  if (['submitted', 'reviewed', 'returned'].includes(r.status)) foot = `<button class="btn danger" onclick="decide('${id}','rejected')">ไม่อนุมัติ</button><button class="btn ghost" onclick="decide('${id}','returned')">ส่งกลับแก้ไข</button>${r.status === 'submitted' ? `<button class="btn ghost" onclick="decide('${id}','reviewed')">ตรวจผ่าน</button>` : ''}<button class="btn" onclick="decide('${id}','approved')">${ic('check')}อนุมัติ</button>`;
+  if (editable) foot = `<button class="btn danger" onclick="decide('${id}','rejected')">ไม่อนุมัติ</button><button class="btn ghost" onclick="decide('${id}','returned')">ส่งกลับแก้ไข</button>${r.status === 'submitted' ? `<button class="btn ghost" onclick="decide('${id}','reviewed')">ตรวจผ่าน</button>` : ''}<button class="btn" onclick="decide('${id}','approved')">${ic('check')}อนุมัติ <span id="apCount">${tvBroken(r)}</span> ชุด</button>`;
   else if (r.status === 'approved') foot = `<button class="btn danger" onclick="decide('${id}','reviewed')">ยกเลิกการอนุมัติ</button>`;
   else if (r.status === 'rejected') foot = `<button class="btn ghost" onclick="decide('${id}','reviewed')">นำกลับมาพิจารณาใหม่</button>`;
-  openDrawer(esc(s.name), `${badge(r.status)}<span>ยื่นเมื่อ ${thDate(r.submittedAt)}</span><span>· เป้าหมาย${yearLabel(s0)}</span>`, body, foot);
+  openDrawer(esc(s.name), `${badge(r.status)}<span>${esc(codeOf(s))}</span><span>· ยื่นเมื่อ ${thDate(r.submittedAt)}</span><span>· เป้าหมาย${yearLabel(s)}</span>`, body, foot);
 }
 async function decide(id, to) {
-  const r = clone(RECORDS.find(x => x.id === id)), note = $('ap_note') ? $('ap_note').value.trim() : '';
-  if (to === 'returned' && !note) { toast('กรุณาระบุสิ่งที่ต้องแก้ไขในช่องหมายเหตุ', true); $('ap_note').focus(); return; }
-  if (to === 'rejected' && !confirm('ยืนยันไม่อนุมัติคำขอนี้?')) return;
+  const r = clone(RECORDS.find(x => x.id === id)), note = $('ap_note') ? $('ap_note').value.trim() : '', s = SCHOOL_BY_ID.get(r.sid) || schoolOf(r);
+  if (to === 'returned' && !note) { await popup({ type: 'warn', title: 'กรุณาระบุสิ่งที่ต้องแก้ไข', msg: 'พิมพ์หมายเหตุถึงโรงเรียนในช่อง “หมายเหตุถึงโรงเรียน” ก่อนส่งกลับ', ok: 'ตกลง' }); $('ap_note').focus(); return; }
+  if (to === 'rejected' && !await confirmPop('ไม่อนุมัติคำขอนี้?', `<b>${esc(s.name)}</b><br>โรงเรียนจะเห็นสถานะ “ไม่อนุมัติ”${note ? '<br>เหตุผล: ' + esc(note) : ''}`, 'ไม่อนุมัติ', true)) return;
   if (to === 'approved') {
-    const tv = num($('ap_tv').value);
-    if (!tv) { toast('จำนวนที่อนุมัติต้องมากกว่า 0', true); return; }
-    const lot = $('ap_lot').value, left = num(lotOf(lot).quota) - lotUsage(lot);
-    if (tv > left && !confirm(`เกินโควตาคงเหลือของ${lot} (${left} ชุด) ต้องการอนุมัติต่อหรือไม่?`)) return;
-    r.approval = { tv, lot, at: todayStr(), note }; addHistory(r, `อนุมัติ ${tv} ชุด (${lot})`);
-  } else if (to === 'reviewed' && r.status === 'approved') { delete r.approval; addHistory(r, 'ยกเลิกการอนุมัติ'); }
-  else { r.review = { note, at: nowIso() }; addHistory(r, { reviewed: 'ตรวจสอบเอกสารผ่าน', returned: 'ส่งกลับให้แก้ไข: ' + note, rejected: 'ไม่อนุมัติ' + (note ? ': ' + note : '') }[to] || to); }
+    const rooms = [...document.querySelectorAll('.apUnit:checked')].map(x => x.value);
+    if (!rooms.length) { await popup({ type: 'warn', title: 'ยังไม่ได้เลือกเครื่อง', msg: 'ติ๊กเลือกอย่างน้อย 1 เครื่องที่จะอนุมัติ หรือเลือก “ไม่อนุมัติ”' }); return; }
+    if (!await confirmPop('ยืนยันการอนุมัติ', `<b>${esc(s.name)}</b><div class="hl"><b>${rooms.length} ชุด</b>ชั้น ${esc(rooms.join(', '))}</div>${rooms.length < tvBroken(r) ? `<br><span class="muted">จากที่แจ้งชำรุด ${tvBroken(r)} เครื่อง</span>` : ''}`, 'อนุมัติ')) return;
+    r.approval = { tv: rooms.length, rooms, at: todayStr(), note }; addHistory(r, `อนุมัติ ${rooms.length} ชุด (ชั้น ${rooms.join(', ')})`);
+  } else if (to === 'reviewed' && r.status === 'approved') {
+    if (!await confirmPop('ยกเลิกการอนุมัติ?', `<b>${esc(s.name)}</b> จะกลับไปอยู่สถานะ “รออนุมัติ”`, 'ยกเลิกการอนุมัติ', true)) return;
+    delete r.approval; addHistory(r, 'ยกเลิกการอนุมัติ');
+  } else { r.review = { note, at: nowIso() }; addHistory(r, { reviewed: 'ตรวจสอบรูปผ่าน', returned: 'ส่งกลับให้แก้ไข: ' + note, rejected: 'ไม่อนุมัติ' + (note ? ': ' + note : '') }[to] || to); }
   r.status = to;
-  try { await persist('saveRecord', r, 'บันทึกผลการพิจารณาแล้ว'); } catch (e) { return; }
+  try { await persist('saveRecord', r); } catch (e) { return; }
   closeDrawer();
-}
-
-/* ═════════ DELIVERY ═════════ */
-function hasIssue(r) { return !!((r.followup && r.followup.issue && r.followup.issue !== 'ไม่มีปัญหา' && !r.followup.resolved) || (r.install && r.install.result && r.install.result !== 'รับครบ ใช้งานได้ทุกชุด' && !r.install.resolved)); }
-const DV_F = [['approved', 'รอจัดส่ง', r => r.status === 'approved'], ['shipped', 'รอติดตั้ง', r => r.status === 'shipped'], ['installed', 'ติดตั้งเสร็จ', r => r.status === 'installed'], ['follow', 'ครบ 30 วัน ยังไม่รายงาน', r => r.status === 'installed' && !(r.followup && r.followup.at) && r.install && addDays(r.install.installDate, 30) <= todayStr()], ['issue', 'มีปัญหา', r => r.status === 'installed' && hasIssue(r)], ['all', 'ทั้งหมด', r => isApprovedStage(r.status)]];
-function renderDeliver() {
-  const recs = curRecs();
-  $('dvSeg').innerHTML = DV_F.map(([k, t, fn]) => `<button class="${UI.dvFilter === k ? 'on' : ''}" onclick="UI.dvFilter='${k}'; UI.dvLimit=50; renderDeliver()">${t}<span>${fmt(recs.filter(fn).length)}</span></button>`).join('');
-  const flt = DV_F.find(f => f[0] === UI.dvFilter) || DV_F[0], q = $('dvSearch').value.trim().toLowerCase(), lot = $('dvLot').value;
-  const rows = recs.filter(flt[2]).filter(r => (!lot || (r.approval && r.approval.lot === lot)) && (!q || (schoolOf(r).name + ' ' + schoolOf(r).province + ' ' + (r.shipment && r.shipment.team || '')).toLowerCase().includes(q)))
-    .sort((a, b) => String((a.shipment || {}).appointment || (a.approval || {}).at || '').localeCompare(String((b.shipment || {}).appointment || (b.approval || {}).at || '')));
-  const stepIdx = { approved: 0, shipped: 1, installed: 3 };
-  const shown = rows.slice(0, UI.dvLimit);
-  $('dvRows').innerHTML = rows.length ? shown.map(r => {
-    const s = schoolOf(r), at = stepIdx[r.status], col = STATUS[r.status].col, due = r.install && r.install.installDate ? addDays(r.install.installDate, 30) : '';
-    const fu = r.status !== 'installed' ? '<span class="muted">—</span>' : r.followup && r.followup.at ? `<span class="badge b-green">รายงานแล้ว · ${esc(r.followup.sat)}/5</span>` : due <= todayStr() ? `<span class="badge b-red">ครบกำหนด ${thDate(due)}</span>` : `<span class="badge b-gray">ครบ ${thDate(due)}</span>`;
-    const act = r.status === 'approved' ? `<button class="btn sm" onclick="openShip('${r.id}')">${ic('truck')}บันทึกจัดส่ง</button>` : r.status === 'shipped' ? `<button class="btn sm" onclick="openInstall('${r.id}')">${ic('check')}ตรวจรับ</button>` : `<button class="btn ghost sm" onclick="openFollowAdmin('${r.id}')">${r.followup && r.followup.at ? 'ดูผล' : 'บันทึกผล 30 วัน'}</button>`;
-    return `<tr><td><a href="#" onclick="event.preventDefault(); openDeliveryDetail('${r.id}')" style="font-weight:600;text-decoration:none;color:var(--ink)">${esc(s.name)}</a>${hasIssue(r) ? ' <span class="badge b-red plain">มีปัญหา</span>' : ''}<br><span class="muted" style="font-size:12px">อ.${esc(s.amphoe)} จ.${esc(s.province)}</span></td>
-      <td>${esc(r.approval && r.approval.lot)}</td><td class="r num"><b>${tvApproved(r)}</b></td><td class="muted">${esc(r.shipment && r.shipment.team || '—')}</td>
-      <td><span class="steps">${[0, 1, 2, 3].map(i => `<i style="${i <= at ? 'background:' + col : ''}"></i>`).join('')}</span><br><span class="muted" style="font-size:12px">${STATUS[r.status].t}</span></td>
-      <td class="muted">${r.status === 'installed' ? 'ตรวจรับ ' + thDate(r.install.installDate) : r.shipment && r.shipment.appointment ? 'นัด ' + thDate(r.shipment.appointment) : 'อนุมัติ ' + thDate(r.approval && r.approval.at)}</td>
-      <td>${fu}</td><td class="r">${act}</td></tr>`;
-  }).join('') + (rows.length > shown.length ? `<tr><td colspan="8" style="text-align:center"><button class="btn ghost sm" onclick="UI.dvLimit+=50; renderDeliver()">แสดงเพิ่ม (เหลืออีก ${fmt(rows.length - shown.length)} รายการ)</button></td></tr>` : '') : '<tr><td colspan="8" class="empty">ไม่มีรายการในสถานะนี้</td></tr>';
-}
-function openShip(id) {
-  const r = RECORDS.find(x => x.id === id), s = schoolOf(r), sh = r.shipment || {};
-  openDrawer('บันทึกการจัดส่ง · ' + esc(s.name), `<span class="badge b-gold">${tvApproved(r)} ชุด</span><span>${esc(r.approval.lot)} · โทร ${esc(r.form.coordPhone)} (${esc(r.form.coordName)})</span>`,
-    `<div class="fgrid"><label class="fld"><span class="req">วันที่จัดส่ง</span><input class="inp" type="date" id="sh_date" value="${esc(sh.shipDate || todayStr())}"></label>
-     <label class="fld"><span class="req">ทีม / บริษัทติดตั้ง</span><input class="inp" id="sh_team" value="${esc(sh.team || '')}" list="teamList"></label>
-     <label class="fld">วันนัดติดตั้ง<input class="inp" type="date" id="sh_appt" value="${esc(sh.appointment || '')}"></label>
-     <label class="fld">เลขพัสดุ / ทะเบียนรถ<input class="inp" id="sh_track" value="${esc(sh.tracking || '')}"></label></div>
-     <datalist id="teamList">${[...new Set(RECORDS.map(x => x.shipment && x.shipment.team).filter(Boolean))].map(t => `<option value="${esc(t)}">`).join('')}</datalist>
-     <div class="dsec"><h3>รายการที่จัดส่ง</h3>${kv([[PRODUCT, `<b>${tvApproved(r)} ชุด</b>`], ['อุปกรณ์เสริมที่ขอ', esc((r.form.accessories || []).join(', '))]])}</div>`,
-    `<button class="btn ghost" onclick="closeDrawer()">ยกเลิก</button><button class="btn" onclick="saveShip('${id}')">${ic('truck')}ยืนยันจัดส่งแล้ว</button>`);
-}
-async function saveShip(id) {
-  const date = $('sh_date').value, team = $('sh_team').value.trim();
-  if (!date || !team) { toast('กรุณากรอกวันที่จัดส่งและทีมติดตั้ง', true); return; }
-  const r = clone(RECORDS.find(x => x.id === id));
-  r.shipment = { shipDate: date, team, appointment: $('sh_appt').value, tracking: $('sh_track').value.trim(), at: nowIso() };
-  r.status = 'shipped'; addHistory(r, `จัดส่งแล้ว โดย ${team}${r.shipment.appointment ? ' นัดติดตั้ง ' + thDate(r.shipment.appointment) : ''}`);
-  try { await persist('saveRecord', r, 'บันทึกการจัดส่งแล้ว'); } catch (e) { return; }
-  closeDrawer();
-}
-function openInstall(id) {
-  const r = RECORDS.find(x => x.id === id), s = schoolOf(r), rooms = (r.form.rooms || []).map(x => x.name);
-  const units = Array.from({ length: tvApproved(r) }, (_, i) => ({ room: rooms[i] || '' }));
-  UI.instPhotos = {};
-  openDrawer('ติดตั้งและตรวจรับ · ' + esc(s.name), `<span class="badge b-amber">${units.length} ชุด</span><span>ทีม ${esc(r.shipment.team)} · รูปจะเก็บในโฟลเดอร์ของโรงเรียน</span>`,
-    `<div class="fgrid"><label class="fld"><span class="req">วันที่ติดตั้งเสร็จ</span><input class="inp" type="date" id="in_date" value="${todayStr()}"></label>
-     <label class="fld"><span class="req">ชื่อผู้รับมอบ</span><input class="inp" id="in_recv" value="${esc(r.form.directorName || '')}"></label></div>
-     <div class="dsec"><h3>หมายเลขเครื่องและผลทดสอบ (${PRODUCT})</h3>
-     <div class="tbl-box"><table><thead><tr><th>ห้อง</th><th>Serial No.</th><th>ภาพ</th><th>เสียง</th><th>สัญญาณ</th><th>ขาตั้ง</th></tr></thead><tbody id="in_units">
-     ${units.map((u, i) => `<tr><td><input class="inp" data-f="room" value="${esc(u.room)}" aria-label="ห้อง" style="width:100px;height:38px"></td><td><input class="inp" data-f="sn" aria-label="Serial ชุดที่ ${i + 1}" style="width:160px;height:38px"></td>
-       ${['pic', 'sound', 'signal', 'stand'].map(k => `<td><input type="checkbox" data-f="${k}" checked aria-label="${k} ผ่าน" style="width:17px;height:17px;accent-color:var(--green)"></td>`).join('')}</tr>`).join('')}</tbody></table></div></div>
-     <div class="dsec"><h3>รูปภาพและเอกสาร</h3><div class="photos" id="instPhotos"></div></div>
-     <label class="fld"><span class="req">ผลการตรวจรับ</span><select class="inp" id="in_res"><option>รับครบ ใช้งานได้ทุกชุด</option><option>รับครบ มีปัญหาบางชุด</option><option>รับไม่ครบ</option></select></label>
-     <label class="fld">หมายเหตุ<textarea class="inp" id="in_note" rows="2"></textarea></label>`,
-    `<button class="btn ghost" onclick="closeDrawer()">ยกเลิก</button><button class="btn" onclick="saveInstall('${id}')">${ic('check')}บันทึกการตรวจรับ</button>`);
-  renderPhotoSlots('instPhotos', INST_PHOTOS, UI.instPhotos, 'inst');
-}
-async function saveInstall(id) {
-  const units = [...document.querySelectorAll('#in_units tr')].map(tr => { const g = (k) => tr.querySelector(`[data-f=${k}]`); return { room: g('room').value.trim(), sn: g('sn').value.trim(), pic: g('pic').checked, sound: g('sound').checked, signal: g('signal').checked, stand: g('stand').checked }; });
-  if (units.some(u => !u.sn)) { toast('กรุณากรอก Serial No. ให้ครบทุกชุด', true); return; }
-  const miss = INST_PHOTOS.filter(p => p[2] && !UI.instPhotos[p[0]]);
-  if (miss.length) { toast('กรุณาแนบ ' + miss.map(p => p[1]).join(', '), true); return; }
-  if (!$('in_recv').value.trim()) { toast('กรุณากรอกชื่อผู้รับมอบ', true); return; }
-  let result = $('in_res').value;
-  if (result === 'รับครบ ใช้งานได้ทุกชุด' && units.some(u => !u.pic || !u.sound || !u.signal || !u.stand)) result = 'รับครบ มีปัญหาบางชุด';
-  const r = clone(RECORDS.find(x => x.id === id));
-  r.install = { installDate: $('in_date').value || todayStr(), receiver: $('in_recv').value.trim(), units, photos: Object.assign({}, UI.instPhotos), result, note: $('in_note').value.trim(), at: nowIso() };
-  r.status = 'installed'; addHistory(r, 'ติดตั้งและตรวจรับ: ' + result);
-  try { await persist('saveRecord', r, 'บันทึกการตรวจรับแล้ว'); } catch (e) { return; }
-  closeDrawer();
-}
-function openFollowAdmin(id) {
-  const r = RECORDS.find(x => x.id === id), s = schoolOf(r);
-  openDrawer('รายงานผล 30 วัน · ' + esc(s.name), `<span>ติดตั้งเมื่อ ${thDate(r.install.installDate)} · ครบกำหนด ${thDate(addDays(r.install.installDate, 30))}</span>`,
-    `<div class="note b-blue">${ic('school')}<span>ปกติโรงเรียนจะรายงานเองผ่านหน้า “ติดตามสถานะ” เจ้าหน้าที่บันทึกแทนได้ที่นี่</span></div>${followFormHtml(r)}`,
-    `<button class="btn ghost" onclick="closeDrawer()">ยกเลิก</button><button class="btn" onclick="saveFollow('${id}')">${ic('check')}บันทึก</button>`);
-}
-function openDeliveryDetail(id) {
-  const r = RECORDS.find(x => x.id === id), s = schoolOf(r), sh = r.shipment || {}, ins = r.install, fu = r.followup;
-  const ok = (v) => v ? '<span class="badge b-green plain">ผ่าน</span>' : '<span class="badge b-red plain">ไม่ผ่าน</span>';
-  openDrawer(esc(s.name), `${badge(r.status)}<span>${esc(r.approval.lot)} · ${tvApproved(r)} ชุด</span>`,
-    `<div class="dsec"><h3>การจัดส่ง</h3>${kv([['วันที่จัดส่ง', thDate(sh.shipDate)], ['ทีมติดตั้ง', esc(sh.team)], ['นัดติดตั้ง', thDate(sh.appointment)], ['เลขพัสดุ', esc(sh.tracking)], ['ผู้ประสานงาน', esc(r.form.coordName + ' · ' + r.form.coordPhone)]])}</div>
-     ${ins ? `<div class="dsec"><h3>การตรวจรับ</h3>${kv([['วันที่ติดตั้งเสร็จ', thDate(ins.installDate)], ['ผู้รับมอบ', esc(ins.receiver)], ['ผลตรวจรับ', esc(ins.result)], ['หมายเหตุ', esc(ins.note)]])}
-       <div class="tbl-box"><table><thead><tr><th>ห้อง</th><th>Serial No.</th><th>ภาพ</th><th>เสียง</th><th>สัญญาณ</th><th>ขาตั้ง</th></tr></thead><tbody>${(ins.units || []).map(u => `<tr><td>${esc(u.room)}</td><td>${esc(u.sn)}</td><td>${ok(u.pic)}</td><td>${ok(u.sound)}</td><td>${ok(u.signal)}</td><td>${ok(u.stand !== false)}</td></tr>`).join('') || '<tr><td colspan="6" class="empty">—</td></tr>'}</tbody></table></div>
-       ${thumbs(ins.photos, INST_PHOTOS)}</div>` : ''}
-     ${fu && fu.at ? `<div class="dsec"><h3>รายงานผล 30 วัน</h3>${kv([['ชั่วโมงใช้/สัปดาห์', fu.hours], ['รูปแบบการใช้', esc((fu.uses || []).join(', '))], ['ความพึงพอใจ', fu.sat + ' / 5'], ['ปัญหา', esc(fu.issue) + (fu.resolved ? ' <span class="badge b-green plain">แก้ไขแล้ว</span>' : '')], ['ผลต่อการสอน', esc(fu.effect)]])}</div>` : ''}
-     <div class="dsec"><h3>ประวัติ</h3><ul class="history">${(r.history || []).map(h => `<li><time>${thDate(h.at, true)}</time><span>${esc(h.text)}</span></li>`).join('')}</ul></div>`,
-    `<button class="btn ghost" onclick="openRequest('${id}')">ดูแบบคำขอ</button>`);
+  const msgs = { approved: ['success', 'อนุมัติเรียบร้อย', `<b>${esc(s.name)}</b><div class="hl"><b>${tvApproved(r)} ชุด</b>${PRODUCT}</div>`], reviewed: ['success', 'บันทึกแล้ว', `<b>${esc(s.name)}</b> อยู่ในสถานะ “รออนุมัติ”`], returned: ['info', 'ส่งกลับให้โรงเรียนแก้ไขแล้ว', `<b>${esc(s.name)}</b><br>โรงเรียนจะเห็นหมายเหตุในหน้าติดตามสถานะ`], rejected: ['info', 'บันทึกไม่อนุมัติแล้ว', `<b>${esc(s.name)}</b>`] }[to];
+  popup({ type: msgs[0], title: msgs[1], msg: msgs[2], confetti: to === 'approved' });
 }
 
 /* ═════════ SETTINGS ═════════ */
-function lotRow(l) { return `<tr><td><input class="inp" data-f="name" value="${esc(l.name)}" aria-label="ชื่อล็อต"></td><td><input class="inp" type="number" data-f="quota" value="${num(l.quota)}" aria-label="โควตา"></td><td><input class="inp" type="number" data-f="budget" value="${num(l.budget)}" aria-label="งบประมาณ"></td><td><input type="radio" name="st_cur" aria-label="ใช้ล็อตนี้" style="width:17px;height:17px;accent-color:var(--primary)" ${l.name === SETTINGS.currentLot ? 'checked' : ''}></td></tr>`; }
-function addLotRow() { $('st_lots').insertAdjacentHTML('beforeend', lotRow({ name: 'ล็อต ' + ($('st_lots').rows.length + 1), quota: 0, budget: 0 })); }
 function renderSettings() {
-  $('st_fy').value = SETTINGS.fy; $('st_price').value = num(SETTINGS.price) || '';
-  $('st_lots').innerHTML = SETTINGS.lots.map(lotRow).join('');
-  $('connInfo').innerHTML = ONLINE ? `${ic('check')}<span>เชื่อมต่อ Google Sheets แล้ว รูปภาพเก็บใน Google Drive แยกโฟลเดอร์ตามชื่อโรงเรียน</span>` : `${ic('alert')}<span>โหมดทดลอง: ยังไม่ได้ตั้งค่า APPS_SCRIPT_URL ในไฟล์ ข้อมูลเก็บในเบราว์เซอร์นี้เท่านั้น</span>`;
+  $('st_fy').value = SETTINGS.fy; $('st_price').value = num(SETTINGS.price) || ''; $('st_budget').value = num(SETTINGS.budget) || '';
+  $('connInfo').className = 'note ' + (ONLINE ? 'b-green' : 'b-gold');
+  $('connInfo').innerHTML = ONLINE ? `${ic('check')}<span>เชื่อมต่อ Google Sheets แล้ว รูปภาพเก็บใน Google Drive แยกโฟลเดอร์ตามชื่อโรงเรียน ตั้งชื่อไฟล์ตามชั้นเรียน</span>` : `${ic('alert')}<span>โหมดทดลอง: ยังไม่ได้ตั้งค่า APPS_SCRIPT_URL ในไฟล์ ข้อมูลเก็บในเบราว์เซอร์นี้เท่านั้น</span>`;
 }
 async function applySettings() {
-  const lots = [...$('st_lots').rows].map(tr => ({ name: tr.querySelector('[data-f=name]').value.trim(), quota: num(tr.querySelector('[data-f=quota]').value), budget: num(tr.querySelector('[data-f=budget]').value), cur: tr.querySelector('[name=st_cur]').checked })).filter(l => l.name);
-  if (!lots.length) { toast('ต้องมีอย่างน้อย 1 ล็อต', true); return; }
-  SETTINGS.fy = $('st_fy').value.trim() || SETTINGS.fy;
-  SETTINGS.currentLot = (lots.find(l => l.cur) || lots[0]).name;
-  SETTINGS.lots = lots.map(({ name, quota, budget }) => ({ name, quota, budget }));
-  SETTINGS.price = num($('st_price').value);
+  SETTINGS.fy = $('st_fy').value.trim() || SETTINGS.fy; SETTINGS.price = num($('st_price').value); SETTINGS.budget = num($('st_budget').value);
   try { await saveSettingsRemote(); } catch (e) { return; }
   document.querySelectorAll('.fyText').forEach(el => el.textContent = SETTINGS.fy);
-  toast('บันทึกการตั้งค่าแล้ว'); renderAdmin(); renderSettings();
+  renderAdmin(); renderSettings(); popup({ type: 'success', title: 'บันทึกการตั้งค่าแล้ว', msg: `ปีงบประมาณ ${esc(SETTINGS.fy)}${SETTINGS.price ? ' · ราคา ' + fmt(SETTINGS.price) + ' บาท/ชุด' : ''}` });
 }
 
 /* ═════════ EXPORT ═════════ */
 function exportCsv() {
   const rows = curRecs().map(flatten);
-  if (!rows.length) { toast('ยังไม่มีข้อมูลให้ส่งออก', true); return; }
-  const cols = Object.keys(rows[0]), cell = (v) => { const s = String(v == null ? '' : v); return /[",\n]/.test(s) ? '"' + s.replace(/"/g, '""') + '"' : s; };
+  if (!rows.length) { popup({ type: 'info', title: 'ยังไม่มีข้อมูล', msg: 'ยังไม่มีคำขอให้ส่งออก' }); return; }
+  const cols = Object.keys(rows[0]), cell = (v) => { const s = String(v == null ? '' : v).replace(/^'/, ''); return /^\d{8,}$/.test(s) ? '="' + s + '"' : /[",\n]/.test(s) ? '"' + s.replace(/"/g, '""') + '"' : s; };
   const csv = '﻿' + [cols.join(','), ...rows.map(r => cols.map(c => cell(r[c])).join(','))].join('\r\n');
   const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([csv], { type: 'text/csv;charset=utf-8' }));
   a.download = `จัดสรรTV55_ปีงบ${SETTINGS.fy}_${todayStr()}.csv`; a.click(); setTimeout(() => URL.revokeObjectURL(a.href), 2000);
+  toast('ส่งออก ' + rows.length + ' รายการ');
 }
 
 /* ═════════ DEMO (โหมดทดลองเท่านั้น) ═════════ */
-function seedDemo() {
+async function seedDemo() {
   if (ONLINE) return;
-  if (RECORDS.length && !confirm('ข้อมูลทดลองเดิมจะถูกแทนที่ ต้องการต่อหรือไม่?')) return;
+  if (RECORDS.length && !await confirmPop('แทนที่ข้อมูลทดลอง?', 'ข้อมูลทดลองเดิมจะถูกแทนที่ด้วยข้อมูลตัวอย่าง 420 โรงเรียน', 'ใส่ข้อมูลตัวอย่าง')) return;
   let seed = 11; const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647, pick = (a) => a[Math.floor(rnd() * a.length)];
-  SETTINGS = { fy: '2570', currentLot: 'ล็อต 2', lots: [{ name: 'ล็อต 1', quota: 900, budget: 22500000 }, { name: 'ล็อต 2', quota: 700, budget: 17500000 }], price: 25000 };
-  const pool = SCHOOLS.filter(s => !s.closed).sort(() => rnd() - .5).slice(0, 420);
-  const teams = ['ทีมติดตั้ง เขต 1', 'ทีมติดตั้ง เขต 2', 'ทีมติดตั้ง เขต 3', 'ทีมติดตั้ง เขต 4'], day = (n) => addDays('2026-06-01', n);
+  SETTINGS = { fy: '2570', price: 25000, budget: 30000000 };
+  const pool = SCHOOLS.filter(s => !s.closed).sort(() => rnd() - .5).slice(0, 420), day = (n) => addDays('2026-08-01', n);
   RECORDS = pool.map((s, i) => {
-    const rooms = Math.max(3, Math.min(9, Math.round((s.students || 60) / 15)));
-    const tvTotal = Math.floor(rnd() * (rooms + 1)), tvWorking = rnd() < .4 ? 0 : Math.floor(rnd() * (tvTotal + 1));
-    const need = Math.max(1, Math.min(rooms - tvWorking, 6));
+    const grades = GRADES.slice(rnd() < .5 ? 0 : 3, 9);
+    const rooms = grades.map(g => { const st = rnd() < .45 ? 'ชำรุด' : rnd() < .85 ? 'ใช้งานได้' : 'ไม่มี TV'; return { grade: g, name: g, students: 6 + Math.floor(rnd() * 16), state: st, symptom: st === 'ชำรุด' ? pick(SYMPTOMS.slice(0, 6)) : '', detail: st === 'ชำรุด' ? pick(['Samsung 40"', 'LG 43"', 'Sharp 40"', 'TCL 43"']) : '', photo: '', photoTag: '' }; });
+    if (!rooms.some(r => r.state === 'ชำรุด')) Object.assign(rooms[0], { state: 'ชำรุด', symptom: 'เปิดไม่ติด' });
     const ready = {}; READY_QS.forEach(q => ready[q.k] = rnd() < .8 ? q.good : (q.good === 'yes' ? 'no' : 'yes'));
-    const form = { product: PRODUCT, grades: GRADES.slice(0, 9), classrooms: rooms, students: s.students || 60, teachers: s.teachers || 6, special: rnd() < .2 ? pick(['พื้นที่สูง / ห่างไกล', 'เกาะ', 'ชายแดน']) : 'ไม่ใช่',
-      tvTotal, tvWorking, tvBroken: tvTotal - tvWorking, tvYear: s.year, symptoms: tvTotal > tvWorking ? ['เปิดไม่ติด'] : [], signal: pick(['จานดาวเทียม', 'ทั้งสองช่องทาง']), dish: pick(['ใช้ได้ครบทุกห้อง', 'ใช้ได้บางห้อง', 'ชำรุด']), internet: pick(['Wi-Fi ครอบคลุมทุกห้อง', 'บางห้อง', 'ไม่มี']), ready,
-      rooms: Array.from({ length: need }, (_, k) => ({ name: GRADES[3 + (k % 6)], students: 8 + Math.floor(rnd() * 15), has: pick(ROOM_HAS) })),
-      accessories: ['ปลั๊กกันไฟกระชาก'], reason: 'TV เดิมไม่เพียงพอต่อจำนวนห้องเรียน', dltvUse: pick(['ใช้สอนสดทุกวิชา', 'ใช้บางวิชา']), hoursPlan: 15 + Math.floor(rnd() * 10), caretaker: 'ครูผู้รับผิดชอบ', consent1: true, consent2: true,
-      coordName: s.coord || 'ผู้ประสานงาน', coordPos: 'ครู', coordPhone: s.phone || '08x-xxx-xxxx', coordLine: '', photos: {}, geo: null, directorName: s.director || 'ผู้อำนวยการ', certify: true };
-    const r = { id: 'D' + i, fy: '2570', sid: s.sid, school: { name: s.name, amphoe: s.amphoe, province: s.province, region: s.region, smis: s.smis, year: s.year }, status: 'submitted', createdAt: day(i % 40) + 'T09:00:00.000Z', submittedAt: day(i % 40), form, history: [{ at: day(i % 40) + 'T09:00:00.000Z', text: `ยื่นคำขอ ${need} ชุด`, by: 'โรงเรียน' }] };
+    const form = { product: PRODUCT, grades, students: s.students || 60, teachers: s.teachers || 6, special: rnd() < .2 ? pick(['พื้นที่สูง / ห่างไกล', 'เกาะ', 'ชายแดน']) : 'ไม่ใช่', rooms, reason: 'TV เดิมชำรุด', signal: pick(['จานดาวเทียม', 'ทั้งสองช่องทาง']), dish: pick(['ใช้ได้ครบทุกห้อง', 'ใช้ได้บางห้อง']), internet: pick(['Wi-Fi ครอบคลุมทุกห้อง', 'บางห้อง', 'ไม่มี']), ready, accessories: ['ปลั๊กกันไฟกระชาก'], dltvUse: pick(['ใช้สอนสดทุกวิชา', 'ใช้บางวิชา']), hoursPlan: 18, caretaker: 'ครูผู้รับผิดชอบ', consent1: true, consent2: true, coordName: s.coord || 'ผู้ประสานงาน', coordPos: 'ครู', coordPhone: s.phone || '', coordLine: '', geo: null, directorName: s.director || 'ผู้อำนวยการ', certify: true };
+    const r = { id: 'D' + i, fy: '2570', sid: s.sid, school: { name: s.name, amphoe: s.amphoe, province: s.province, region: s.region, smis: s.smis, moe: s.moe, year: s.year }, status: 'submitted', createdAt: day(i % 60) + 'T09:00:00.000Z', submittedAt: day(i % 60), form, history: [] };
+    const br = rooms.filter(x => x.state === 'ชำรุด').map(x => x.name);
+    r.history.unshift({ at: r.createdAt, text: `ยื่นคำขอ ${br.length} ชุด`, by: 'โรงเรียน' });
     r.score = scoreOf(r).total;
-    const roll = rnd(), st = roll < .16 ? 'submitted' : roll < .28 ? 'reviewed' : roll < .31 ? 'returned' : roll < .34 ? 'rejected' : roll < .48 ? 'approved' : roll < .62 ? 'shipped' : 'installed';
+    const roll = rnd(), st = roll < .25 ? 'submitted' : roll < .42 ? 'reviewed' : roll < .47 ? 'returned' : roll < .5 ? 'rejected' : 'approved';
     r.status = st;
-    if (st === 'returned') r.review = { note: 'กรุณาแนบรูปจุดตั้งจอเพิ่มเติม', at: r.createdAt };
-    if (isApprovedStage(st)) { r.approval = { tv: need, lot: st === 'approved' ? 'ล็อต 2' : 'ล็อต 1', at: day(45 + i % 10), note: '' }; r.history.unshift({ at: r.approval.at + 'T10:00:00.000Z', text: `อนุมัติ ${need} ชุด (${r.approval.lot})`, by: 'เจ้าหน้าที่' }); }
-    if (st === 'shipped' || st === 'installed') { r.shipment = { shipDate: day(60 + i % 15), team: pick(teams), appointment: day(64 + i % 15), tracking: '', at: '' }; r.history.unshift({ at: r.shipment.shipDate + 'T08:00:00.000Z', text: 'จัดส่งแล้ว โดย ' + r.shipment.team, by: 'เจ้าหน้าที่' }); }
-    if (st === 'installed') {
-      const res = rnd() < .9 ? 'รับครบ ใช้งานได้ทุกชุด' : 'รับครบ มีปัญหาบางชุด';
-      r.install = { installDate: day(66 + i % 20), receiver: form.directorName, units: [], photos: {}, result: res, note: '', at: '' };
-      r.history.unshift({ at: r.install.installDate + 'T15:00:00.000Z', text: 'ติดตั้งและตรวจรับ: ' + res, by: 'เจ้าหน้าที่' });
-      if (rnd() < .7) { r.followup = { hours: 10 + Math.floor(rnd() * 15), uses: ['ดูสดตามตาราง DLTV', 'คลิปย้อนหลัง'], sat: 3 + Math.floor(rnd() * 3), issue: rnd() < .85 ? 'ไม่มีปัญหา' : pick(ISSUES.slice(1, 6)), effect: '', resolved: false, at: addDays(r.install.installDate, 31) + 'T09:00:00.000Z' }; r.history.unshift({ at: r.followup.at, text: 'รายงานผล 30 วัน', by: 'โรงเรียน' }); }
-    }
-    r.updatedAt = r.history[0].at;
-    return r;
+    if (st === 'returned') r.review = { note: 'รูปชั้น ' + br[0] + ' ไม่เห็นหน้าจอ กรุณาถ่ายใหม่', at: day(70) + 'T10:00:00.000Z' };
+    if (st === 'reviewed') r.review = { note: '', at: day(65 + i % 20) + 'T10:00:00.000Z' };
+    if (st === 'approved') { const ok = rnd() < .85 ? br : br.slice(0, Math.max(1, br.length - 1)); r.approval = { tv: ok.length, rooms: ok, at: day(70 + i % 25), note: '' }; r.history.unshift({ at: r.approval.at + 'T10:00:00.000Z', text: `อนุมัติ ${ok.length} ชุด (ชั้น ${ok.join(', ')})`, by: 'เจ้าหน้าที่' }); }
+    r.updatedAt = r.history[0].at; return r;
   });
-  saveLocal(); renderAdmin(); toast('ใส่ข้อมูลตัวอย่าง 420 โรงเรียนแล้ว (เฉพาะเบราว์เซอร์นี้)');
+  saveLocal(); renderAdmin(); popup({ type: 'success', title: 'ใส่ข้อมูลตัวอย่างแล้ว', msg: '420 โรงเรียน (เฉพาะเบราว์เซอร์นี้)' });
 }
-function clearDemo() { if (!confirm('ล้างข้อมูลทดลองทั้งหมดในเบราว์เซอร์นี้?')) return; RECORDS = []; SETTINGS = clone(DEFAULT_SETTINGS); saveLocal(); renderAdmin(); toast('ล้างข้อมูลแล้ว'); }
+async function clearDemo() { if (!await confirmPop('ล้างข้อมูลทดลอง?', 'ข้อมูลทดลองทั้งหมดในเบราว์เซอร์นี้จะถูกลบ', 'ล้างข้อมูล', true)) return; RECORDS = []; SETTINGS = clone(DEFAULT_SETTINGS); saveLocal(); renderAdmin(); toast('ล้างข้อมูลแล้ว'); }
 
 /* ═════════ START ═════════ */
 (async function start() {
   buildFormStatic(); renderRooms();
   await loadPublic();
   $('landMode').textContent = ONLINE ? 'เชื่อมต่อ Google Sheets' : 'โหมดทดลอง · ข้อมูลเก็บในเบราว์เซอร์นี้';
-  const saved = sessionStorage.getItem(SS_ADMIN);
-  const qs = new URLSearchParams(location.search);
+  const saved = sessionStorage.getItem(SS_ADMIN), qs = new URLSearchParams(location.search);
   if (saved) { ADMIN_KEY = saved; try { await enterAdmin(); return; } catch (e) {} }
-  if (qs.has('school')) enterUser();
-  else if (qs.has('admin')) openLogin();
+  if (qs.has('school')) enterUser(); else if (qs.has('admin')) openLogin();
 })();
 </script>
 </body>

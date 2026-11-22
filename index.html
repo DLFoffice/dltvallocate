@@ -533,8 +533,8 @@ table.compact th, table.compact td { padding: 10px 9px; }
               <li><a href="#s1" data-sec="1"><span class="no">1</span>ข้อมูลโรงเรียน</a></li>
               <li><a href="#s2" data-sec="2"><span class="no">2</span>TV รายชั้นเรียน + รูป</a></li>
               <li><a href="#s3" data-sec="3"><span class="no">3</span>สัญญาณและความพร้อม</a></li>
-              <li><a href="#s4" data-sec="4"><span class="no">4</span>การใช้งานและการดูแล</a></li>
-              <li><a href="#s5" data-sec="5"><span class="no">5</span>ผู้ประสานงานและรับรอง</a></li>
+              <li><a href="#s4" data-sec="4"><span class="no">4</span>ครูและการใช้ DLTV</a></li>
+              <li><a href="#s5" data-sec="5"><span class="no">5</span>ผู้ประสานงานและ ผอ.</a></li>
             </ol>
           </div>
           <div class="sum"><span class="l">ขอรับจัดสรร (เท่ากับเครื่องที่ชำรุด)</span><span class="v"><span id="sumTv">0</span> <small>ชุด</small></span><span class="l">TV 55 นิ้ว พร้อมขาตั้ง · <span id="sumStu">0</span> นักเรียนได้ใช้</span></div>
@@ -579,30 +579,36 @@ table.compact th, table.compact td { padding: 10px 9px; }
               <label class="fld">อินเทอร์เน็ตในห้องเรียน<select class="inp" name="internet"><option>Wi-Fi ครอบคลุมทุกห้อง</option><option>บางห้อง</option><option>ไม่มี</option></select></label>
             </div>
             <div id="readyQs"></div>
-            <fieldset><legend>อุปกรณ์เสริมที่ต้องการเพิ่ม</legend><div class="opts" data-multi="accessories"></div></fieldset>
           </section>
 
           <section class="card" id="s4">
-            <div class="card-t"><span class="sec-no">4</span><div><h2>การใช้งานและการดูแลรักษา</h2></div></div>
-            <div class="fgrid">
-              <label class="fld"><span class="req">รูปแบบการใช้ DLTV ปัจจุบัน</span><select class="inp" name="dltvUse"><option value="">— เลือก —</option><option>ใช้สอนสดทุกวิชา</option><option>ใช้บางวิชา</option><option>ใช้คลิปย้อนหลังเป็นหลัก</option><option>ยังไม่ได้ใช้</option></select></label>
-              <label class="fld">ชั่วโมงที่คาดว่าจะใช้ต่อสัปดาห์ต่อห้อง<input class="inp" type="number" min="0" name="hoursPlan"></label>
-              <label class="fld"><span class="req">ครูผู้รับผิดชอบดูแลอุปกรณ์</span><input class="inp" name="caretaker"></label>
+            <div class="card-t"><span class="sec-no">4</span><div><h2>ครูและการใช้ DLTV ในการเรียนการสอน</h2><p>ช่วยให้เห็นว่าโรงเรียนพึ่ง DLTV มากแค่ไหน</p></div></div>
+            <div class="yn"><span class="req">โรงเรียนมีครูครบชั้นหรือไม่</span><div class="opts"><label class="opt"><input type="radio" name="teacherFull" value="ครบชั้น" onchange="toggleTeacher()">ครบทุกชั้น</label><label class="opt"><input type="radio" name="teacherFull" value="ไม่ครบชั้น" onchange="toggleTeacher()">ไม่ครบ ต้องสอนควบชั้น</label></div></div>
+            <div class="fgrid hidden" id="teacherMore">
+              <label class="fld"><span class="req">จำนวนชั้นที่ไม่มีครูประจำชั้น</span><input class="inp" type="number" min="1" name="teacherShort"></label>
+              <label class="fld">ชั้นที่ต้องสอนควบกัน<input class="inp" name="combined" placeholder="เช่น ป.1–ป.2, ป.4–ป.5"></label>
             </div>
-            <label class="check"><input type="checkbox" name="consent1"><span>โรงเรียนยินยอมขึ้นทะเบียนครุภัณฑ์ และดูแลรักษาอุปกรณ์ตามคู่มือ</span></label>
-            <label class="check"><input type="checkbox" name="consent2"><span>ยินยอมส่งคืนหรือจำหน่าย TV เครื่องเดิมที่ชำรุดตามระเบียบ เมื่อได้รับเครื่องใหม่</span></label>
+            <div class="fgrid">
+              <label class="fld"><span class="req">ใช้ DLTV สอนอย่างไร</span><select class="inp" name="dltvUse"><option value="">— เลือก —</option><option>ใช้สอนสดตามตารางทุกวิชา</option><option>ใช้สอนสดบางวิชา</option><option>ใช้คลิปย้อนหลัง / ทบทวนเป็นหลัก</option><option>ใช้แทนครูในชั้นที่ครูไม่ครบ</option><option>ยังไม่ได้ใช้</option></select></label>
+              <label class="fld">ชั่วโมงที่ใช้ DLTV ต่อสัปดาห์ต่อห้อง (โดยประมาณ)<input class="inp" type="number" min="0" name="hoursPlan"></label>
+            </div>
+            <fieldset><legend class="req">วิชาที่ใช้ DLTV สอน (เลือกได้หลายวิชา)</legend><div class="opts" data-multi="subjects"></div></fieldset>
+            <label class="fld">อธิบายการใช้ DLTV เพิ่มเติม<textarea class="inp" name="useNote" rows="2" placeholder="เช่น ใช้สอนคณิตและอังกฤษทุกชั้นเพราะไม่มีครูวิชาเอก"></textarea></label>
           </section>
 
           <section class="card" id="s5">
-            <div class="card-t"><span class="sec-no">5</span><div><h2>ผู้ประสานงานและการรับรอง</h2></div></div>
+            <div class="card-t"><span class="sec-no">5</span><div><h2>ผู้ประสานงาน ผู้อำนวยการ และการรับรอง</h2></div></div>
             <div class="fgrid">
               <label class="fld"><span class="req">ชื่อผู้ประสานงาน</span><input class="inp" name="coordName"></label>
-              <label class="fld">ตำแหน่ง<input class="inp" name="coordPos"></label>
-              <label class="fld"><span class="req">เบอร์โทรศัพท์</span><input class="inp" type="tel" name="coordPhone"></label>
-              <label class="fld">LINE ID<input class="inp" name="coordLine"></label>
+              <label class="fld">ตำแหน่งผู้ประสานงาน<input class="inp" name="coordPos" placeholder="เช่น ครู คศ.1"></label>
+              <label class="fld"><span class="req">เบอร์โทรผู้ประสานงาน</span><input class="inp" type="tel" name="coordPhone"></label>
+            </div>
+            <div class="fgrid">
+              <label class="fld"><span class="req">ชื่อผู้อำนวยการโรงเรียน</span><input class="inp" name="directorName"></label>
+              <label class="fld"><span class="req">ตำแหน่ง</span><select class="inp" name="directorPos"><option>ผู้อำนวยการโรงเรียน</option><option>รักษาการในตำแหน่งผู้อำนวยการโรงเรียน</option><option>ครูรักษาการแทนผู้อำนวยการโรงเรียน</option></select></label>
+              <label class="fld"><span class="req">เบอร์โทรผู้อำนวยการ</span><input class="inp" type="tel" name="directorPhone"></label>
             </div>
             <div class="toolbar"><button type="button" class="btn ghost" onclick="captureGeo()"><svg class="i"><use href="#i-map"/></svg>ใช้พิกัด GPS ปัจจุบัน</button><span class="muted" id="geoText" style="font-size:13px">ใช้ประกอบการวางแผนจัดส่ง</span></div>
-            <label class="fld" style="max-width: 420px"><span class="req">ชื่อผู้อำนวยการโรงเรียน</span><input class="inp" name="directorName"></label>
             <label class="check gold"><input type="checkbox" name="certify"><span>ข้าพเจ้าผู้อำนวยการโรงเรียน ขอรับรองว่าข้อมูลและรูปถ่าย TV ที่ชำรุดเป็นความจริง <b style="color:var(--red)">*</b></span></label>
           </section>
 
@@ -693,7 +699,7 @@ table.compact th, table.compact td { padding: 10px 9px; }
           <div id="regionBars" style="display:flex;flex-direction:column;gap:14px"></div>
         </section>
         <section class="card">
-          <div class="card-t"><span class="tile t-green"><svg class="i"><use href="#i-check"/></svg></span><div><h2>ความพร้อมของห้องเรียน</h2><p>สัดส่วนโรงเรียนที่ยื่นคำขอ</p></div></div>
+          <div class="card-t"><span class="tile t-green"><svg class="i"><use href="#i-check"/></svg></span><div><h2>ครูและความพร้อมของห้องเรียน</h2><p>สัดส่วนโรงเรียนที่ยื่นคำขอ</p></div></div>
           <div id="readyBars" style="display:flex;flex-direction:column;gap:12px"></div>
         </section>
         <section class="card">
@@ -783,7 +789,7 @@ table.compact th, table.compact td { padding: 10px 9px; }
    ตั้งค่าการเชื่อมต่อ Google Sheets (ดูวิธีติดตั้งในไฟล์ Code.gs)
    ถ้าเว้น APPS_SCRIPT_URL ว่าง ระบบจะทำงานในโหมดทดลอง เก็บข้อมูลในเบราว์เซอร์นี้เท่านั้น
    ═══════════════════════════════════════════════════════════ */
-const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzWP2OihAVF2pBwv1XWJQYiHf4X858y34xon_9Q7nKI0hqNzQ4NBZb84d3O5qcLRohd/exec';
+const APPS_SCRIPT_URL = '';
 const LOCAL_ADMIN_PASSWORD = 'admin';   // ใช้เฉพาะโหมดทดลอง · โหมดจริงตั้งที่ ADMIN_PASSWORD ใน Code.gs
 
 /* ทะเบียนโรงเรียนเป้าหมาย
@@ -795,7 +801,7 @@ const YEARS = ['2562', '2563', '2564', '2565', '2566'];
 const GRADES = ['อ.1', 'อ.2', 'อ.3', 'ป.1', 'ป.2', 'ป.3', 'ป.4', 'ป.5', 'ป.6', 'ม.1', 'ม.2', 'ม.3'];
 const TV_STATES = ['ใช้งานได้', 'ชำรุด', 'ไม่มี TV'];
 const SYMPTOMS = ['เปิดไม่ติด', 'จอเป็นเส้น / ภาพไม่ชัด', 'จอแตก / จอดำ', 'ไม่มีเสียง', 'รับสัญญาณไม่ได้ / ช่องต่อเสีย', 'เปิดติดแล้วดับเอง', 'อื่น ๆ'];
-const ACCESSORIES = ['กล่องรับสัญญาณดาวเทียม', 'ปลั๊กกันไฟกระชาก', 'สาย HDMI', 'ตู้ล็อกจอ'];
+const SUBJECTS = ['ภาษาไทย', 'คณิตศาสตร์', 'วิทยาศาสตร์และเทคโนโลยี', 'สังคมศึกษาฯ', 'ประวัติศาสตร์', 'สุขศึกษาและพลศึกษา', 'ศิลปะ', 'การงานอาชีพ', 'ภาษาอังกฤษ', 'กิจกรรมพัฒนาผู้เรียน'];
 const READY_QS = [
   { k: 'outlet', t: 'มีเต้ารับไฟฟ้าใกล้จุดตั้งจอในทุกห้องที่ขอ', good: 'yes', dash: 'มีเต้ารับไฟฟ้าในห้องเรียน' },
   { k: 'powerIssue', t: 'ไฟฟ้าตกหรือดับบ่อย (มากกว่า 1 ครั้ง/สัปดาห์)', good: 'no', dash: 'ไฟฟ้าเสถียร' },
@@ -907,20 +913,25 @@ document.addEventListener('keydown', (e) => {
 
 /* ─── scoring ─── */
 const CRITERIA = [
-  { k: 'cond', t: 'สัดส่วนชั้นที่ TV ชำรุด/ไม่มี', w: 35, col: '#E5484D' },
-  { k: 'ratio', t: 'นักเรียนต่อจอที่ใช้ได้', w: 25, col: '#F08C1A' },
-  { k: 'remote', t: 'พื้นที่ห่างไกล / เกาะ / ชายแดน', w: 20, col: '#0EA5A8' },
-  { k: 'ready', t: 'ความพร้อมของห้องเรียน', w: 15, col: '#12A06A' },
+  { k: 'cond', t: 'สัดส่วนชั้นที่ TV ชำรุด/ไม่มี', w: 30, col: '#E5484D' },
+  { k: 'teacher', t: 'ครูไม่ครบชั้น ต้องพึ่ง DLTV', w: 20, col: '#F5B301' },
+  { k: 'ratio', t: 'นักเรียนต่อจอที่ใช้ได้', w: 20, col: '#F08C1A' },
+  { k: 'remote', t: 'พื้นที่ห่างไกล / เกาะ / ชายแดน', w: 15, col: '#0EA5A8' },
+  { k: 'ready', t: 'ความพร้อมของห้องเรียน', w: 10, col: '#12A06A' },
   { k: 'photo', t: 'แนบรูปครบทุกเครื่องที่ชำรุด', w: 5, col: '#7C5CFC' }
 ];
+const CRIT_MAX = Math.max(...CRITERIA.map(c => c.w));
+/* ครูไม่ครบชั้น: ได้อย่างน้อย 10 คะแนน และเต็ม 20 เมื่อขาดครู 3 ชั้นขึ้นไป */
+function teacherScore(f) { if (f.teacherFull !== 'ไม่ครบชั้น') return 0; return Math.max(10, 20 * Math.min(num(f.teacherShort) / 3, 1)); }
 function scoreOf(r) {
   const f = r.form || {}, rooms = roomsOf(r), n = Math.max(rooms.length, 1);
   const working = rooms.filter(x => x.state === 'ใช้งานได้').length, broken = brokenRooms(r);
   const parts = {
-    cond: 35 * (n - working) / n,
-    ratio: 25 * Math.min(num(f.students) / Math.max(working, 1) / 40, 1),
-    remote: f.special && f.special !== 'ไม่ใช่' ? 20 : 0,
-    ready: 15 * READY_QS.filter(q => (f.ready || {})[q.k] === q.good).length / READY_QS.length,
+    cond: 30 * (n - working) / n,
+    teacher: teacherScore(f),
+    ratio: 20 * Math.min(num(f.students) / Math.max(working, 1) / 40, 1),
+    remote: f.special && f.special !== 'ไม่ใช่' ? 15 : 0,
+    ready: 10 * READY_QS.filter(q => (f.ready || {})[q.k] === q.good).length / READY_QS.length,
     photo: broken.length && broken.every(x => x.photo) ? 5 : 0
   };
   return { total: Math.round(Object.values(parts).reduce((a, b) => a + b, 0)), parts };
@@ -1010,7 +1021,8 @@ function flatten(r) {
     'จำนวนห้อง/ชั้น': rooms.length, 'TV ใช้งานได้': rooms.filter(x => x.state === 'ใช้งานได้').length, 'TV ชำรุด (ขอ)': tvBroken(r), 'ไม่มี TV': rooms.filter(x => x.state === 'ไม่มี TV').length,
     'ชั้นที่ชำรุด': brokenRooms(r).map(x => x.name).join(', '), 'อนุมัติ (ชุด)': a.tv || '', 'ชั้นที่อนุมัติ': (a.rooms || []).join(', '),
     'วันที่ยื่น': r.submittedAt || '', 'วันที่อนุมัติ': a.at || '', 'หมายเหตุเจ้าหน้าที่': (r.review && r.review.note) || a.note || '',
-    'ผู้ประสานงาน': f.coordName || '', 'เบอร์โทร': f.coordPhone ? "'" + f.coordPhone : '', 'ผู้อำนวยการ': f.directorName || '',
+    'ผู้ประสานงาน': f.coordName || '', 'เบอร์โทร': f.coordPhone ? "'" + f.coordPhone : '', 'ครูครบชั้น': f.teacherFull || '', 'ชั้นที่ไม่มีครู': f.teacherFull === 'ไม่ครบชั้น' ? f.teacherShort : '', 'การใช้ DLTV': f.dltvUse || '', 'วิชาที่ใช้ DLTV': (f.subjects || []).join(', '),
+    'ผู้อำนวยการ': f.directorName || '', 'ตำแหน่ง ผอ.': f.directorPos || '', 'เบอร์ ผอ.': f.directorPhone ? "'" + f.directorPhone : '',
     'โฟลเดอร์รูป': s.name ? folderName(s0.name ? s0 : s) : '', 'อัปเดตล่าสุด': r.updatedAt || ''
   };
 }
@@ -1153,7 +1165,9 @@ function renderDash() {
     return `<div class="rg"><div class="top"><b>${rg}</b><span class="muted">อนุมัติ ${fmt(ok)} · ขอ ${fmt(rr.length)} / ${fmt(tot)}</span></div>
       <div class="stack" style="height:12px">${ok ? `<i style="width:${pct(ok, tot)}%;background:var(--green)"></i>` : ''}${wait ? `<i style="width:${pct(wait, tot)}%;background:#9DB7F0"></i>` : ''}</div></div>`;
   }).join('');
-  $('readyBars').innerHTML = READY_QS.map(q => { const ok = active.filter(r => ((r.form || {}).ready || {})[q.k] === q.good).length, p = Math.round(pct(ok, active.length)); return `<div class="pct"><div class="top"><span>${q.dash}</span><b>${active.length ? p + '%' : '—'}</b></div><div class="bar" style="margin:0"><i style="width:${p}%;background:var(--green)"></i></div></div>`; }).join('');
+  const short = active.filter(r => (r.form || {}).teacherFull === 'ไม่ครบชั้น').length, pS = Math.round(pct(short, active.length));
+  $('readyBars').innerHTML = `<div class="pct"><div class="top"><span><b>ครูไม่ครบชั้น (ต้องสอนควบ)</b></span><b style="color:var(--amber-ink)">${active.length ? pS + '% · ' + fmt(short) + ' โรง' : '—'}</b></div><div class="bar" style="margin:0"><i style="width:${pS}%;background:var(--amber)"></i></div></div>`
+    + READY_QS.map(q => { const ok = active.filter(r => ((r.form || {}).ready || {})[q.k] === q.good).length, p = Math.round(pct(ok, active.length)); return `<div class="pct"><div class="top"><span>${q.dash}</span><b>${active.length ? p + '%' : '—'}</b></div><div class="bar" style="margin:0"><i style="width:${p}%;background:var(--green)"></i></div></div>`; }).join('');
 
   const pm = {};
   active.forEach(r => { const p = schoolOf(r).province || '-'; pm[p] = pm[p] || { n: 0, tv: 0, ok: 0, wait: 0 }; pm[p].n++; pm[p].tv += tvBroken(r); if (r.status === 'approved') pm[p].ok += tvApproved(r); else pm[p].wait += tvBroken(r); });
@@ -1170,12 +1184,13 @@ function gotoStage(k) { if (k === 'none') return; UI.apFilter = k; UI.apLimit = 
 /* ═════════ FORM ═════════ */
 function buildFormStatic() {
   $('gradeOpts').innerHTML = GRADES.map(g => `<label class="opt"><input type="checkbox" name="grades" value="${g}" onchange="syncGradeRows()">${g}</label>`).join('');
-  document.querySelector('[data-multi="accessories"]').innerHTML = ACCESSORIES.map(g => `<label class="opt"><input type="checkbox" name="accessories" value="${g}">${g}</label>`).join('');
+  document.querySelector('[data-multi="subjects"]').innerHTML = SUBJECTS.map(g => `<label class="opt"><input type="checkbox" name="subjects" value="${g}">${g}</label>`).join('');
   $('readyQs').innerHTML = READY_QS.map(q => `<div class="yn"><span class="req">${q.t}</span><div class="opts"><label class="opt"><input type="radio" name="ready_${q.k}" value="yes">ใช่</label><label class="opt"><input type="radio" name="ready_${q.k}" value="no">ไม่ใช่</label></div></div>`).join('');
   const clr = (e) => { if (e.target.classList) e.target.classList.remove('invalid'); updateToc(); };
   $('reqForm').addEventListener('change', clr); $('reqForm').addEventListener('input', clr);
 }
 /* แถวตามชั้นที่เลือก: เพิ่มแถวให้ชั้นที่ยังไม่มี และลบแถวที่ยังไม่ได้กรอกของชั้นที่ถูกเอาออก */
+function toggleTeacher() { const el = document.querySelector('[name=teacherFull]:checked'); $('teacherMore').classList.toggle('hidden', !el || el.value !== 'ไม่ครบชั้น'); }
 function syncGradeRows() {
   const sel = [...document.querySelectorAll('[name=grades]:checked')].map(x => x.value);
   UI.rooms = UI.rooms.filter(r => r.custom || sel.includes(r.grade) || r.photo || r.state === 'ชำรุด');
@@ -1261,7 +1276,7 @@ async function pickSchool(sid) {
   UI.formSchool = s; $('schoolQ').value = s.name; $('schoolBox').innerHTML = schoolBoxHtml(s);
   const f = $('reqForm');
   f.students.value = s.students || ''; f.teachers.value = s.teachers || '';
-  f.coordName.value = s.coord || ''; f.coordPhone.value = s.phone || ''; f.directorName.value = s.director || '';
+  f.coordName.value = s.coord || ''; f.coordPhone.value = s.phone || ''; f.directorName.value = String(s.director || '').replace(/\s+/g, ' ');
   updateToc();
 }
 function sectionDone() {
@@ -1271,8 +1286,8 @@ function sectionDone() {
     1: !!UI.formSchool && checked('grades') && v('students') && v('teachers'),
     2: UI.rooms.length > 0 && UI.rooms.every(r => String(r.name).trim() && r.state) && br.length > 0 && br.every(r => r.photo && r.symptom) && v('reason'),
     3: v('signal') && v('dish') && READY_QS.every(q => checked('ready_' + q.k)),
-    4: v('dltvUse') && v('caretaker') && f.consent1.checked && f.consent2.checked,
-    5: v('coordName') && v('coordPhone') && v('directorName') && f.certify.checked
+    4: checked('teacherFull') && (f.querySelector('[name=teacherFull]:checked').value !== 'ไม่ครบชั้น' || v('teacherShort')) && v('dltvUse') && (v('dltvUse') === 'ยังไม่ได้ใช้' || checked('subjects')),
+    5: v('coordName') && v('coordPhone') && v('directorName') && v('directorPos') && v('directorPhone') && f.certify.checked
   };
 }
 function updateToc() {
@@ -1286,9 +1301,10 @@ function collectForm() {
   return {
     product: PRODUCT, grades: multi('grades'), students: num(v('students')), teachers: num(v('teachers')), special: v('special'),
     rooms: UI.rooms.map(r => ({ grade: r.grade, name: String(r.name).trim(), students: num(r.students), state: r.state, symptom: r.state === 'ชำรุด' ? r.symptom : '', detail: r.state === 'ชำรุด' ? r.detail : '', photo: r.state === 'ชำรุด' ? r.photo : '', photoTag: r.state === 'ชำรุด' ? r.photoTag : '', custom: !!r.custom })),
-    reason: v('reason'), signal: v('signal'), dish: v('dish'), internet: v('internet'), ready, accessories: multi('accessories'),
-    dltvUse: v('dltvUse'), hoursPlan: num(v('hoursPlan')), caretaker: v('caretaker'), consent1: f.consent1.checked, consent2: f.consent2.checked,
-    coordName: v('coordName'), coordPos: v('coordPos'), coordPhone: v('coordPhone'), coordLine: v('coordLine'), geo: UI.geo, directorName: v('directorName'), certify: f.certify.checked
+    reason: v('reason'), signal: v('signal'), dish: v('dish'), internet: v('internet'), ready,
+    teacherFull: (f.querySelector('[name=teacherFull]:checked') || {}).value || '', teacherShort: num(v('teacherShort')), combined: v('combined'),
+    dltvUse: v('dltvUse'), hoursPlan: num(v('hoursPlan')), subjects: multi('subjects'), useNote: v('useNote'),
+    coordName: v('coordName'), coordPos: v('coordPos'), coordPhone: v('coordPhone'), geo: UI.geo, directorName: v('directorName'), directorPos: v('directorPos'), directorPhone: v('directorPhone'), certify: f.certify.checked
   };
 }
 function loadIntoForm(rec) {
@@ -1296,10 +1312,11 @@ function loadIntoForm(rec) {
   const s = SCHOOL_BY_ID.get(rec.sid) || schoolOf(rec), d = rec.form || {}, f = $('reqForm');
   UI.formSchool = s; UI.editing = clone(rec);
   $('schoolQ').value = s.name; $('schoolBox').innerHTML = schoolBoxHtml(s);
-  ['students', 'teachers', 'special', 'reason', 'signal', 'dish', 'internet', 'dltvUse', 'hoursPlan', 'caretaker', 'coordName', 'coordPos', 'coordPhone', 'coordLine', 'directorName'].forEach(k => { if (f[k] && d[k] != null) f[k].value = d[k]; });
-  ['grades', 'accessories'].forEach(n => f.querySelectorAll(`[name="${n}"]`).forEach(x => x.checked = (d[n] || []).includes(x.value)));
+  ['students', 'teachers', 'special', 'reason', 'signal', 'dish', 'internet', 'dltvUse', 'hoursPlan', 'teacherShort', 'combined', 'useNote', 'coordName', 'coordPos', 'coordPhone', 'directorName', 'directorPos', 'directorPhone'].forEach(k => { if (f[k] && d[k] != null) f[k].value = d[k]; });
+  f.querySelectorAll('[name=teacherFull]').forEach(x => x.checked = d.teacherFull === x.value); toggleTeacher();
+  ['grades', 'subjects'].forEach(n => f.querySelectorAll(`[name="${n}"]`).forEach(x => x.checked = (d[n] || []).includes(x.value)));
   READY_QS.forEach(q => f.querySelectorAll(`[name="ready_${q.k}"]`).forEach(x => x.checked = (d.ready || {})[q.k] === x.value));
-  f.consent1.checked = !!d.consent1; f.consent2.checked = !!d.consent2; f.certify.checked = false;
+  f.certify.checked = false;
   UI.rooms = (d.rooms || []).map(r => Object.assign(newRoom(r.grade, r.name), r)); UI.geo = d.geo || null;
   $('geoText').textContent = UI.geo ? `พิกัด ${UI.geo.lat.toFixed(5)}, ${UI.geo.lng.toFixed(5)}` : 'ใช้ประกอบการวางแผนจัดส่ง';
   renderRooms();
@@ -1313,7 +1330,7 @@ function resetForm(ask) {
     $('reqForm').reset(); UI.formSchool = null; UI.rooms = []; UI.geo = null; UI.editing = null;
     $('schoolQ').value = ''; $('schoolBox').innerHTML = ''; $('formStatus').innerHTML = '';
     $('geoText').textContent = 'ใช้ประกอบการวางแผนจัดส่ง'; $('submitBtn').innerHTML = ic('check') + 'ส่งคำขอรับจัดสรร'; $('submitBtn').disabled = false;
-    $('reqForm').querySelectorAll('.invalid').forEach(x => x.classList.remove('invalid')); renderRooms();
+    $('reqForm').querySelectorAll('.invalid').forEach(x => x.classList.remove('invalid')); $('teacherMore').classList.add('hidden'); renderRooms();
   };
   if (!ask) return go();
   confirmPop('ล้างแบบฟอร์ม?', 'ข้อมูลและรูปที่กรอกไว้จะหายทั้งหมด', 'ล้างข้อมูล', true).then(ok => { if (ok) go(); });
@@ -1337,9 +1354,9 @@ async function submitRequest() {
     if (UI.rooms.length && !br.length && UI.rooms.every(r => r.state)) tips.push('ต้องมี TV ที่ชำรุดอย่างน้อย 1 เครื่องจึงจะขอทดแทนได้');
     const noPhoto = br.filter(r => !r.photo).map(r => r.name); if (noPhoto.length) tips.push('แนบรูป TV ชำรุดของชั้น ' + noPhoto.join(', '));
     const noSym = br.filter(r => !r.symptom).map(r => r.name); if (noSym.length) tips.push('เลือกอาการชำรุดของชั้น ' + noSym.join(', '));
-    ['students', 'teachers', 'reason', 'signal', 'dish', 'dltvUse', 'caretaker', 'coordName', 'coordPhone', 'directorName'].forEach(n => { if (!String(f[n].value).trim()) f[n].classList.add('invalid'); });
-    const names = { 1: 'ข้อมูลโรงเรียน', 2: 'TV รายชั้นเรียน', 3: 'สัญญาณและความพร้อม', 4: 'การใช้งานและการดูแล', 5: 'ผู้ประสานงานและรับรอง' };
-    miss.forEach(k => { if (k === '3' && !READY_QS.every(q => f.querySelector(`[name=ready_${q.k}]:checked`))) tips.push('ตอบคำถามความพร้อมให้ครบ 5 ข้อ'); if (k === '4' && !(f.consent1.checked && f.consent2.checked)) tips.push('ติ๊กยินยอมการดูแลอุปกรณ์ทั้ง 2 ข้อ'); if (k === '5' && !f.certify.checked) tips.push('ติ๊กรับรองข้อมูลโดยผู้อำนวยการ'); });
+    ['students', 'teachers', 'reason', 'signal', 'dish', 'dltvUse', 'coordName', 'coordPhone', 'directorName', 'directorPhone'].forEach(n => { if (!String(f[n].value).trim()) f[n].classList.add('invalid'); });
+    const names = { 1: 'ข้อมูลโรงเรียน', 2: 'TV รายชั้นเรียน', 3: 'สัญญาณและความพร้อม', 4: 'ครูและการใช้ DLTV', 5: 'ผู้ประสานงานและผู้อำนวยการ' };
+    miss.forEach(k => { if (k === '3' && !READY_QS.every(q => f.querySelector(`[name=ready_${q.k}]:checked`))) tips.push('ตอบคำถามความพร้อมให้ครบ 5 ข้อ'); if (k === '4') { if (!f.querySelector('[name=teacherFull]:checked')) tips.push('ตอบว่ามีครูครบชั้นหรือไม่'); else if (f.querySelector('[name=teacherFull]:checked').value === 'ไม่ครบชั้น' && !f.teacherShort.value) { tips.push('ระบุจำนวนชั้นที่ไม่มีครูประจำชั้น'); f.teacherShort.classList.add('invalid'); } if (f.dltvUse.value && f.dltvUse.value !== 'ยังไม่ได้ใช้' && !f.querySelector('[name=subjects]:checked')) tips.push('เลือกวิชาที่ใช้ DLTV สอนอย่างน้อย 1 วิชา'); } if (k === '5' && !f.certify.checked) tips.push('ติ๊กรับรองข้อมูลโดยผู้อำนวยการ'); });
     await popup({ type: 'warn', title: 'ยังกรอกข้อมูลไม่ครบ', msg: `หัวข้อที่ต้องแก้: <b>${miss.map(k => names[k]).join(', ')}</b><ul>${[...new Set(tips)].slice(0, 6).map(t => `<li>${esc(t)}</li>`).join('') || '<li>ช่องที่มีกรอบสีแดง</li>'}</ul>`, ok: 'ไปแก้ไข' });
     $('s' + miss[0]).scrollIntoView({ behavior: 'smooth', block: 'start' });
     return;
@@ -1406,7 +1423,7 @@ function renderQuota() {
     <div class="bar"><i style="width:${Math.min(100, pct(ok, broken))}%"></i></div>
     <div class="row"><span>อนุมัติแล้ว <b>${fmt(ok)}</b></span><span>รอพิจารณา <b>${fmt(waitN)}</b></span></div>
     ${num(SETTINGS.price) ? `<div class="row"><span>งบที่อนุมัติแล้ว</span><b>${fmt(ok * num(SETTINGS.price))} บาท</b></div>` : ''}`;
-  $('criteria').innerHTML = CRITERIA.map(c => `<div class="crit"><div class="top"><span>${c.t}</span><b>${c.w}</b></div><div class="bar" style="margin:0"><i style="width:${c.w / 35 * 100}%;background:${c.col}"></i></div></div>`).join('');
+  $('criteria').innerHTML = CRITERIA.map(c => `<div class="crit"><div class="top"><span>${c.t}</span><b>${c.w}</b></div><div class="bar" style="margin:0"><i style="width:${c.w / CRIT_MAX * 100}%;background:${c.col}"></i></div></div>`).join('');
 }
 const AP_F = [['submitted', 'รอตรวจสอบ', ['submitted']], ['reviewed', 'รออนุมัติ', ['reviewed']], ['returned', 'ส่งกลับแก้ไข', ['returned']], ['approved', 'อนุมัติแล้ว', ['approved']], ['rejected', 'ไม่อนุมัติ', ['rejected']], ['all', 'ทั้งหมด', null]];
 function renderApprove() {
@@ -1472,8 +1489,9 @@ function openRequest(id) {
     <div class="dsec"><h3>TV ทุกชั้นเรียน</h3><div class="tbl-box"><table class="compact"><thead><tr><th>ชั้น/ห้อง</th><th class="r">นักเรียน</th><th>สถานะ TV</th><th>อาการ</th></tr></thead><tbody>${rooms.map(x => `<tr><td>${esc(x.name)}</td><td class="r">${fmt(x.students)}</td><td><span class="badge ${x.state === 'ชำรุด' ? 'b-red' : x.state === 'ใช้งานได้' ? 'b-green' : 'b-gray'} plain">${esc(x.state)}</span></td><td>${esc(x.symptom || '')}</td></tr>`).join('')}</tbody></table></div></div>
     <div class="dsec"><h3>คะแนนลำดับความสำคัญ ${sc.total} / 100</h3><div style="display:flex;flex-direction:column;gap:8px">${CRITERIA.map(c => `<div class="hbar" style="grid-template-columns:minmax(150px,230px) minmax(0,1fr) 54px"><span style="font-size:13px">${c.t}</span><div class="track"><i style="width:${pct(sc.parts[c.k], c.w)}%;background:${c.col}"></i></div><b>${sc.parts[c.k].toFixed(0)}/${c.w}</b></div>`).join('')}</div></div>
     <div class="dsec"><h3>ข้อมูลโรงเรียน</h3>${kv([['รหัสกระทรวง / SMIS', `${esc(s.moe || '—')} / ${esc(s.smis || '—')}`], ['อำเภอ / จังหวัด', esc(s.amphoe + ', ' + s.province)], ['สังกัด', esc(s.aff || '')], ['เป็นเป้าหมายมูลนิธิ', yearLabel(s)], ['TV เดิมจากมูลนิธิ', `55" × ${fmt(s.tv55)} · 49" × ${fmt(s.tv49)}`], ['นักเรียน / ครู', `${fmt(f.students)} / ${fmt(f.teachers)}`], ['พื้นที่พิเศษ', esc(f.special)], ['เหตุผล', esc(f.reason)]])}</div>
-    <div class="dsec"><h3>สัญญาณและความพร้อม</h3>${kv([['ช่องทางรับสัญญาณ', esc(f.signal)], ['จานและกล่องรับสัญญาณ', esc(f.dish)], ['อินเทอร์เน็ต', esc(f.internet)], ['อุปกรณ์เสริมที่ขอ', esc((f.accessories || []).join(', '))]].concat(READY_QS.map(q => [q.t, yn(q)])))}</div>
-    <div class="dsec"><h3>การใช้งานและผู้ประสานงาน</h3>${kv([['การใช้ DLTV', esc(f.dltvUse)], ['ครูผู้ดูแล', esc(f.caretaker)], ['ผู้ประสานงาน', esc(f.coordName) + (f.coordPos ? ' (' + esc(f.coordPos) + ')' : '')], ['โทร / LINE', esc(f.coordPhone) + (f.coordLine ? ' · ' + esc(f.coordLine) : '')], ['ผู้อำนวยการ', esc(f.directorName)], ['พิกัด', f.geo ? `<a href="https://www.google.com/maps?q=${f.geo.lat},${f.geo.lng}" target="_blank" rel="noopener">${f.geo.lat.toFixed(5)}, ${f.geo.lng.toFixed(5)}</a>` : ''], ['โฟลเดอร์รูปใน Drive', esc(folderName(s))]])}</div>
+    <div class="dsec"><h3>สัญญาณและความพร้อม</h3>${kv([['ช่องทางรับสัญญาณ', esc(f.signal)], ['จานและกล่องรับสัญญาณ', esc(f.dish)], ['อินเทอร์เน็ต', esc(f.internet)]].concat(READY_QS.map(q => [q.t, yn(q)])))}</div>
+    <div class="dsec"><h3>ครูและการใช้ DLTV</h3>${kv([['ครูครบชั้น', f.teacherFull === 'ไม่ครบชั้น' ? `<span class="badge b-amber plain">ไม่ครบ ${fmt(f.teacherShort)} ชั้น</span>${f.combined ? ' ' + esc(f.combined) : ''}` : f.teacherFull ? '<span class="badge b-green plain">ครบทุกชั้น</span>' : ''], ['ใช้ DLTV สอน', esc(f.dltvUse)], ['ชั่วโมง/สัปดาห์/ห้อง', f.hoursPlan ? fmt(f.hoursPlan) : ''], ['วิชาที่ใช้', esc((f.subjects || []).join(', '))], ['รายละเอียดเพิ่มเติม', esc(f.useNote)]])}</div>
+    <div class="dsec"><h3>ผู้ประสานงานและผู้อำนวยการ</h3>${kv([['ผู้ประสานงาน', esc(f.coordName) + (f.coordPos ? ' (' + esc(f.coordPos) + ')' : '')], ['เบอร์ผู้ประสานงาน', esc(f.coordPhone)], ['ผู้อำนวยการ', esc(f.directorName) + (f.directorPos ? '<br><span class="muted">' + esc(f.directorPos) + '</span>' : '')], ['เบอร์ผู้อำนวยการ', esc(f.directorPhone)], ['พิกัด', f.geo ? `<a href="https://www.google.com/maps?q=${f.geo.lat},${f.geo.lng}" target="_blank" rel="noopener">${f.geo.lat.toFixed(5)}, ${f.geo.lng.toFixed(5)}</a>` : ''], ['โฟลเดอร์รูปใน Drive', esc(folderName(s))]])}</div>
     ${editable ? `<div class="dsec"><h3>หมายเหตุถึงโรงเรียน</h3><label class="fld">จำเป็นเมื่อส่งกลับแก้ไข เช่น “รูปชั้น ป.3 ไม่เห็นหน้าจอ”<textarea class="inp" id="ap_note" rows="2">${esc(r.review && r.review.note || '')}</textarea></label></div>` : ''}
     ${r.approval ? `<div class="dsec"><h3>ผลการอนุมัติ</h3>${kv([['จำนวน', `<b>${tvApproved(r)} ชุด</b>`], ['ชั้นที่อนุมัติ', esc((r.approval.rooms || []).join(', '))], ['วันที่อนุมัติ', thDate(r.approval.at)], ['หมายเหตุ', esc(r.approval.note)]])}</div>` : ''}
     <div class="dsec"><h3>ประวัติ</h3><ul class="history">${(r.history || []).map(h => `<li><time>${thDate(h.at, true)}</time><span>${esc(h.text)}${h.by ? ' <span class="muted">· ' + esc(h.by) + '</span>' : ''}</span></li>`).join('')}</ul></div>`;
@@ -1567,6 +1585,8 @@ function buildReport(opt) {
   if (topYr && topYr.tv) findings.push(`กลุ่มโรงเรียนเป้าหมาย${topYr.label} แจ้ง TV ชำรุดมากที่สุด ${fmt(topYr.tv)} เครื่อง จาก ${fmt(topYr.req)} โรงเรียน`);
   const sc = {}; active.forEach(r => brokenRooms(r).forEach(x => { const k = x.symptom || 'ไม่ระบุ'; sc[k] = (sc[k] || 0) + 1; }));
   const se = Object.entries(sc).sort((a, b) => b[1] - a[1]);
+  const shortN = active.filter(r => (r.form || {}).teacherFull === 'ไม่ครบชั้น').length;
+  if (shortN) findings.push(`โรงเรียนที่ยื่นคำขอ ${fmt(shortN)} แห่ง (${P(shortN, active.length)}) มีครูไม่ครบชั้น ต้องสอนควบชั้นและพึ่ง DLTV ในการสอน`);
   if (se.length) findings.push(`อาการชำรุดที่พบมากที่สุดคือ “${se[0][0]}” ${fmt(se[0][1])} เครื่อง (${P(se[0][1], broken)})`);
 
   /* ตาราง */
@@ -1716,7 +1736,7 @@ async function seedDemo() {
     const rooms = grades.map(g => { const st = rnd() < .45 ? 'ชำรุด' : rnd() < .85 ? 'ใช้งานได้' : 'ไม่มี TV'; return { grade: g, name: g, students: 6 + Math.floor(rnd() * 16), state: st, symptom: st === 'ชำรุด' ? pick(SYMPTOMS.slice(0, 6)) : '', detail: st === 'ชำรุด' ? pick(['Samsung 40"', 'LG 43"', 'Sharp 40"', 'TCL 43"']) : '', photo: '', photoTag: '' }; });
     if (!rooms.some(r => r.state === 'ชำรุด')) Object.assign(rooms[0], { state: 'ชำรุด', symptom: 'เปิดไม่ติด' });
     const ready = {}; READY_QS.forEach(q => ready[q.k] = rnd() < .8 ? q.good : (q.good === 'yes' ? 'no' : 'yes'));
-    const form = { product: PRODUCT, grades, students: s.students || 60, teachers: s.teachers || 6, special: rnd() < .2 ? pick(['พื้นที่สูง / ห่างไกล', 'เกาะ', 'ชายแดน']) : 'ไม่ใช่', rooms, reason: 'TV เดิมชำรุด', signal: pick(['จานดาวเทียม', 'ทั้งสองช่องทาง']), dish: pick(['ใช้ได้ครบทุกห้อง', 'ใช้ได้บางห้อง']), internet: pick(['Wi-Fi ครอบคลุมทุกห้อง', 'บางห้อง', 'ไม่มี']), ready, accessories: ['ปลั๊กกันไฟกระชาก'], dltvUse: pick(['ใช้สอนสดทุกวิชา', 'ใช้บางวิชา']), hoursPlan: 18, caretaker: 'ครูผู้รับผิดชอบ', consent1: true, consent2: true, coordName: s.coord || 'ผู้ประสานงาน', coordPos: 'ครู', coordPhone: s.phone || '', coordLine: '', geo: null, directorName: s.director || 'ผู้อำนวยการ', certify: true };
+    const form = { product: PRODUCT, grades, students: s.students || 60, teachers: s.teachers || 6, special: rnd() < .2 ? pick(['พื้นที่สูง / ห่างไกล', 'เกาะ', 'ชายแดน']) : 'ไม่ใช่', rooms, reason: 'TV เดิมชำรุด', signal: pick(['จานดาวเทียม', 'ทั้งสองช่องทาง']), dish: pick(['ใช้ได้ครบทุกห้อง', 'ใช้ได้บางห้อง']), internet: pick(['Wi-Fi ครอบคลุมทุกห้อง', 'บางห้อง', 'ไม่มี']), ready, teacherFull: rnd() < .55 ? 'ไม่ครบชั้น' : 'ครบชั้น', teacherShort: 1 + Math.floor(rnd() * 3), combined: '', dltvUse: pick(['ใช้สอนสดตามตารางทุกวิชา', 'ใช้สอนสดบางวิชา', 'ใช้แทนครูในชั้นที่ครูไม่ครบ']), hoursPlan: 15 + Math.floor(rnd() * 12), subjects: SUBJECTS.filter(() => rnd() < .5), useNote: '', coordName: s.coord || 'ผู้ประสานงาน', coordPos: 'ครู', coordPhone: s.phone || '', geo: null, directorName: s.director || 'ผู้อำนวยการ', directorPos: 'ผู้อำนวยการโรงเรียน', directorPhone: '08x-xxx-xxxx', certify: true };
     const r = { id: 'D' + i, fy: '2570', sid: s.sid, school: { name: s.name, amphoe: s.amphoe, province: s.province, region: s.region, smis: s.smis, moe: s.moe, year: s.year }, status: 'submitted', createdAt: day(i % 60) + 'T09:00:00.000Z', submittedAt: day(i % 60), form, history: [] };
     const br = rooms.filter(x => x.state === 'ชำรุด').map(x => x.name);
     r.history.unshift({ at: r.createdAt, text: `ยื่นคำขอ ${br.length} ชุด`, by: 'โรงเรียน' });

@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="https://dltv.ac.th/themes/default/assets/images/dltv-main-logo.png">
 <title>ระบบจัดสรร TV 55 นิ้ว · โรงเรียนเป้าหมาย DLTV</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -436,6 +437,22 @@ table.compact th, table.compact td { padding: 10px 9px; }
 .unit.off .ph img { filter: grayscale(.8); opacity: .6; }
 .timeline.t4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
 @media (max-width: 900px) { .timeline.t4 { grid-template-columns: repeat(4, minmax(0, 1fr)); } .tl:nth-child(4)::before { display: block; } }
+
+/* โลโก้องค์กร */
+.logos { display: inline-flex; align-items: center; gap: 12px; background: #fff; border-radius: 16px; flex-shrink: 0; }
+.logos img { display: block; height: 100%; width: auto; object-fit: contain; }
+.logos .fb { display: none; }
+.logos:not(:has(img)) { background: var(--navy); color: var(--gold); justify-content: center; }
+.logos:not(:has(img)) .fb { display: block; }
+.lg-land { height: 84px; padding: 12px 22px; margin-bottom: 10px; box-shadow: 0 18px 40px -16px rgba(0,0,0,.45); }
+.lg-land:not(:has(img)) { width: 84px; padding: 0; } .lg-land .fb { width: 40px; height: 40px; }
+.lg-nav { height: 44px; padding: 5px 10px; gap: 8px; border: 1px solid var(--line); border-radius: 12px; }
+.lg-nav:not(:has(img)) { width: 40px; padding: 0; border: none; }
+.lg-side { height: 58px; padding: 8px 12px; gap: 10px; justify-content: center; border-radius: 14px; }
+.lg-side:not(:has(img)) { width: 44px; height: 44px; padding: 0; background: var(--gold); color: var(--navy); }
+.lg-side img { max-width: 46%; }
+@media (max-width: 900px) { .lg-side { height: 44px; align-self: flex-start; } .side-brand { flex-direction: row !important; align-items: center !important; } }
+@media (max-width: 520px) { .lg-nav img + img { display: none; } }
 </style>
 </head>
 <body>
@@ -470,7 +487,7 @@ table.compact th, table.compact td { padding: 10px 9px; }
 <!-- ═════════ LANDING ═════════ -->
 <div id="landing">
   <div class="land-head">
-    <div class="land-logo"><svg class="i"><use href="#i-tv"/></svg></div>
+    <span class="logos lg-land"><img src="https://dltv.ac.th/upload/data/users/0/316/CMS/images/logo%20dlf%20%E0%B8%AA%E0%B8%A1%E0%B8%9A%E0%B8%B9%E0%B8%A3%E0%B8%93%E0%B9%8C.png" alt="มูลนิธิการศึกษาทางไกลผ่านดาวเทียม" onerror="this.remove()"><img src="https://dltv.ac.th/themes/default/assets/images/dltv-main-logo.png" alt="DLTV" onerror="this.remove()"><svg class="i fb" aria-hidden="true"><use href="#i-tv"/></svg></span>
     <h1>ระบบจัดสรร TV 55 นิ้ว พร้อมขาตั้ง<br>ทดแทนเครื่องที่ชำรุด</h1>
     <p>สำหรับโรงเรียนเป้าหมาย DLTV · มูลนิธิการศึกษาทางไกลผ่านดาวเทียม · ปีงบประมาณ <span class="fyText">2570</span></p>
   </div>
@@ -494,7 +511,7 @@ table.compact th, table.compact td { padding: 10px 9px; }
 <!-- ═════════ USER ═════════ -->
 <div id="user" class="hidden">
   <header class="u-nav"><div class="in">
-    <div class="u-brand"><span class="lg"><svg class="i"><use href="#i-tv"/></svg></span><div><b>ระบบจัดสรร TV สำหรับโรงเรียน</b><span>ปีงบประมาณ <span class="fyText">2570</span></span></div></div>
+    <div class="u-brand"><span class="logos lg-nav"><img src="https://dltv.ac.th/upload/data/users/0/316/CMS/images/logo%20dlf%20%E0%B8%AA%E0%B8%A1%E0%B8%9A%E0%B8%B9%E0%B8%A3%E0%B8%93%E0%B9%8C.png" alt="มูลนิธิการศึกษาทางไกลผ่านดาวเทียม" onerror="this.remove()"><img src="https://dltv.ac.th/themes/default/assets/images/dltv-main-logo.png" alt="DLTV" onerror="this.remove()"><svg class="i fb" aria-hidden="true"><use href="#i-tv"/></svg></span><div><b>ระบบจัดสรร TV สำหรับโรงเรียน</b><span>ปีงบประมาณ <span class="fyText">2570</span></span></div></div>
     <div class="toolbar">
       <div class="seg" id="uTabs"><button class="on" data-t="form" onclick="uTab('form')">ยื่นคำขอ</button><button data-t="status" onclick="uTab('status')">ติดตามสถานะ</button></div>
       <button class="btn ghost sm" id="uExit" onclick="goHome()"><svg class="i"><use href="#i-out"/></svg>ออก</button>
@@ -612,7 +629,7 @@ table.compact th, table.compact td { padding: 10px 9px; }
 <!-- ═════════ ADMIN ═════════ -->
 <div id="admin" class="hidden">
   <aside class="side">
-    <div class="side-brand"><span class="lg"><svg class="i"><use href="#i-tv"/></svg></span><div><b>ระบบจัดสรร TV</b><span>Admin · ปีงบ <span class="fyText">2570</span></span></div></div>
+    <div class="side-brand" style="flex-direction:column;align-items:stretch"><span class="logos lg-side"><img src="https://dltv.ac.th/upload/data/users/0/316/CMS/images/logo%20dlf%20%E0%B8%AA%E0%B8%A1%E0%B8%9A%E0%B8%B9%E0%B8%A3%E0%B8%93%E0%B9%8C.png" alt="มูลนิธิการศึกษาทางไกลผ่านดาวเทียม" onerror="this.remove()"><img src="https://dltv.ac.th/themes/default/assets/images/dltv-main-logo.png" alt="DLTV" onerror="this.remove()"><svg class="i fb" aria-hidden="true"><use href="#i-tv"/></svg></span><div><b>ระบบจัดสรร TV</b><span>Admin · ปีงบ <span class="fyText">2570</span></span></div></div>
     <nav class="nav" aria-label="เมนูผู้ดูแลระบบ">
       <span class="nav-label">ภาพรวม</span>
       <button data-p="dash" class="on" onclick="aPage('dash')"><svg class="i"><use href="#i-grid"/></svg>Dashboard</button>
@@ -1038,7 +1055,7 @@ function aPage(p) {
   Object.keys(PAGES).forEach(k => $('p-' + k).classList.toggle('hidden', k !== p));
   $('pgTitle').textContent = PAGES[p][0]; $('pgSub').textContent = PAGES[p][1];
   const refresh = `<button class="btn ghost sm" onclick="reloadAdmin()">${ic('refresh')}รีเฟรช</button>`;
-  $('pgActs').innerHTML = p === 'dash' ? `${refresh}<button class="btn ghost sm" onclick="exportCsv()">${ic('down')}ส่งออก Excel</button>` : p === 'proxy' ? '' : refresh;
+  $('pgActs').innerHTML = p === 'dash' ? `${refresh}<button class="btn ghost sm" onclick="exportCsv()">${ic('down')}ส่งออก Excel</button><button class="btn sm" onclick="openReportDialog()">${ic('down')}ส่งออก PDF (ผู้บริหาร)</button>` : p === 'proxy' ? '' : refresh;
   if (p === 'proxy') mountForm('admin');
   if (p === 'settings') renderSettings();
   window.scrollTo({ top: 0 });
@@ -1497,6 +1514,183 @@ async function applySettings() {
   try { await saveSettingsRemote(); } catch (e) { return; }
   document.querySelectorAll('.fyText').forEach(el => el.textContent = SETTINGS.fy);
   renderAdmin(); renderSettings(); popup({ type: 'success', title: 'บันทึกการตั้งค่าแล้ว', msg: `ปีงบประมาณ ${esc(SETTINGS.fy)}${SETTINGS.price ? ' · ราคา ' + fmt(SETTINGS.price) + ' บาท/ชุด' : ''}` });
+}
+
+/* ═════════ PDF REPORT (สำหรับผู้บริหาร) ═════════ */
+const LOGO_DLF = 'https://dltv.ac.th/upload/data/users/0/316/CMS/images/logo%20dlf%20%E0%B8%AA%E0%B8%A1%E0%B8%9A%E0%B8%B9%E0%B8%A3%E0%B8%93%E0%B9%8C.png';
+const LOGO_DLTV = 'https://dltv.ac.th/themes/default/assets/images/dltv-main-logo.png';
+const TH_MONTH_FULL = ['มกราคม', 'กุมภาพันธ์', 'มีนาคม', 'เมษายน', 'พฤษภาคม', 'มิถุนายน', 'กรกฎาคม', 'สิงหาคม', 'กันยายน', 'ตุลาคม', 'พฤศจิกายน', 'ธันวาคม'];
+function thDateFull(d) { d = d || new Date(); return `${d.getDate()} ${TH_MONTH_FULL[d.getMonth()]} พ.ศ. ${d.getFullYear() + 543}`; }
+
+async function openReportDialog() {
+  const reg = $('fRegion').value, prov = $('fProv').value;
+  const ok = await popup({
+    type: 'info', title: 'ส่งออกรายงาน PDF สำหรับผู้บริหาร',
+    msg: `ขอบเขต: <b>${esc(prov ? 'จ.' + prov : reg || 'ทั่วประเทศ')}</b> <span class="muted">(ตามตัวกรองใน Dashboard)</span>
+      <div style="text-align:left;display:flex;flex-direction:column;gap:8px;margin-top:14px">
+        <label class="check" style="padding:10px 12px"><input type="checkbox" id="rp_sum" checked disabled><span>สรุปภาพรวม ตาราง และกราฟ</span></label>
+        <label class="check" style="padding:10px 12px"><input type="checkbox" id="rp_ok" checked><span>แนบรายชื่อโรงเรียนที่อนุมัติแล้ว</span></label>
+        <label class="check" style="padding:10px 12px"><input type="checkbox" id="rp_wait"><span>แนบรายชื่อโรงเรียนที่รอพิจารณา</span></label>
+      </div>`,
+    ok: 'สร้างรายงาน', cancel: 'ยกเลิก'
+  });
+  if (!ok) return;
+  buildReport({ withApproved: $('rp_ok').checked, withPending: $('rp_wait').checked });
+}
+
+function buildReport(opt) {
+  const reg = $('fRegion').value, prov = $('fProv').value;
+  const scopeText = prov ? 'จังหวัด' + prov : reg || 'ทั่วประเทศ';
+  const inScope = (s) => (!reg || s.region === reg) && (!prov || s.province === prov);
+  const schools = SCHOOLS.filter(s => inScope(s) && !s.closed), total = schools.length;
+  const recs = curRecs().filter(r => inScope(SCHOOL_BY_ID.get(r.sid) || schoolOf(r)));
+  const active = recs.filter(r => r.status !== 'rejected');
+  const appr = recs.filter(r => r.status === 'approved');
+  const pend = recs.filter(r => ['submitted', 'returned', 'reviewed'].includes(r.status));
+  const broken = active.reduce((a, r) => a + tvBroken(r), 0), tvApp = appr.reduce((a, r) => a + tvApproved(r), 0);
+  const tvPend = pend.reduce((a, r) => a + tvBroken(r), 0);
+  const price = num(SETTINGS.price), budget = num(SETTINGS.budget);
+  const money = (n) => n >= 1e6 ? (n / 1e6).toLocaleString('th-TH', { maximumFractionDigits: 2 }) + ' ล้านบาท' : fmt(n) + ' บาท';
+  const P = (a, b) => b ? (a / b * 100).toFixed(1) + '%' : '—';
+  const bar = (p, c) => `<div class="mb"><i style="width:${Math.min(100, p)}%;background:${c}"></i></div>`;
+
+  /* ข้อสรุปสำคัญ */
+  const findings = [];
+  findings.push(`โรงเรียนยื่นคำขอแล้ว ${fmt(active.length)} แห่ง จากโรงเรียนเป้าหมาย ${fmt(total)} แห่ง (${P(active.length, total)}) แจ้ง TV ชำรุดรวม ${fmt(broken)} เครื่อง เฉลี่ย ${(active.length ? broken / active.length : 0).toFixed(1)} เครื่องต่อโรงเรียน`);
+  findings.push(`อนุมัติแล้ว ${fmt(tvApp)} ชุด ให้ ${fmt(appr.length)} โรงเรียน คิดเป็น ${P(tvApp, broken)} ของเครื่องที่ชำรุด${price ? ` ใช้งบประมาณ ${money(tvApp * price)}` : ''}`);
+  if (pend.length) findings.push(`ยังรอพิจารณา ${fmt(pend.length)} โรงเรียน รวม ${fmt(tvPend)} เครื่อง${price ? ` (ประมาณ ${money(tvPend * price)} หากอนุมัติทั้งหมด)` : ''}`);
+  const yr = YEARS.concat(['']).map(y => {
+    const sc = schools.filter(s => (s.year || '') === y), rr = active.filter(r => ((SCHOOL_BY_ID.get(r.sid) || {}).year || '') === y);
+    return { label: y ? 'ปี ' + y : 'ไม่ระบุ', target: sc.length, req: rr.length, tv: rr.reduce((a, r) => a + tvBroken(r), 0), old: rr.reduce((a, r) => a + oldTv(SCHOOL_BY_ID.get(r.sid) || {}), 0), appr: rr.filter(r => r.status === 'approved').reduce((a, r) => a + tvApproved(r), 0) };
+  }).filter(x => x.target || x.req);
+  const topYr = yr.slice().sort((a, b) => b.tv - a.tv)[0];
+  if (topYr && topYr.tv) findings.push(`กลุ่มโรงเรียนเป้าหมาย${topYr.label} แจ้ง TV ชำรุดมากที่สุด ${fmt(topYr.tv)} เครื่อง จาก ${fmt(topYr.req)} โรงเรียน`);
+  const sc = {}; active.forEach(r => brokenRooms(r).forEach(x => { const k = x.symptom || 'ไม่ระบุ'; sc[k] = (sc[k] || 0) + 1; }));
+  const se = Object.entries(sc).sort((a, b) => b[1] - a[1]);
+  if (se.length) findings.push(`อาการชำรุดที่พบมากที่สุดคือ “${se[0][0]}” ${fmt(se[0][1])} เครื่อง (${P(se[0][1], broken)})`);
+
+  /* ตาราง */
+  const regRows = REGIONS.filter(r => !reg || r === reg).map(rg => {
+    const tot = schools.filter(s => s.region === rg).length, rr = active.filter(r => (SCHOOL_BY_ID.get(r.sid) || schoolOf(r)).region === rg);
+    const ok = rr.filter(r => r.status === 'approved');
+    return { rg, tot, req: rr.length, tv: rr.reduce((a, r) => a + tvBroken(r), 0), okN: ok.length, okTv: ok.reduce((a, r) => a + tvApproved(r), 0) };
+  });
+  const pm = {};
+  active.forEach(r => { const s = SCHOOL_BY_ID.get(r.sid) || schoolOf(r), p = s.province || '-'; pm[p] = pm[p] || { n: 0, tv: 0, ok: 0 }; pm[p].n++; pm[p].tv += tvBroken(r); if (r.status === 'approved') pm[p].ok += tvApproved(r); });
+  const provRows = Object.entries(pm).map(([p, v]) => ({ p, ...v })).sort((a, b) => b.tv - a.tv).slice(0, 15);
+  const gc = {}; GRADES.forEach(g => gc[g] = 0);
+  active.forEach(r => brokenRooms(r).forEach(x => { const g = GRADES.find(g => String(x.name).startsWith(g)) || 'อื่น ๆ'; gc[g] = (gc[g] || 0) + 1; }));
+  const gk = Object.keys(gc).filter(k => gc[k]), gmax = Math.max(1, ...gk.map(k => gc[k]));
+  const stages = [['ยังไม่ยื่นคำขอ', Math.max(0, total - recs.length), '#CBD5E1'], ['รอตรวจสอบ', recs.filter(r => r.status === 'submitted').length, '#9DB7F0'], ['ส่งกลับแก้ไข', recs.filter(r => r.status === 'returned').length, '#B6A6FF'], ['รออนุมัติ', recs.filter(r => r.status === 'reviewed').length, '#3B9EFF'], ['อนุมัติแล้ว', appr.length, '#12A06A'], ['ไม่อนุมัติ', recs.filter(r => r.status === 'rejected').length, '#E5484D']];
+  const stT = stages.reduce((a, s) => a + s[1], 0) || 1;
+  const sum = (arr, k) => arr.reduce((a, x) => a + x[k], 0);
+
+  const listRows = (arr, approved) => arr.map(r => ({ r, s: SCHOOL_BY_ID.get(r.sid) || schoolOf(r) }))
+    .sort((a, b) => (a.s.region || '').localeCompare(b.s.region || '', 'th') || (a.s.province || '').localeCompare(b.s.province || '', 'th') || (a.s.name || '').localeCompare(b.s.name || '', 'th'))
+    .map((x, i) => `<tr><td class="c">${i + 1}</td><td>${esc(x.s.name)}</td><td class="c">${esc(x.s.moe || x.s.smis || '')}</td><td>${esc(x.s.amphoe || '')}</td><td>${esc(x.s.province || '')}</td><td>${esc(approved ? (x.r.approval.rooms || []).join(', ') : brokenRooms(x.r).map(y => y.name).join(', '))}</td><td class="r"><b>${approved ? tvApproved(x.r) : tvBroken(x.r)}</b></td>${approved ? '' : `<td>${esc(STATUS[x.r.status].t)}</td>`}</tr>`).join('');
+
+  const html = `<!DOCTYPE html><html lang="th"><head><meta charset="UTF-8"><title>รายงานจัดสรร TV 55 นิ้ว ปีงบ ${esc(SETTINGS.fy)} - ${esc(scopeText)}</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+@page { size: A4; margin: 14mm 13mm 16mm; @bottom-center { content: "หน้า " counter(page) " / " counter(pages); font: 9pt 'Noto Sans Thai', sans-serif; color: #6B7690; } }
+* { box-sizing: border-box; margin: 0; padding: 0; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+body { font-family: 'Noto Sans Thai', sans-serif; color: #0F1B33; font-size: 10.5pt; line-height: 1.55; background: #E9EDF5; }
+.sheet { width: 210mm; margin: 0 auto; background: #fff; padding: 14mm 13mm; }
+.tb { position: sticky; top: 0; z-index: 5; background: #0B1F45; color: #fff; display: flex; gap: 12px; align-items: center; justify-content: center; padding: 10px; font-size: 14px; }
+.tb button { font: inherit; font-weight: 600; border: none; border-radius: 8px; padding: 8px 18px; cursor: pointer; background: #F5B301; color: #0B1F45; }
+.tb button.g { background: rgba(255,255,255,.14); color: #fff; }
+@media print { body { background: #fff; } .tb { display: none; } .sheet { width: auto; padding: 0; } }
+.head { display: flex; align-items: center; gap: 14px; padding-bottom: 10px; border-bottom: 3px solid #0B1F45; position: relative; }
+.head::after { content: ''; position: absolute; left: 0; bottom: -6px; width: 30%; height: 3px; background: #F5B301; }
+.head .lg { display: flex; gap: 10px; align-items: center; height: 48px; } .head .lg img { height: 100%; width: auto; }
+.head h1 { font-size: 15.5pt; font-weight: 800; line-height: 1.3; color: #0B1F45; }
+.head p { font-size: 9.5pt; color: #4A5672; }
+.meta { display: flex; justify-content: space-between; font-size: 9pt; color: #4A5672; margin: 14px 0 12px; }
+h2 { font-size: 12pt; font-weight: 700; color: #0B1F45; margin: 16px 0 8px; display: flex; align-items: center; gap: 8px; break-after: avoid; }
+h2::before { content: ''; width: 4px; height: 14px; border-radius: 2px; background: #F5B301; }
+.kpis { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+.k { border: 1px solid #E3E8F1; border-radius: 10px; padding: 9px 11px; }
+.k .l { font-size: 8.5pt; color: #4A5672; } .k .v { font-size: 17pt; font-weight: 800; line-height: 1.25; } .k .v small { font-size: 9pt; font-weight: 600; color: #6B7690; } .k .s { font-size: 8pt; color: #6B7690; }
+.k.lead { background: linear-gradient(135deg, #0B1F45, #1C46B5); color: #fff; border: none; } .k.lead .l, .k.lead .s, .k.lead .v small { color: #C9D5EE; }
+.find { background: #F5F8FF; border: 1px solid #DCE6FF; border-radius: 10px; padding: 10px 14px 10px 30px; display: flex; flex-direction: column; gap: 3px; font-size: 10pt; }
+table { width: 100%; border-collapse: collapse; font-size: 9.5pt; break-inside: auto; }
+thead { display: table-header-group; } tr { break-inside: avoid; } table.keep { break-inside: avoid; } .blk { break-inside: avoid; }
+th { background: #0B1F45; color: #fff; font-weight: 600; padding: 5px 7px; text-align: left; font-size: 9pt; }
+td { padding: 4.5px 7px; border-bottom: 1px solid #E3E8F1; }
+tbody tr:nth-child(even) td { background: #F8FAFD; }
+tr.tot td { background: #FFF6DC !important; font-weight: 700; border-top: 1.5px solid #0B1F45; }
+.r { text-align: right; font-variant-numeric: tabular-nums; } .c { text-align: center; }
+.mb { height: 7px; background: #EEF1F6; border-radius: 4px; overflow: hidden; min-width: 70px; } .mb i { display: block; height: 100%; border-radius: 4px; }
+.stack { display: flex; height: 16px; border-radius: 8px; overflow: hidden; gap: 1px; margin-bottom: 6px; } .stack i { display: block; height: 100%; }
+.legend { display: flex; flex-wrap: wrap; gap: 4px 14px; font-size: 8.5pt; color: #4A5672; } .legend span { display: inline-flex; align-items: center; gap: 5px; } .legend i { width: 9px; height: 9px; border-radius: 2px; display: inline-block; }
+.two { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; break-inside: avoid; }
+.cols { display: flex; align-items: flex-end; gap: 5px; height: 110px; border-bottom: 1px solid #D5DCE8; padding-top: 14px; }
+.cols div { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; gap: 2px; height: 100%; font-size: 7.5pt; }
+.cols i { display: block; width: 100%; border-radius: 4px 4px 0 0; }
+.clab { display: flex; gap: 5px; } .clab span { flex: 1; text-align: center; font-size: 7.5pt; color: #4A5672; }
+.hb { display: grid; grid-template-columns: 120px 1fr 34px; gap: 6px; align-items: center; font-size: 8.5pt; margin-bottom: 4px; }
+.pb { break-before: page; }
+.sign { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-top: 34px; text-align: center; font-size: 10pt; break-inside: avoid; }
+.sign div { padding-top: 34px; border-top: 1px dotted #6B7690; }
+.note { font-size: 8.5pt; color: #6B7690; margin-top: 6px; }
+</style></head><body>
+<div class="tb"><span>ตัวอย่างรายงาน · กด “บันทึกเป็น PDF” แล้วเลือกปลายทาง “Save as PDF / บันทึกเป็น PDF”</span><button onclick="print()">บันทึกเป็น PDF / พิมพ์</button><button class="g" onclick="close()">ปิด</button></div>
+<div class="sheet">
+  <div class="head"><div class="lg"><img src="${LOGO_DLF}" alt="" onerror="this.remove()"><img src="${LOGO_DLTV}" alt="" onerror="this.remove()"></div>
+    <div><h1>รายงานสรุปการจัดสรร TV 55 นิ้ว พร้อมขาตั้ง ทดแทนเครื่องที่ชำรุด</h1><p>มูลนิธิการศึกษาทางไกลผ่านดาวเทียม ในพระบรมราชูปถัมภ์ · โรงเรียนเป้าหมาย DLTV · ปีงบประมาณ ${esc(SETTINGS.fy)}</p></div></div>
+  <div class="meta"><span>ขอบเขตรายงาน: <b>${esc(scopeText)}</b></span><span>ข้อมูล ณ วันที่ ${thDateFull()} เวลา ${String(new Date().getHours()).padStart(2, '0')}:${String(new Date().getMinutes()).padStart(2, '0')} น.</span></div>
+
+  <div class="kpis">
+    <div class="k lead"><div class="l">โรงเรียนเป้าหมาย</div><div class="v">${fmt(total)} <small>แห่ง</small></div><div class="s">ไม่รวมโรงเรียนที่เลิก/โอน</div></div>
+    <div class="k"><div class="l">ยื่นคำขอแล้ว</div><div class="v" style="color:#1C46B5">${fmt(active.length)} <small>แห่ง</small></div><div class="s">${P(active.length, total)} ของเป้าหมาย</div></div>
+    <div class="k"><div class="l">TV ชำรุดที่แจ้ง (โควตา)</div><div class="v" style="color:#B4232A">${fmt(broken)} <small>เครื่อง</small></div><div class="s">รอพิจารณา ${fmt(tvPend)} เครื่อง</div></div>
+    <div class="k"><div class="l">อนุมัติแล้ว</div><div class="v" style="color:#0B7049">${fmt(tvApp)} <small>ชุด</small></div><div class="s">${fmt(appr.length)} แห่ง · ${P(tvApp, broken)} ของที่ชำรุด${price ? ' · ' + money(tvApp * price) : ''}${budget ? ` (งบ ${money(budget)})` : ''}</div></div>
+  </div>
+
+  <h2>ข้อสรุปสำคัญ</h2>
+  <ul class="find">${findings.map(f => `<li>${esc(f)}</li>`).join('')}</ul>
+
+  <h2>สถานะโรงเรียนตามขั้นตอน</h2>
+  <div class="stack">${stages.filter(s => s[1]).map(s => `<i style="width:${s[1] / stT * 100}%;background:${s[2]}"></i>`).join('')}</div>
+  <div class="legend">${stages.map(s => `<span><i style="background:${s[2]}"></i>${s[0]} <b>${fmt(s[1])}</b> (${P(s[1], stT)})</span>`).join('')}</div>
+
+  <div class="blk"><h2>โรงเรียนที่ยื่นคำขอ แยกตามปีที่เคยได้รับจัดสรร</h2>
+  <table class="keep"><thead><tr><th>ปีที่เป็นเป้าหมายมูลนิธิ</th><th class="r">โรงเรียนเป้าหมาย</th><th class="r">ยื่นคำขอ (แห่ง)</th><th class="r">สัดส่วน</th><th class="r">TV ชำรุดที่ขอ</th><th class="r">TV เดิมจากมูลนิธิ</th><th class="r">อนุมัติแล้ว (ชุด)</th></tr></thead>
+  <tbody>${yr.map(x => `<tr><td>${x.label}</td><td class="r">${fmt(x.target)}</td><td class="r">${fmt(x.req)}</td><td class="r">${P(x.req, x.target)}</td><td class="r"><b>${fmt(x.tv)}</b></td><td class="r">${fmt(x.old)}</td><td class="r">${fmt(x.appr)}</td></tr>`).join('')}
+  <tr class="tot"><td>รวม</td><td class="r">${fmt(sum(yr, 'target'))}</td><td class="r">${fmt(sum(yr, 'req'))}</td><td class="r">${P(sum(yr, 'req'), sum(yr, 'target'))}</td><td class="r">${fmt(sum(yr, 'tv'))}</td><td class="r">${fmt(sum(yr, 'old'))}</td><td class="r">${fmt(sum(yr, 'appr'))}</td></tr></tbody></table>
+
+  </div><div class="blk"><h2>สรุปรายภูมิภาค</h2>
+  <table class="keep"><thead><tr><th>ภูมิภาค</th><th class="r">เป้าหมาย</th><th class="r">ยื่นคำขอ</th><th class="r">TV ชำรุด</th><th class="r">อนุมัติ (แห่ง)</th><th class="r">อนุมัติ (ชุด)</th>${price ? '<th class="r">งบประมาณ</th>' : ''}<th>สัดส่วนอนุมัติ</th></tr></thead>
+  <tbody>${regRows.map(x => `<tr><td>${x.rg}</td><td class="r">${fmt(x.tot)}</td><td class="r">${fmt(x.req)}</td><td class="r">${fmt(x.tv)}</td><td class="r">${fmt(x.okN)}</td><td class="r"><b>${fmt(x.okTv)}</b></td>${price ? `<td class="r">${fmt(x.okTv * price)}</td>` : ''}<td>${bar(x.tv ? x.okTv / x.tv * 100 : 0, '#12A06A')}</td></tr>`).join('')}
+  <tr class="tot"><td>รวม</td><td class="r">${fmt(sum(regRows, 'tot'))}</td><td class="r">${fmt(sum(regRows, 'req'))}</td><td class="r">${fmt(sum(regRows, 'tv'))}</td><td class="r">${fmt(sum(regRows, 'okN'))}</td><td class="r">${fmt(sum(regRows, 'okTv'))}</td>${price ? `<td class="r">${fmt(sum(regRows, 'okTv') * price)}</td>` : ''}<td>${P(sum(regRows, 'okTv'), sum(regRows, 'tv'))}</td></tr></tbody></table>
+
+  </div>
+  <div class="two" style="margin-top:4px">
+    <div><h2>TV ชำรุดแยกตามชั้นเรียน</h2>
+      ${gk.length ? `<div class="cols">${gk.map(k => `<div><b>${fmt(gc[k])}</b><i style="height:${gc[k] / gmax * 80}px;background:${k.startsWith('อ') ? '#F5B301' : k.startsWith('ป') ? '#E5484D' : '#7C5CFC'}"></i></div>`).join('')}</div><div class="clab">${gk.map(k => `<span>${k}</span>`).join('')}</div>` : '<p class="note">ยังไม่มีข้อมูล</p>'}</div>
+    <div><h2>อาการชำรุดที่พบ</h2>
+      ${se.length ? se.map(([k, v]) => `<div class="hb"><span>${esc(k)}</span>${bar(v / se[0][1] * 100, '#F08C1A')}<b class="r">${fmt(v)}</b></div>`).join('') : '<p class="note">ยังไม่มีข้อมูล</p>'}</div>
+  </div>
+
+  <h2>จังหวัดที่มี TV ชำรุดมากที่สุด ${provRows.length >= 15 ? '(15 อันดับแรก)' : ''}</h2>
+  <table><thead><tr><th class="c">อันดับ</th><th>จังหวัด</th><th class="r">โรงเรียนที่ขอ</th><th class="r">TV ชำรุด</th><th class="r">อนุมัติแล้ว (ชุด)</th><th>สัดส่วนที่อนุมัติ</th></tr></thead>
+  <tbody>${provRows.map((x, i) => `<tr><td class="c">${i + 1}</td><td>${esc(x.p)}</td><td class="r">${fmt(x.n)}</td><td class="r"><b>${fmt(x.tv)}</b></td><td class="r">${fmt(x.ok)}</td><td>${bar(x.tv ? x.ok / x.tv * 100 : 0, '#2557D6')}</td></tr>`).join('') || '<tr><td colspan="6" class="c">ยังไม่มีคำขอ</td></tr>'}</tbody></table>
+  <p class="note">หมายเหตุ: โควตาของแต่ละโรงเรียนเท่ากับจำนวน TV ที่โรงเรียนแจ้งว่าชำรุดพร้อมรูปถ่ายรายชั้น เจ้าหน้าที่พิจารณาอนุมัติรายเครื่องจากรูปถ่าย${price ? ` · คำนวณงบประมาณที่ ${fmt(price)} บาทต่อชุด` : ''}</p>
+
+  ${opt.withApproved ? `<div class="pb"></div><h2>รายชื่อโรงเรียนที่อนุมัติแล้ว ${fmt(appr.length)} แห่ง รวม ${fmt(tvApp)} ชุด</h2>
+  <table><thead><tr><th class="c">ที่</th><th>โรงเรียน</th><th class="c">รหัสโรงเรียน</th><th>อำเภอ</th><th>จังหวัด</th><th>ชั้นที่ได้รับ</th><th class="r">ชุด</th></tr></thead>
+  <tbody>${listRows(appr, true) || '<tr><td colspan="7" class="c">ยังไม่มีโรงเรียนที่อนุมัติ</td></tr>'}${appr.length ? `<tr class="tot"><td colspan="6">รวม</td><td class="r">${fmt(tvApp)}</td></tr>` : ''}</tbody></table>` : ''}
+  ${opt.withPending ? `<div class="pb"></div><h2>รายชื่อโรงเรียนที่รอพิจารณา ${fmt(pend.length)} แห่ง รวม ${fmt(tvPend)} เครื่อง</h2>
+  <table><thead><tr><th class="c">ที่</th><th>โรงเรียน</th><th class="c">รหัสโรงเรียน</th><th>อำเภอ</th><th>จังหวัด</th><th>ชั้นที่ชำรุด</th><th class="r">เครื่อง</th><th>สถานะ</th></tr></thead>
+  <tbody>${listRows(pend, false) || '<tr><td colspan="8" class="c">ไม่มีโรงเรียนที่รอพิจารณา</td></tr>'}</tbody></table>` : ''}
+
+  <div class="sign"><div>ผู้จัดทำรายงาน<br>(......................................................)<br>ตำแหน่ง ..............................................</div><div>ผู้รับรอง / ผู้บริหาร<br>(......................................................)<br>ตำแหน่ง ..............................................</div></div>
+</div>
+<script>(function(){ const imgs=[...document.images].map(i=>i.complete?0:new Promise(r=>{i.onload=i.onerror=r;})); Promise.race([Promise.all([document.fonts.ready].concat(imgs)), new Promise(r=>setTimeout(r,3000))]).then(()=>setTimeout(()=>print(),300)); })();<\/script>
+</body></html>`;
+  const w = window.open('', '_blank');
+  if (!w) { popup({ type: 'warn', title: 'เบราว์เซอร์บล็อกหน้าต่างใหม่', msg: 'กรุณาอนุญาต pop-up สำหรับหน้านี้ แล้วกดส่งออก PDF อีกครั้ง' }); return; }
+  w.document.open(); w.document.write(html); w.document.close();
 }
 
 /* ═════════ EXPORT ═════════ */

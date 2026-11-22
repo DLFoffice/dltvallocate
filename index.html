@@ -570,7 +570,7 @@ th.sort:hover, th.sort.on { color: var(--primary-2); }
       <span class="logos lg-land"><img src="https://dltv.ac.th/upload/data/users/0/316/CMS/images/logo%20dlf%20%E0%B8%AA%E0%B8%A1%E0%B8%9A%E0%B8%B9%E0%B8%A3%E0%B8%93%E0%B9%8C.png" alt="มูลนิธิการศึกษาทางไกลผ่านดาวเทียม" onerror="this.remove()"><img src="https://dltv.ac.th/themes/default/assets/images/dltv-main-logo.png" alt="DLTV" onerror="this.remove()"><svg class="i fb" aria-hidden="true"><use href="#i-tv"/></svg></span>
       <span class="land-kicker">TV 55 นิ้ว พร้อมขาตั้ง · ปีงบประมาณ <span class="fyText">2570</span></span>
       <h1><span class="nw">โครงการจัดหาอุปกรณ์</span><span class="nw">โทรทัศน์ทดแทน</span><br><span class="gold"><span class="nw">สำหรับโรงเรียน</span><span class="nw">ปลายทาง DLTV</span></span></h1>
-      <p>โรงเรียนแจ้ง TV ที่ชำรุดของแต่ละชั้นเรียนพร้อมรูปถ่าย มูลนิธิจะจัดสรรเครื่องใหม่ทดแทนให้ตามจำนวนที่ชำรุดจริง</p>
+      <p>โรงเรียนแจ้ง TV ที่ชำรุดของแต่ละชั้นเรียนพร้อมรูปถ่าย มูลนิธิจะจัดสรรเครื่องใหม่ทดแทนให้ตามจำนวนที่ชำรุดจริง<br><b style="color:#fff">สำหรับโรงเรียนเป้าหมายมูลนิธิตั้งแต่ปี <span class="minYearText">2563</span> เป็นต้นไป</b></p>
     </div>
     <div class="land-cta">
       <button class="cta-main" onclick="enterUser('form')">
@@ -876,6 +876,7 @@ th.sort:hover, th.sort.on { color: var(--primary-2); }
         <section class="card">
           <div class="card-t"><span class="tile t-blue"><svg class="i"><use href="#i-cal"/></svg></span><div><h2>ปีงบประมาณและราคา</h2></div></div>
           <label class="fld" style="max-width:240px">ปีงบประมาณที่ใช้งาน<input class="inp" id="st_fy"></label>
+          <label class="fld" style="max-width:320px">โรงเรียนที่มีสิทธิ์ขอ: เป้าหมายมูลนิธิตั้งแต่ปี<select class="inp" id="st_min"></select><small>ดูจากปีล่าสุดที่โรงเรียนเป็นเป้าหมาย</small></label>
           <label class="fld" style="max-width:320px">ราคา TV 55 นิ้ว พร้อมขาตั้ง (บาท/ชุด)<input class="inp" type="number" min="0" id="st_price"><small>ใช้คำนวณงบประมาณใน Dashboard</small></label>
           <label class="fld" style="max-width:320px">งบประมาณทั้งหมด (บาท) <small>ไม่บังคับ</small><input class="inp" type="number" min="0" id="st_budget"></label>
         </section>
@@ -946,7 +947,7 @@ const STATUS = {
   approved:  { t: 'อนุมัติแล้ว', c: 'b-green', col: '#12A06A' },
   rejected:  { t: 'ไม่อนุมัติ', c: 'b-red', col: '#E5484D' }
 };
-const DEFAULT_SETTINGS = { fy: '2570', price: 0, budget: 0 };
+const DEFAULT_SETTINGS = { fy: '2570', price: 0, budget: 0, minYear: '2563' };
 const PRODUCT = 'TV 55 นิ้ว พร้อมขาตั้ง';
 
 /* ─── state ─── */
@@ -954,6 +955,10 @@ const SCHOOLS = SCHOOL_ROWS.map(r => ({ sid: r[0], smis: r[1], moe: r[2], name: 
 const SCHOOL_BY_ID = new Map(SCHOOLS.map(s => [s.sid, s]));
 SCHOOLS.forEach(s => s.aliases.forEach(a => SCHOOL_BY_ID.set(a, s)));
 /* ระบุโรงเรียนด้วยรหัสกระทรวง (ถ้าไม่มีใช้ลำดับแถว) · ลำดับแถวเดิมของโรงเรียนเดียวกันชี้มาที่โรงเรียนเดียว */
+/* เกณฑ์สิทธิ์: เป็นโรงเรียนเป้าหมายมูลนิธิตั้งแต่ปี SETTINGS.minYear ขึ้นไป (ดูจากปีล่าสุด) และยังไม่เลิก/โอน */
+function minYear() { return String(SETTINGS.minYear || DEFAULT_SETTINGS.minYear); }
+function isEligible(s) { return !!s && !s.closed && !!s.year && String(s.year) >= minYear(); }
+function eligibleYears() { return YEARS.filter(y => y >= minYear()); }
 function canonSid(sid) { const s = SCHOOL_BY_ID.get(Number(sid)); return s ? s.sid : Number(sid); }
 function schoolKey(s) { return s.moe ? s.moe : 'SID' + s.sid; }
 function allSids(s) { return [s.sid].concat(s.aliases || []); }
@@ -1099,7 +1104,7 @@ function saveLocal() {
 async function loadPublic() {
   if (ONLINE) { try { const j = await apiGet({ action: 'settings' }); SETTINGS = Object.assign(clone(DEFAULT_SETTINGS), j.settings || {}); } catch (e) {} }
   else loadLocal();
-  document.querySelectorAll('.fyText').forEach(el => el.textContent = SETTINGS.fy);
+  document.querySelectorAll('.fyText').forEach(el => el.textContent = SETTINGS.fy); document.querySelectorAll('.minYearText').forEach(el => el.textContent = minYear());
 }
 async function loadAdmin() {
   if (ONLINE) { const j = await apiGet({ action: 'getAll', key: ADMIN_KEY }); RECORDS = j.records || []; SETTINGS = Object.assign(clone(DEFAULT_SETTINGS), j.settings || {}); }
@@ -1193,7 +1198,7 @@ async function reloadAdmin() {
   catch (e) { await popup({ type: 'error', title: 'โหลดข้อมูลไม่สำเร็จ', msg: esc(e.message) }); if (/รหัสผ่าน/.test(e.message)) { logout(); return; } }
   $('syncDot').classList.toggle('off', !ONLINE);
   $('syncText').textContent = ONLINE ? 'ซิงก์ ' + thDate(nowIso(), true) : 'โหมดทดลอง';
-  document.querySelectorAll('.fyText').forEach(el => el.textContent = SETTINGS.fy);
+  document.querySelectorAll('.fyText').forEach(el => el.textContent = SETTINGS.fy); document.querySelectorAll('.minYearText').forEach(el => el.textContent = minYear());
   renderAdmin();
 }
 const PAGES = { dash: ['Dashboard', 'ภาพรวมการจัดสรร ' + PRODUCT + ' ทดแทนเครื่องที่ชำรุด'], approve: ['พิจารณาคำขอ', 'ตรวจรูป TV ชำรุดรายชั้น และอนุมัติทีละเครื่อง'], proxy: ['ยื่นคำขอแทนโรงเรียน', 'กรอกแบบคำขอแทนโรงเรียนที่ไม่สะดวกยื่นเอง'], settings: ['ตั้งค่า', 'ปีงบประมาณและราคา'] };
@@ -1300,7 +1305,7 @@ function fillFilters() {
 /* ═════════ DASHBOARD ═════════ */
 function renderDash() {
   const f = UI.df;
-  const schools = SCHOOLS.filter(s => !s.closed && schoolMatch(s)), total = f.plan ? null : schools.length;
+  const schools = SCHOOLS.filter(s => isEligible(s) && schoolMatch(s)), total = f.plan ? null : schools.length;
   const recs = curRecs().filter(r => recMatch(r));
   const by = (st) => recs.filter(r => st.includes(r.status));
   const active = recs.filter(r => r.status !== 'rejected'), appr = by(['approved']), pending = by(['submitted', 'returned', 'reviewed']);
@@ -1311,7 +1316,7 @@ function renderDash() {
   const kpi = (cls, tile, icon, l, v, s, extra) => `<div class="kpi ${cls}"><div class="top"><span class="l">${l}</span><span class="tile ${tile}">${ic(icon)}</span></div><span class="v">${v}</span><span class="s">${s}</span>${extra || ''}</div>`;
   const bar = (p, c) => `<div class="bar"><i style="width:${Math.min(100, p)}%;background:${c}"></i></div>`;
   $('kpis').innerHTML =
-    kpi('lead', 't-navy', 'school', 'โรงเรียนเป้าหมาย', fmt(tgt), Object.keys(f).length ? esc(dfLabel()) : 'แห่ง (ไม่รวมที่เลิก/โอน)') +
+    kpi('lead', 't-navy', 'school', 'โรงเรียนที่มีสิทธิ์ขอ', fmt(tgt), Object.keys(f).length ? esc(dfLabel()) : `แห่ง · เป้าหมายปี ${minYear()} ขึ้นไป`) +
     kpi('', 't-blue', 'inbox', 'ยื่นคำขอแล้ว', `${fmt(active.length)}<small>โรง</small>`, `${pct(active.length, tgt).toFixed(1)}% ของเป้าหมาย`, bar(pct(active.length, tgt), 'var(--primary)')) +
     kpi('', 't-red', 'alert', 'TV ชำรุดที่แจ้ง (โควตา)', `${fmt(broken)}<small>เครื่อง</small>`, `เฉลี่ย ${(active.length ? broken / active.length : 0).toFixed(1)} เครื่อง/โรง · รอพิจารณา ${fmt(brokenPending)}`) +
     kpi('', 't-green', 'check', 'อนุมัติแล้ว', `${fmt(tvApp)}<small>ชุด</small>`, `${fmt(appr.length)} โรงเรียน · ${pct(tvApp, broken).toFixed(0)}% ของที่ชำรุด`, bar(pct(tvApp, broken), 'var(--green)')) +
@@ -1331,7 +1336,7 @@ function renderDash() {
   $('stages').innerHTML = stages.map(s => `<button class="stage" onclick="gotoStage('${s.k}')"><span class="t"><i class="sw" style="background:${s.col}"></i>${s.t}</span><span class="n">${fmt(s.n)}</span><span class="muted" style="font-size:12px">${pct(s.n, stT).toFixed(1)}%</span></button>`).join('');
 
   /* ต้นสังกัด */
-  const agSch = SCHOOLS.filter(s => !s.closed && schoolMatch(s, 'agency')), agRec = curRecs().filter(r => r.status !== 'rejected' && recMatch(r, 'agency'));
+  const agSch = SCHOOLS.filter(s => isEligible(s) && schoolMatch(s, 'agency')), agRec = curRecs().filter(r => r.status !== 'rejected' && recMatch(r, 'agency'));
   const ag = Object.keys(AGENCY_COL).map(a => {
     const t = agSch.filter(s => agencyOf(s.aff) === a).length, rr = agRec.filter(r => agencyOf((SCHOOL_BY_ID.get(r.sid) || {}).aff) === a);
     return { a, t, n: rr.length, tv: rr.reduce((x, r) => x + quotaOf(r), 0), ok: rr.filter(r => r.status === 'approved').reduce((x, r) => x + tvApproved(r), 0) };
@@ -1358,8 +1363,8 @@ function renderDash() {
   catBars('planBars', 'plan', PLANS, recPlan, ['#12A06A', '#F08C1A', '#E5484D', '#F5B301']);
 
   /* ปีที่เคยได้รับ */
-  const ySch = SCHOOLS.filter(s => !s.closed && schoolMatch(s, 'year')), yRec = curRecs().filter(r => r.status !== 'rejected' && recMatch(r, 'year'));
-  const yr = YEARS.concat(['']).map(y => {
+  const ySch = SCHOOLS.filter(s => isEligible(s) && schoolMatch(s, 'year')), yRec = curRecs().filter(r => r.status !== 'rejected' && recMatch(r, 'year'));
+  const yr = eligibleYears().map(y => {
     const sc = ySch.filter(s => (s.year || '') === y), rr = yRec.filter(r => ((SCHOOL_BY_ID.get(r.sid) || {}).year || '') === y);
     return { y, label: y ? 'ปี ' + y : 'ไม่ระบุ', target: sc.length, req: rr.length, tv: rr.reduce((a, r) => a + quotaOf(r), 0), old: rr.reduce((a, r) => a + oldTv(SCHOOL_BY_ID.get(r.sid) || {}), 0), appr: rr.filter(r => r.status === 'approved').reduce((a, r) => a + tvApproved(r), 0) };
   }).filter(x => x.target || x.req);
@@ -1391,7 +1396,7 @@ function renderDash() {
   $('symBars').innerHTML = se.length ? se.map(([k, v], i) => `<div class="hbar" data-tip="<b>${esc(k)}</b><br>${fmt(v)} เครื่อง (${pct(v, broken).toFixed(1)}%)"><span>${esc(k)}</span><div class="track"><i style="width:${pct(v, smax)}%;background:${scol[i] || '#94A3B8'}"></i></div><b>${fmt(v)}</b></div>`).join('') : '<div class="empty">ยังไม่มีข้อมูล</div>';
 
   /* ภูมิภาค */
-  const rSch = SCHOOLS.filter(s => !s.closed && schoolMatch(s, 'region')), rRec = curRecs().filter(r => recMatch(r, 'region'));
+  const rSch = SCHOOLS.filter(s => isEligible(s) && schoolMatch(s, 'region')), rRec = curRecs().filter(r => recMatch(r, 'region'));
   $('regionBars').innerHTML = REGIONS.map(rg => {
     const tot = rSch.filter(s => s.region === rg).length, rr = rRec.filter(r => (SCHOOL_BY_ID.get(r.sid) || schoolOf(r)).region === rg);
     const ok = rr.filter(r => r.status === 'approved').length, wait = rr.filter(r => ['submitted', 'returned', 'reviewed'].includes(r.status)).length;
@@ -1415,7 +1420,7 @@ function renderDash() {
 }
 const AFF_COLS = [['aff', 'สังกัด / เขตพื้นที่', 0], ['t', 'เป้าหมาย', 1], ['n', 'ยื่นคำขอ', 1], ['p', '% ที่ขอ', 1], ['tv', 'TV ชำรุด', 1], ['ok', 'อนุมัติ', 1], ['wait', 'รอพิจารณา', 1]];
 function affRows() {
-  const sch = SCHOOLS.filter(s => !s.closed && schoolMatch(s, 'aff')), rr = curRecs().filter(r => r.status !== 'rejected' && recMatch(r, 'aff'));
+  const sch = SCHOOLS.filter(s => isEligible(s) && schoolMatch(s, 'aff')), rr = curRecs().filter(r => r.status !== 'rejected' && recMatch(r, 'aff'));
   const m = {};
   sch.forEach(s => { const k = s.aff || 'ไม่ระบุ'; m[k] = m[k] || { aff: k, t: 0, n: 0, tv: 0, ok: 0, wait: 0 }; m[k].t++; });
   rr.forEach(r => { const k = (SCHOOL_BY_ID.get(r.sid) || {}).aff || 'ไม่ระบุ'; m[k] = m[k] || { aff: k, t: 0, n: 0, tv: 0, ok: 0, wait: 0 }; m[k].n++; m[k].tv += quotaOf(r); if (r.status === 'approved') m[k].ok += tvApproved(r); else m[k].wait += quotaOf(r); });
@@ -1494,7 +1499,7 @@ function schoolSearch(inputId, boxId, cb) {
   if (q.length < 2) { box.classList.add('hidden'); return; }
   const terms = q.split(/\s+/);
   UI.acList = SCHOOLS.filter(s => terms.every(t => s._q.includes(t))).slice(0, 30); UI.acIdx = -1;
-  box.innerHTML = UI.acList.length ? UI.acList.map(s => `<button type="button" role="option" onmousedown="event.preventDefault(); ${cb}(${s.sid})">${esc(s.name)}${s.closed ? ' <span class="badge b-red plain">เลิก/โอน</span>' : ''}<small>อ.${esc(s.amphoe)} จ.${esc(s.province)} · ${esc(codeOf(s))} · เป้าหมาย${yearLabel(s)}</small></button>`).join('') : '<div class="empty">ไม่พบโรงเรียนในทะเบียนเป้าหมาย</div>';
+  box.innerHTML = UI.acList.length ? UI.acList.map(s => `<button type="button" role="option" onmousedown="event.preventDefault(); ${cb}(${s.sid})">${esc(s.name)}${s.closed ? ' <span class="badge b-red plain">เลิก/โอน</span>' : !isEligible(s) ? ` <span class="badge b-gray plain">ไม่อยู่ในเกณฑ์ปีนี้</span>` : ''}<small>อ.${esc(s.amphoe)} จ.${esc(s.province)} · ${esc(codeOf(s))} · เป้าหมาย${yearLabel(s)}</small></button>`).join('') : '<div class="empty">ไม่พบโรงเรียนในทะเบียนเป้าหมาย</div>';
   box.classList.remove('hidden');
 }
 function acKey(e, boxId, cb) {
@@ -1512,6 +1517,8 @@ async function pickSchool(sid) {
   const s = SCHOOL_BY_ID.get(sid); if (!s) return;
   document.querySelectorAll('.ac').forEach(a => a.classList.add('hidden'));
   if (s.closed) { resetForm(false); $('schoolQ').value = s.name; popup({ type: 'warn', title: 'ยื่นคำขอไม่ได้', msg: `<b>${esc(s.name)}</b> มีสถานะเลิกสถานศึกษา/โอน ในทะเบียนเดิม<br>หากข้อมูลไม่ถูกต้องกรุณาติดต่อเจ้าหน้าที่` }); return; }
+  if (!isEligible(s)) { resetForm(false); $('schoolQ').value = s.name; $('schoolBox').innerHTML = schoolBoxHtml(s); $('submitBtn').disabled = true;
+    popup({ type: 'info', title: 'ยังไม่อยู่ในเกณฑ์การจัดสรรรอบนี้', msg: `<b>${esc(s.name)}</b> เป็นโรงเรียนเป้าหมาย${yearLabel(s)}<br>การจัดสรรปีงบประมาณ ${esc(SETTINGS.fy)} สำหรับโรงเรียนเป้าหมาย<b>ตั้งแต่ปี ${minYear()} ขึ้นไป</b><br><span class="muted">หากข้อมูลไม่ถูกต้อง กรุณาติดต่อเจ้าหน้าที่มูลนิธิ</span>` }); return; }
   let ex = null;
   if (UI.role === 'admin') ex = curRecs().find(r => canonSid(r.sid) === sid) || null;
   else { busy(true, 'กำลังตรวจสอบคำขอเดิม…'); try { ex = await fetchMine(sid); } catch (e) {} busy(false); }
@@ -1626,7 +1633,7 @@ async function submitRequest() {
   let rec = UI.editing;
   if (rec) { rec.form = form; rec.status = 'submitted'; rec.code = schoolKey(s); rec.sids = allSids(s); addHistory(rec, `แก้ไขและส่งคำขออีกครั้ง (${nb.length} ชุด)`); }
   else {
-    rec = { id: uid(), fy: SETTINGS.fy, sid: s.sid, code: schoolKey(s), sids: allSids(s), school: { name: s.name, amphoe: s.amphoe, province: s.province, region: s.region, smis: s.smis, moe: s.moe, year: s.year }, status: 'submitted', createdAt: nowIso(), submittedAt: todayStr(), form, history: [] };
+    rec = { id: uid(), fy: SETTINGS.fy, sid: s.sid, code: schoolKey(s), sids: allSids(s), school: { name: s.name, amphoe: s.amphoe, province: s.province, region: s.region, smis: s.smis, moe: s.moe, year: s.year, years: s.years }, status: 'submitted', createdAt: nowIso(), submittedAt: todayStr(), form, history: [] };
     addHistory(rec, `ยื่นคำขอ ${nb.length} ชุด (TV ชำรุด ชั้น ${nb.map(r => r.name).join(', ')})` + (UI.role === 'admin' ? ' · เจ้าหน้าที่ยื่นแทน' : ''));
   }
   rec.score = scoreOf(rec).total;
@@ -1782,14 +1789,14 @@ async function decide(id, to) {
 
 /* ═════════ SETTINGS ═════════ */
 function renderSettings() {
-  $('st_fy').value = SETTINGS.fy; $('st_price').value = num(SETTINGS.price) || ''; $('st_budget').value = num(SETTINGS.budget) || '';
+  $('st_fy').value = SETTINGS.fy; $('st_min').innerHTML = YEARS.map(y => `<option${y === minYear() ? ' selected' : ''}>${y}</option>`).join('') + `<option value="0"${minYear() === '0' ? ' selected' : ''}>ทุกปี (ไม่จำกัด)</option>`; $('st_price').value = num(SETTINGS.price) || ''; $('st_budget').value = num(SETTINGS.budget) || '';
   $('connInfo').className = 'note ' + (ONLINE ? 'b-green' : 'b-gold');
   $('connInfo').innerHTML = ONLINE ? `${ic('check')}<span>เชื่อมต่อ Google Sheets แล้ว รูปภาพเก็บใน Google Drive แยกโฟลเดอร์ตามชื่อโรงเรียน ตั้งชื่อไฟล์ตามชั้นเรียน</span>` : `${ic('alert')}<span>โหมดทดลอง: ยังไม่ได้ตั้งค่า APPS_SCRIPT_URL ในไฟล์ ข้อมูลเก็บในเบราว์เซอร์นี้เท่านั้น</span>`;
 }
 async function applySettings() {
-  SETTINGS.fy = $('st_fy').value.trim() || SETTINGS.fy; SETTINGS.price = num($('st_price').value); SETTINGS.budget = num($('st_budget').value);
+  SETTINGS.fy = $('st_fy').value.trim() || SETTINGS.fy; SETTINGS.minYear = $('st_min').value; SETTINGS.price = num($('st_price').value); SETTINGS.budget = num($('st_budget').value);
   try { await saveSettingsRemote(); } catch (e) { return; }
-  document.querySelectorAll('.fyText').forEach(el => el.textContent = SETTINGS.fy);
+  document.querySelectorAll('.fyText').forEach(el => el.textContent = SETTINGS.fy); document.querySelectorAll('.minYearText').forEach(el => el.textContent = minYear());
   renderAdmin(); renderSettings(); popup({ type: 'success', title: 'บันทึกการตั้งค่าแล้ว', msg: `ปีงบประมาณ ${esc(SETTINGS.fy)}${SETTINGS.price ? ' · ราคา ' + fmt(SETTINGS.price) + ' บาท/ชุด' : ''}` });
 }
 
@@ -1817,7 +1824,7 @@ async function openReportDialog() {
 function buildReport(opt) {
   const reg = UI.df.region || '';
   const scopeText = dfLabel();
-  const schools = SCHOOLS.filter(s => !s.closed && schoolMatch(s));
+  const schools = SCHOOLS.filter(s => isEligible(s) && schoolMatch(s));
   const recs = curRecs().filter(r => recMatch(r));
   const total = UI.df.plan ? recs.filter(r => r.status !== 'rejected').length : schools.length;
   const active = recs.filter(r => r.status !== 'rejected');
@@ -1832,10 +1839,10 @@ function buildReport(opt) {
 
   /* ข้อสรุปสำคัญ */
   const findings = [];
-  findings.push(`โรงเรียนยื่นคำขอแล้ว ${fmt(active.length)} แห่ง จากโรงเรียนเป้าหมาย ${fmt(total)} แห่ง (${P(active.length, total)}) แจ้ง TV ชำรุดรวม ${fmt(broken)} เครื่อง เฉลี่ย ${(active.length ? broken / active.length : 0).toFixed(1)} เครื่องต่อโรงเรียน`);
+  findings.push(`โรงเรียนยื่นคำขอแล้ว ${fmt(active.length)} แห่ง จากโรงเรียนที่มีสิทธิ์ขอ (เป้าหมายปี ${minYear()} ขึ้นไป) ${fmt(total)} แห่ง (${P(active.length, total)}) แจ้ง TV ชำรุดรวม ${fmt(broken)} เครื่อง เฉลี่ย ${(active.length ? broken / active.length : 0).toFixed(1)} เครื่องต่อโรงเรียน`);
   findings.push(`อนุมัติแล้ว ${fmt(tvApp)} ชุด ให้ ${fmt(appr.length)} โรงเรียน คิดเป็น ${P(tvApp, broken)} ของเครื่องที่ชำรุด${price ? ` ใช้งบประมาณ ${money(tvApp * price)}` : ''}`);
   if (pend.length) findings.push(`ยังรอพิจารณา ${fmt(pend.length)} โรงเรียน รวม ${fmt(tvPend)} เครื่อง${price ? ` (ประมาณ ${money(tvPend * price)} หากอนุมัติทั้งหมด)` : ''}`);
-  const yr = YEARS.concat(['']).map(y => {
+  const yr = eligibleYears().map(y => {
     const sc = schools.filter(s => (s.year || '') === y), rr = active.filter(r => ((SCHOOL_BY_ID.get(r.sid) || {}).year || '') === y);
     return { label: y ? 'ปี ' + y : 'ไม่ระบุ', target: sc.length, req: rr.length, tv: rr.reduce((a, r) => a + quotaOf(r), 0), old: rr.reduce((a, r) => a + oldTv(SCHOOL_BY_ID.get(r.sid) || {}), 0), appr: rr.filter(r => r.status === 'approved').reduce((a, r) => a + tvApproved(r), 0) };
   }).filter(x => x.target || x.req);
@@ -1930,10 +1937,10 @@ tr.tot td { background: #FFF6DC !important; font-weight: 700; border-top: 1.5px 
 <div class="sheet">
   <div class="head"><div class="lg"><img src="${LOGO_DLF}" alt="" onerror="this.remove()"><img src="${LOGO_DLTV}" alt="" onerror="this.remove()"></div>
     <div><h1>รายงานสรุปโครงการจัดหาอุปกรณ์โทรทัศน์ทดแทนสำหรับโรงเรียนปลายทาง DLTV</h1><p>มูลนิธิการศึกษาทางไกลผ่านดาวเทียม ในพระบรมราชูปถัมภ์ · โรงเรียนเป้าหมาย DLTV · ปีงบประมาณ ${esc(SETTINGS.fy)}</p></div></div>
-  <div class="meta"><span>ขอบเขตรายงาน: <b>${esc(scopeText)}</b></span><span>ข้อมูล ณ วันที่ ${thDateFull()} เวลา ${String(new Date().getHours()).padStart(2, '0')}:${String(new Date().getMinutes()).padStart(2, '0')} น.</span></div>
+  <div class="meta"><span>ขอบเขตรายงาน: <b>${esc(scopeText)}</b> · โรงเรียนเป้าหมายปี ${minYear()} ขึ้นไป</span><span>ข้อมูล ณ วันที่ ${thDateFull()} เวลา ${String(new Date().getHours()).padStart(2, '0')}:${String(new Date().getMinutes()).padStart(2, '0')} น.</span></div>
 
   <div class="kpis">
-    <div class="k lead"><div class="l">โรงเรียนเป้าหมาย</div><div class="v">${fmt(total)} <small>แห่ง</small></div><div class="s">ไม่รวมโรงเรียนที่เลิก/โอน</div></div>
+    <div class="k lead"><div class="l">โรงเรียนที่มีสิทธิ์ขอ</div><div class="v">${fmt(total)} <small>แห่ง</small></div><div class="s">เป้าหมายปี ${minYear()} ขึ้นไป</div></div>
     <div class="k"><div class="l">ยื่นคำขอแล้ว</div><div class="v" style="color:#1C46B5">${fmt(active.length)} <small>แห่ง</small></div><div class="s">${P(active.length, total)} ของเป้าหมาย</div></div>
     <div class="k"><div class="l">TV ชำรุดที่แจ้ง (โควตา)</div><div class="v" style="color:#B4232A">${fmt(broken)} <small>เครื่อง</small></div><div class="s">รอพิจารณา ${fmt(tvPend)} เครื่อง</div></div>
     <div class="k"><div class="l">อนุมัติแล้ว</div><div class="v" style="color:#0B7049">${fmt(tvApp)} <small>ชุด</small></div><div class="s">${fmt(appr.length)} แห่ง · ${P(tvApp, broken)} ของที่ชำรุด${price ? ' · ' + money(tvApp * price) : ''}${budget ? ` (งบ ${money(budget)})` : ''}</div></div>
@@ -2011,7 +2018,7 @@ async function seedDemo() {
   if (RECORDS.length && !await confirmPop('แทนที่ข้อมูลทดลอง?', 'ข้อมูลทดลองเดิมจะถูกแทนที่ด้วยข้อมูลตัวอย่าง 420 โรงเรียน', 'ใส่ข้อมูลตัวอย่าง')) return;
   let seed = 11; const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647, pick = (a) => a[Math.floor(rnd() * a.length)];
   SETTINGS = { fy: '2570', price: 25000, budget: 30000000 };
-  const pool = SCHOOLS.filter(s => !s.closed).sort(() => rnd() - .5).slice(0, 420), day = (n) => addDays('2026-08-01', n);
+  const pool = SCHOOLS.filter(isEligible).sort(() => rnd() - .5).slice(0, 420), day = (n) => addDays('2026-08-01', n);
   RECORDS = pool.map((s, i) => {
     const grades = GRADES.slice(rnd() < .5 ? 0 : 3, 9);
     const rooms = grades.map(g => { const st = rnd() < .45 ? 'ชำรุด' : rnd() < .85 ? 'ใช้งานได้' : 'ไม่มี TV'; return { grade: g, name: g, students: 6 + Math.floor(rnd() * 16), state: st, symptom: st === 'ชำรุด' ? pick(SYMPTOMS.slice(0, 6)) : '', detail: st === 'ชำรุด' ? pick(['Samsung 40"', 'LG 43"', 'Sharp 40"', 'TCL 43"']) : '', photo: '', photoTag: '' }; });

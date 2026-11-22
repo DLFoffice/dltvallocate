@@ -453,6 +453,48 @@ table.compact th, table.compact td { padding: 10px 9px; }
 .lg-side img { max-width: 46%; }
 @media (max-width: 900px) { .lg-side { height: 44px; align-self: flex-start; } .side-brand { flex-direction: row !important; align-items: center !important; } }
 @media (max-width: 520px) { .lg-nav img + img { display: none; } }
+
+/* ───────── landing v2: โรงเรียนเด่น / Admin มุมขวาบน ───────── */
+#landing { justify-content: flex-start; gap: 0; padding: 0; }
+.land-top { width: 100%; display: flex; justify-content: space-between; align-items: center; padding: 18px 28px; }
+.land-mode { font-size: 12.5px; color: #8FA2C8; }
+.staff-btn { display: inline-flex; align-items: center; gap: 7px; background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.16); color: #C9D5EE; border-radius: 999px; padding: 6px 14px; font-size: 13px; cursor: pointer; transition: .15s; }
+.staff-btn:hover { background: rgba(255,255,255,.12); color: #fff; }
+.staff-btn svg { width: 15px; height: 15px; }
+.land-main { flex: 1; width: 100%; max-width: 900px; display: flex; flex-direction: column; align-items: center; gap: 30px; padding: 10px 20px 40px; }
+.land-head { gap: 12px; }
+.land-kicker { display: inline-block; background: rgba(245,179,1,.14); color: var(--gold); border: 1px solid rgba(245,179,1,.3); border-radius: 999px; padding: 4px 14px; font-size: 13px; font-weight: 600; margin-top: 6px; }
+.land-head h1 { font-size: clamp(30px, 5vw, 46px); }
+.land-head h1 .nw { white-space: nowrap; display: inline-block; } .land-head h1 .gold { color: var(--gold); }
+.land-head p { font-size: 16px; max-width: 620px; }
+.land-cta { display: grid; grid-template-columns: 1.25fr 1fr; gap: 14px; width: 100%; max-width: 760px; }
+.cta-main, .cta-sub { display: flex; align-items: center; gap: 16px; text-align: left; border-radius: 20px; padding: 20px 22px; cursor: pointer; border: none; transition: transform .18s, box-shadow .18s, background .18s; }
+.cta-main { background: linear-gradient(135deg, #F5B301, #FFD24D); color: var(--navy); box-shadow: 0 20px 40px -16px rgba(245,179,1,.65); }
+.cta-main:hover { transform: translateY(-3px); box-shadow: 0 26px 50px -18px rgba(245,179,1,.8); }
+.cta-sub { background: rgba(255,255,255,.08); color: #fff; border: 1px solid rgba(255,255,255,.2); }
+.cta-sub:hover { transform: translateY(-3px); background: rgba(255,255,255,.13); }
+.cta-main .ic, .cta-sub .ic { width: 52px; height: 52px; border-radius: 15px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.cta-main .ic { background: var(--navy); color: var(--gold); } .cta-sub .ic { background: rgba(255,255,255,.12); }
+.cta-main .ic svg, .cta-sub .ic svg { width: 26px; height: 26px; }
+.cta-main .tx, .cta-sub .tx { flex: 1; display: flex; flex-direction: column; }
+.cta-main b { font-size: 22px; font-weight: 800; line-height: 1.3; } .cta-sub b { font-size: 17px; font-weight: 700; line-height: 1.35; }
+.cta-main small { font-size: 13.5px; color: #5C4300; } .cta-sub small { font-size: 13px; color: #C9D5EE; }
+.cta-main .ar, .cta-sub .ar { width: 24px; height: 24px; flex-shrink: 0; }
+.land-info { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; width: 100%; max-width: 760px; }
+.land-info section { background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.1); border-radius: 18px; padding: 18px 20px; }
+.land-info h2 { font-size: 14px; color: var(--gold); font-weight: 700; margin-bottom: 12px; }
+.steps3 { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+.steps3 li { display: flex; gap: 12px; align-items: flex-start; }
+.steps3 i { width: 26px; height: 26px; border-radius: 50%; background: var(--gold); color: var(--navy); font-style: normal; font-weight: 800; font-size: 13px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.steps3 b { display: block; font-size: 14px; color: #fff; } .steps3 span { font-size: 12.5px; color: #A9B8D6; }
+.prep { list-style: none; display: flex; flex-direction: column; gap: 10px; font-size: 13.5px; color: #DCE4F2; }
+.prep li { display: flex; gap: 10px; align-items: flex-start; } .prep svg { width: 18px; height: 18px; color: var(--gold); flex-shrink: 0; margin-top: 2px; }
+.land-foot { padding: 0 20px 22px; color: #7286B0; font-size: 12px; text-align: center; }
+@media (max-width: 760px) {
+  .land-cta, .land-info { grid-template-columns: 1fr; }
+  .land-top { padding: 14px 16px; }
+  .cta-main b { font-size: 20px; }
+}
 </style>
 </head>
 <body>
@@ -486,26 +528,49 @@ table.compact th, table.compact td { padding: 10px 9px; }
 
 <!-- ═════════ LANDING ═════════ -->
 <div id="landing">
-  <div class="land-head">
-    <span class="logos lg-land"><img src="https://dltv.ac.th/upload/data/users/0/316/CMS/images/logo%20dlf%20%E0%B8%AA%E0%B8%A1%E0%B8%9A%E0%B8%B9%E0%B8%A3%E0%B8%93%E0%B9%8C.png" alt="มูลนิธิการศึกษาทางไกลผ่านดาวเทียม" onerror="this.remove()"><img src="https://dltv.ac.th/themes/default/assets/images/dltv-main-logo.png" alt="DLTV" onerror="this.remove()"><svg class="i fb" aria-hidden="true"><use href="#i-tv"/></svg></span>
-    <h1>ระบบจัดสรร TV 55 นิ้ว พร้อมขาตั้ง<br>ทดแทนเครื่องที่ชำรุด</h1>
-    <p>สำหรับโรงเรียนเป้าหมาย DLTV · มูลนิธิการศึกษาทางไกลผ่านดาวเทียม · ปีงบประมาณ <span class="fyText">2570</span></p>
-  </div>
-  <div class="land-cards">
-    <button class="land-card" onclick="enterUser()">
-      <span class="ic t-gold"><svg class="i"><use href="#i-school"/></svg></span>
-      <h2>สำหรับโรงเรียน</h2>
-      <p>แจ้ง TV ที่ชำรุดรายชั้นเรียนพร้อมรูปถ่าย ยื่นคำขอรับจัดสรร และติดตามสถานะคำขอ</p>
-      <span class="go">เข้าสู่ระบบโรงเรียน <svg class="i"><use href="#i-arrow"/></svg></span>
-    </button>
-    <button class="land-card" onclick="openLogin()">
-      <span class="ic" style="background: rgba(255,255,255,.12); color: #fff"><svg class="i"><use href="#i-shield"/></svg></span>
-      <h2>สำหรับเจ้าหน้าที่ (Admin)</h2>
-      <p>Dashboard สรุปผล ตรวจสอบรูป TV ชำรุดรายเครื่อง พิจารณาอนุมัติ และตั้งค่าระบบ</p>
-      <span class="go">เข้าสู่ระบบด้วยรหัสผ่าน <svg class="i"><use href="#i-arrow"/></svg></span>
-    </button>
-  </div>
-  <div class="land-foot" id="landMode"></div>
+  <header class="land-top">
+    <span class="land-mode" id="landMode"></span>
+    <button class="staff-btn" onclick="openLogin()" title="สำหรับเจ้าหน้าที่มูลนิธิเท่านั้น"><svg class="i"><use href="#i-lock"/></svg>เจ้าหน้าที่</button>
+  </header>
+  <main class="land-main">
+    <div class="land-head">
+      <span class="logos lg-land"><img src="https://dltv.ac.th/upload/data/users/0/316/CMS/images/logo%20dlf%20%E0%B8%AA%E0%B8%A1%E0%B8%9A%E0%B8%B9%E0%B8%A3%E0%B8%93%E0%B9%8C.png" alt="มูลนิธิการศึกษาทางไกลผ่านดาวเทียม" onerror="this.remove()"><img src="https://dltv.ac.th/themes/default/assets/images/dltv-main-logo.png" alt="DLTV" onerror="this.remove()"><svg class="i fb" aria-hidden="true"><use href="#i-tv"/></svg></span>
+      <span class="land-kicker">สำหรับโรงเรียนเป้าหมาย DLTV · ปีงบประมาณ <span class="fyText">2570</span></span>
+      <h1><span class="nw">ขอรับ TV 55 นิ้ว</span> <span class="nw">พร้อมขาตั้ง</span><br><span class="nw gold">ทดแทนเครื่องที่ชำรุด</span></h1>
+      <p>โรงเรียนแจ้ง TV ที่ชำรุดของแต่ละชั้นเรียนพร้อมรูปถ่าย มูลนิธิจะจัดสรรเครื่องใหม่ทดแทนให้ตามจำนวนที่ชำรุดจริง</p>
+    </div>
+    <div class="land-cta">
+      <button class="cta-main" onclick="enterUser('form')">
+        <span class="ic"><svg class="i"><use href="#i-edit"/></svg></span>
+        <span class="tx"><b>เริ่มยื่นคำขอ</b><small>ใช้เวลาประมาณ 10 นาที</small></span>
+        <svg class="i ar"><use href="#i-arrow"/></svg>
+      </button>
+      <button class="cta-sub" onclick="enterUser('status')">
+        <span class="ic"><svg class="i"><use href="#i-search"/></svg></span>
+        <span class="tx"><b>ติดตามสถานะ / แก้ไขคำขอ</b><small>สำหรับโรงเรียนที่ยื่นไปแล้ว</small></span>
+        <svg class="i ar"><use href="#i-arrow"/></svg>
+      </button>
+    </div>
+    <div class="land-info">
+      <section>
+        <h2>ขั้นตอน</h2>
+        <ol class="steps3">
+          <li><i>1</i><div><b>แจ้ง TV ชำรุดรายชั้น</b><span>ระบุทุกชั้นเรียน ถ่ายรูปเครื่องที่ชำรุด</span></div></li>
+          <li><i>2</i><div><b>เจ้าหน้าที่ตรวจสอบรูป</b><span>ถ้าข้อมูลไม่ครบจะส่งกลับให้แก้ไข</span></div></li>
+          <li><i>3</i><div><b>อนุมัติจัดสรร</b><span>ติดตามผลได้ที่ “ติดตามสถานะ”</span></div></li>
+        </ol>
+      </section>
+      <section>
+        <h2>เตรียมให้พร้อมก่อนกรอก</h2>
+        <ul class="prep">
+          <li><svg class="i"><use href="#i-camera"/></svg>รูปถ่าย TV ที่ชำรุดของแต่ละชั้น (ถ่ายจากมือถือได้เลย)</li>
+          <li><svg class="i"><use href="#i-school"/></svg>จำนวนนักเรียนรายชั้น และข้อมูลครูที่ขาด</li>
+          <li><svg class="i"><use href="#i-check"/></svg>ชื่อ ตำแหน่ง และเบอร์โทรของผู้อำนวยการ</li>
+        </ul>
+      </section>
+    </div>
+  </main>
+  <footer class="land-foot">มูลนิธิการศึกษาทางไกลผ่านดาวเทียม ในพระบรมราชูปถัมภ์</footer>
 </div>
 
 <!-- ═════════ USER ═════════ -->
@@ -1030,7 +1095,7 @@ function flatten(r) {
 /* ═════════ ROLE / NAV ═════════ */
 function showOnly(id) { ['landing', 'user', 'admin'].forEach(x => $(x).classList.toggle('hidden', x !== id)); window.scrollTo({ top: 0 }); }
 function goHome() { UI.role = null; showOnly('landing'); }
-async function enterUser() { UI.role = 'user'; showOnly('user'); await loadPublic(); mountForm('user'); uTab('form'); $('uBanner').innerHTML = ONLINE ? '' : `<div class="banner">${ic('alert')}<span><b>โหมดทดลอง</b> ข้อมูลจะเก็บไว้ในเบราว์เซอร์นี้เท่านั้น</span></div>`; }
+async function enterUser(tab) { UI.role = 'user'; showOnly('user'); await loadPublic(); mountForm('user'); uTab(tab || 'form'); if (tab === 'status') setTimeout(() => $('stQ').focus(), 100); $('uBanner').innerHTML = ONLINE ? '' : `<div class="banner">${ic('alert')}<span><b>โหมดทดลอง</b> ข้อมูลจะเก็บไว้ในเบราว์เซอร์นี้เท่านั้น</span></div>`; }
 function uTab(t) {
   UI.upage = t;
   document.querySelectorAll('#uTabs button').forEach(b => b.classList.toggle('on', b.dataset.t === t));
@@ -1759,7 +1824,7 @@ async function clearDemo() { if (!await confirmPop('ล้างข้อมู�
   $('landMode').textContent = ONLINE ? 'เชื่อมต่อ Google Sheets' : 'โหมดทดลอง · ข้อมูลเก็บในเบราว์เซอร์นี้';
   const saved = sessionStorage.getItem(SS_ADMIN), qs = new URLSearchParams(location.search);
   if (saved) { ADMIN_KEY = saved; try { await enterAdmin(); return; } catch (e) {} }
-  if (qs.has('school')) enterUser(); else if (qs.has('admin')) openLogin();
+  if (qs.has('school')) enterUser('form'); else if (qs.has('admin')) openLogin();
 })();
 </script>
 </body>

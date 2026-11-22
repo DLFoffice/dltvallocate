@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="icon" href="https://dltv.ac.th/themes/default/assets/images/dltv-main-logo.png">
-<title>ระบบจัดสรร TV 55 นิ้ว · โรงเรียนเป้าหมาย DLTV</title>
+<title>โครงการจัดหาอุปกรณ์โทรทัศน์ทดแทนสำหรับโรงเรียนปลายทาง DLTV</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
@@ -464,7 +464,7 @@ table.compact th, table.compact td { padding: 10px 9px; }
 .land-main { flex: 1; width: 100%; max-width: 900px; display: flex; flex-direction: column; align-items: center; gap: 30px; padding: 10px 20px 40px; }
 .land-head { gap: 12px; }
 .land-kicker { display: inline-block; background: rgba(245,179,1,.14); color: var(--gold); border: 1px solid rgba(245,179,1,.3); border-radius: 999px; padding: 4px 14px; font-size: 13px; font-weight: 600; margin-top: 6px; }
-.land-head h1 { font-size: clamp(30px, 5vw, 46px); }
+.land-head h1 { font-size: clamp(28px, 4.6vw, 44px); }
 .land-head h1 .nw { white-space: nowrap; display: inline-block; } .land-head h1 .gold { color: var(--gold); }
 .land-head p { font-size: 16px; max-width: 620px; }
 .land-cta { display: grid; grid-template-columns: 1.25fr 1fr; gap: 14px; width: 100%; max-width: 760px; }
@@ -568,8 +568,8 @@ th.sort:hover, th.sort.on { color: var(--primary-2); }
   <main class="land-main">
     <div class="land-head">
       <span class="logos lg-land"><img src="https://dltv.ac.th/upload/data/users/0/316/CMS/images/logo%20dlf%20%E0%B8%AA%E0%B8%A1%E0%B8%9A%E0%B8%B9%E0%B8%A3%E0%B8%93%E0%B9%8C.png" alt="มูลนิธิการศึกษาทางไกลผ่านดาวเทียม" onerror="this.remove()"><img src="https://dltv.ac.th/themes/default/assets/images/dltv-main-logo.png" alt="DLTV" onerror="this.remove()"><svg class="i fb" aria-hidden="true"><use href="#i-tv"/></svg></span>
-      <span class="land-kicker">สำหรับโรงเรียนเป้าหมาย DLTV · ปีงบประมาณ <span class="fyText">2570</span></span>
-      <h1><span class="nw">ขอรับ TV 55 นิ้ว</span> <span class="nw">พร้อมขาตั้ง</span><br><span class="nw gold">ทดแทนเครื่องที่ชำรุด</span></h1>
+      <span class="land-kicker">TV 55 นิ้ว พร้อมขาตั้ง · ปีงบประมาณ <span class="fyText">2570</span></span>
+      <h1><span class="nw">โครงการจัดหาอุปกรณ์</span><span class="nw">โทรทัศน์ทดแทน</span><br><span class="gold"><span class="nw">สำหรับโรงเรียน</span><span class="nw">ปลายทาง DLTV</span></span></h1>
       <p>โรงเรียนแจ้ง TV ที่ชำรุดของแต่ละชั้นเรียนพร้อมรูปถ่าย มูลนิธิจะจัดสรรเครื่องใหม่ทดแทนให้ตามจำนวนที่ชำรุดจริง</p>
     </div>
     <div class="land-cta">
@@ -1922,7 +1922,7 @@ tr.tot td { background: #FFF6DC !important; font-weight: 700; border-top: 1.5px 
 <div class="tb"><span>ตัวอย่างรายงาน · กด “บันทึกเป็น PDF” แล้วเลือกปลายทาง “Save as PDF / บันทึกเป็น PDF”</span><button onclick="print()">บันทึกเป็น PDF / พิมพ์</button><button class="g" onclick="close()">ปิด</button></div>
 <div class="sheet">
   <div class="head"><div class="lg"><img src="${LOGO_DLF}" alt="" onerror="this.remove()"><img src="${LOGO_DLTV}" alt="" onerror="this.remove()"></div>
-    <div><h1>รายงานสรุปการจัดสรร TV 55 นิ้ว พร้อมขาตั้ง ทดแทนเครื่องที่ชำรุด</h1><p>มูลนิธิการศึกษาทางไกลผ่านดาวเทียม ในพระบรมราชูปถัมภ์ · โรงเรียนเป้าหมาย DLTV · ปีงบประมาณ ${esc(SETTINGS.fy)}</p></div></div>
+    <div><h1>รายงานสรุปโครงการจัดหาอุปกรณ์โทรทัศน์ทดแทนสำหรับโรงเรียนปลายทาง DLTV</h1><p>มูลนิธิการศึกษาทางไกลผ่านดาวเทียม ในพระบรมราชูปถัมภ์ · โรงเรียนเป้าหมาย DLTV · ปีงบประมาณ ${esc(SETTINGS.fy)}</p></div></div>
   <div class="meta"><span>ขอบเขตรายงาน: <b>${esc(scopeText)}</b></span><span>ข้อมูล ณ วันที่ ${thDateFull()} เวลา ${String(new Date().getHours()).padStart(2, '0')}:${String(new Date().getMinutes()).padStart(2, '0')} น.</span></div>
 
   <div class="kpis">

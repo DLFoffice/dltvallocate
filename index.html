@@ -631,7 +631,7 @@ th.sort:hover, th.sort.on { color: var(--primary-2); }
               <li><a href="#s1" data-sec="1"><span class="no">1</span>ข้อมูลโรงเรียน</a></li>
               <li><a href="#s2" data-sec="2"><span class="no">2</span>TV รายชั้นเรียน + รูป</a></li>
               <li><a href="#s3" data-sec="3"><span class="no">3</span>สัญญาณและความพร้อม</a></li>
-              <li><a href="#s4" data-sec="4"><span class="no">4</span>ครูและการใช้ DLTV</a></li>
+              <li><a href="#s4" data-sec="4"><span class="no">4</span>การใช้ DLTV และครู</a></li>
               <li><a href="#s5" data-sec="5"><span class="no">5</span>ผู้ประสานงานและ ผอ.</a></li>
             </ol>
           </div>
@@ -687,18 +687,24 @@ th.sort:hover, th.sort.on { color: var(--primary-2); }
           </section>
 
           <section class="card" id="s4">
-            <div class="card-t"><span class="sec-no">4</span><div><h2>ครูและการใช้ DLTV ในการเรียนการสอน</h2><p>ช่วยให้เห็นว่าโรงเรียนพึ่ง DLTV มากแค่ไหน</p></div></div>
-            <div class="yn"><span class="req">โรงเรียนมีครูครบชั้นหรือไม่</span><div class="opts"><label class="opt"><input type="radio" name="teacherFull" value="ครบชั้น" onchange="toggleTeacher()">ครบทุกชั้น</label><label class="opt"><input type="radio" name="teacherFull" value="ไม่ครบชั้น" onchange="toggleTeacher()">ไม่ครบ ต้องสอนควบชั้น</label></div></div>
+            <div class="card-t"><span class="sec-no">4</span><div><h2>การใช้ DLTV ในการเรียนการสอน</h2><p>โครงการนี้สำหรับโรงเรียนที่ใช้ DLTV · ข้อมูลส่วนนี้ใช้จัดลำดับการจัดสรร กรุณาตอบตามจริง</p></div></div>
+            <div class="yn"><span class="req">โรงเรียนใช้ DLTV ในการเรียนการสอนอยู่หรือไม่</span><div class="opts"><label class="opt"><input type="radio" name="dltvUsing" value="ใช้อยู่" onchange="toggleDltv()">ใช้อยู่</label><label class="opt"><input type="radio" name="dltvUsing" value="ยังไม่ได้ใช้" onchange="toggleDltv()">ยังไม่ได้ใช้</label></div></div>
+            <div class="note b-red hidden" id="dltvNo"><svg class="i"><use href="#i-alert"/></svg><span><b>โครงการนี้จัดสรรเฉพาะโรงเรียนที่ใช้ DLTV ในการเรียนการสอน</b><br>หากโรงเรียนยังไม่ได้ใช้ จะยังยื่นคำขอรอบนี้ไม่ได้</span></div>
+            <div id="dltvMore" class="hidden" style="display:flex;flex-direction:column;gap:16px">
+              <div class="fgrid">
+                <label class="fld"><span class="req">ใช้ DLTV สอนรูปแบบใดเป็นหลัก</span><select class="inp" name="dltvUse"><option value="">— เลือก —</option><option>ใช้สอนสดตามตารางทุกวิชา</option><option>ใช้แทนครูในชั้นที่ครูไม่ครบ</option><option>ใช้สอนสดบางวิชา</option><option>ใช้คลิปย้อนหลัง / ทบทวนเป็นหลัก</option></select></label>
+                <label class="fld"><span class="req">ใช้ DLTV กี่วันต่อสัปดาห์</span><select class="inp" name="dltvDays"><option value="">— เลือก —</option><option value="5">ทุกวัน (5 วัน)</option><option value="4">4 วัน</option><option value="3">3 วัน</option><option value="2">2 วัน</option><option value="1">1 วัน</option></select></label>
+                <label class="fld"><span class="req">ชั่วโมงที่ใช้ DLTV ต่อสัปดาห์ต่อห้อง</span><input class="inp" type="number" min="0" max="40" name="hoursPlan" placeholder="โดยประมาณ"></label>
+              </div>
+              <fieldset><legend class="req">ชั้นที่ใช้ DLTV <small class="muted" style="font-weight:400">(จากชั้นที่เปิดสอนในหัวข้อที่ 1)</small></legend><div class="opts" id="dltvGradeOpts"><span class="muted" style="font-size:13px">เลือกระดับชั้นที่เปิดสอนในหัวข้อที่ 1 ก่อน</span></div></fieldset>
+              <fieldset><legend class="req">วิชาที่ใช้ DLTV สอน (เลือกได้หลายวิชา)</legend><div class="opts" data-multi="subjects"></div></fieldset>
+              <label class="fld">อธิบายการใช้ DLTV เพิ่มเติม<textarea class="inp" name="useNote" rows="2" placeholder="เช่น ใช้สอนคณิตและอังกฤษทุกชั้นเพราะไม่มีครูวิชาเอก"></textarea></label>
+            </div>
+            <div class="yn" style="border-top:1px solid var(--row);padding-top:14px"><span class="req">โรงเรียนมีครูครบชั้นหรือไม่</span><div class="opts"><label class="opt"><input type="radio" name="teacherFull" value="ครบชั้น" onchange="toggleTeacher()">ครบทุกชั้น</label><label class="opt"><input type="radio" name="teacherFull" value="ไม่ครบชั้น" onchange="toggleTeacher()">ไม่ครบ ต้องสอนควบชั้น</label></div></div>
             <div class="fgrid hidden" id="teacherMore">
               <label class="fld"><span class="req">จำนวนชั้นที่ไม่มีครูประจำชั้น</span><input class="inp" type="number" min="1" name="teacherShort"></label>
               <label class="fld">ชั้นที่ต้องสอนควบกัน<input class="inp" name="combined" placeholder="เช่น ป.1–ป.2, ป.4–ป.5"></label>
             </div>
-            <div class="fgrid">
-              <label class="fld"><span class="req">ใช้ DLTV สอนอย่างไร</span><select class="inp" name="dltvUse"><option value="">— เลือก —</option><option>ใช้สอนสดตามตารางทุกวิชา</option><option>ใช้สอนสดบางวิชา</option><option>ใช้คลิปย้อนหลัง / ทบทวนเป็นหลัก</option><option>ใช้แทนครูในชั้นที่ครูไม่ครบ</option><option>ยังไม่ได้ใช้</option></select></label>
-              <label class="fld">ชั่วโมงที่ใช้ DLTV ต่อสัปดาห์ต่อห้อง (โดยประมาณ)<input class="inp" type="number" min="0" name="hoursPlan"></label>
-            </div>
-            <fieldset><legend class="req">วิชาที่ใช้ DLTV สอน (เลือกได้หลายวิชา)</legend><div class="opts" data-multi="subjects"></div></fieldset>
-            <label class="fld">อธิบายการใช้ DLTV เพิ่มเติม<textarea class="inp" name="useNote" rows="2" placeholder="เช่น ใช้สอนคณิตและอังกฤษทุกชั้นเพราะไม่มีครูวิชาเอก"></textarea></label>
           </section>
 
           <section class="card" id="s5">
@@ -746,6 +752,7 @@ th.sort:hover, th.sort.on { color: var(--primary-2); }
       <button data-p="dash" class="on" onclick="aPage('dash')"><svg class="i"><use href="#i-grid"/></svg>Dashboard</button>
       <span class="nav-label">การจัดสรร</span>
       <button data-p="approve" onclick="aPage('approve')"><svg class="i"><use href="#i-inbox"/></svg>พิจารณาคำขอ<span class="count" id="cApprove"></span></button>
+      <button data-p="alloc" onclick="aPage('alloc')"><svg class="i"><use href="#i-star"/></svg>จัดสรรอัตโนมัติ</button>
       <button data-p="proxy" onclick="aPage('proxy')"><svg class="i"><use href="#i-edit"/></svg>ยื่นคำขอแทนโรงเรียน</button>
       <span class="nav-label">ระบบ</span>
       <button data-p="settings" onclick="aPage('settings')"><svg class="i"><use href="#i-gear"/></svg>ตั้งค่า</button>
@@ -789,6 +796,18 @@ th.sort:hover, th.sort.on { color: var(--primary-2); }
           </div>
         </div>
       </section>
+
+      <div class="grid g2">
+        <section class="card">
+          <div class="card-h"><div class="card-t"><span class="tile t-blue"><svg class="i"><use href="#i-star"/></svg></span><div><h2>คะแนนการใช้ DLTV</h2><p id="dltvSub">ใช้จัดลำดับการจัดสรร</p></div></div><span class="badge b-blue plain" id="dltvAvg"></span></div>
+          <div class="cols" id="dltvCols"></div><div class="col-labels" id="dltvColLabels"></div>
+        </section>
+        <section class="card">
+          <div class="card-t"><span class="tile t-green"><svg class="i"><use href="#i-tv"/></svg></span><div><h2>รูปแบบการใช้ DLTV</h2><p>โรงเรียนที่ยื่นคำขอ · คะแนนเฉลี่ยของแต่ละกลุ่ม</p></div></div>
+          <div id="dltvModes" style="display:flex;flex-direction:column;gap:12px"></div>
+          <a href="#" style="font-size:13.5px;font-weight:600" onclick="event.preventDefault(); aPage('alloc')">ไปหน้าจัดสรรอัตโนมัติ →</a>
+        </section>
+      </div>
 
       <div class="grid g3">
         <section class="card"><div class="card-t"><span class="tile t-teal"><svg class="i"><use href="#i-school"/></svg></span><div><h2>ขนาดโรงเรียน</h2><p>โรงเรียนที่ยื่นคำขอ · คลิกเพื่อกรอง</p></div></div><div id="sizeBars" style="display:flex;flex-direction:column;gap:12px"></div></section>
@@ -854,7 +873,7 @@ th.sort:hover, th.sort.on { color: var(--primary-2); }
             </div>
           </div>
           <div class="tbl-box">
-            <table><thead><tr><th style="width:44px"><input type="checkbox" id="apAll" aria-label="เลือกทั้งหมด" onchange="apToggleAll(this.checked)"></th><th>โรงเรียน</th><th>เคยได้รับ</th><th>TV รายชั้น</th><th class="r">ชำรุด</th><th>รูป</th><th>คะแนน</th><th>สถานะ</th></tr></thead>
+            <table><thead><tr><th style="width:44px"><input type="checkbox" id="apAll" aria-label="เลือกทั้งหมด" onchange="apToggleAll(this.checked)"></th><th>โรงเรียน</th><th>เคยได้รับ</th><th>TV รายชั้น</th><th class="r">ชำรุด</th><th>รูป</th><th>คะแนน DLTV</th><th>สถานะ</th></tr></thead>
             <tbody id="apRows"></tbody></table>
           </div>
           <div class="bulkbar" id="apBulk"></div>
@@ -862,11 +881,32 @@ th.sort:hover, th.sort.on { color: var(--primary-2); }
         <aside style="display:flex;flex-direction:column;gap:18px">
           <div class="lot" id="quotaCard"></div>
           <section class="card">
-            <div class="card-t"><span class="tile t-gold"><svg class="i"><use href="#i-star"/></svg></span><div><h2>เกณฑ์คะแนน</h2><p>ใช้เรียงลำดับความสำคัญ เต็ม 100</p></div></div>
+            <div class="card-t"><span class="tile t-gold"><svg class="i"><use href="#i-star"/></svg></span><div><h2>คะแนนการใช้ DLTV</h2><p>เต็ม 100 · ใช้จัดลำดับการจัดสรร ถ้าคะแนนเท่ากันดูจำนวน TV ชำรุด</p></div></div>
             <div id="criteria" style="display:flex;flex-direction:column;gap:12px"></div>
           </section>
         </aside>
       </div>
+    </div>
+
+    <div class="page hidden" id="p-alloc">
+      <section class="card">
+        <div class="card-h"><div class="card-t"><span class="tile t-navy"><svg class="i"><use href="#i-star"/></svg></span><div><h2>ตั้งค่าการจัดสรรรอบนี้</h2><p>ระบบเรียงลำดับ: คะแนนการใช้ DLTV มากก่อน → ถ้าเท่ากันดูจำนวน TV ชำรุดมากก่อน → ยื่นก่อนได้ก่อน</p></div></div></div>
+        <div class="fgrid" style="align-items:end">
+          <label class="fld"><span class="req">จำนวนเครื่องที่มีให้จัดสรร (ชุด)</span><input class="inp" type="number" min="0" id="alSupply" onchange="saveAllocSettings()"><small><a href="#" onclick="event.preventDefault(); supplyFromBudget()">คำนวณจากงบประมาณ ÷ ราคา</a></small></label>
+          <label class="fld">คะแนน DLTV ขั้นต่ำ <small>(ไม่บังคับ)</small><input class="inp" type="number" min="0" max="100" id="alMin" placeholder="0 = ไม่กำหนด" onchange="saveAllocSettings()"><small>ต่ำกว่านี้จะไม่ได้รับจัดสรร</small></label>
+          <div style="display:flex;flex-direction:column;gap:8px">
+            <label class="check" style="padding:9px 12px"><input type="checkbox" id="alPartial" onchange="UI.alloc.partial=this.checked; renderAlloc()"><span>ให้บางส่วนได้ เมื่อเครื่องเหลือไม่พอทั้งโรง</span></label>
+            <label class="check" style="padding:9px 12px"><input type="checkbox" id="alUnrev" onchange="UI.alloc.includeUnreviewed=this.checked; renderAlloc()"><span>รวมคำขอที่ยังไม่ได้ตรวจรูป</span></label>
+          </div>
+        </div>
+        <div id="alWarn" style="display:flex;flex-direction:column;gap:8px"></div>
+      </section>
+      <section class="kpis" id="alKpis"></section>
+      <section class="card">
+        <div class="card-h"><div class="card-t"><span class="tile t-green"><svg class="i"><use href="#i-check"/></svg></span><div><h2>ผลการจัดสรรตามลำดับ (ตัวอย่างก่อนยืนยัน)</h2><p>คลิกแถวเพื่อดูรูปและรายละเอียด · ยังไม่มีอะไรถูกบันทึกจนกว่าจะกดยืนยัน</p></div></div>
+          <div class="toolbar"><button class="btn ghost sm" onclick="exportAllocCsv()"><svg class="i"><use href="#i-down"/></svg>ส่งออก Excel</button><button class="btn gold" id="alConfirm" onclick="confirmAlloc()">ยืนยันจัดสรร</button></div></div>
+        <div class="tbl-box"><table class="compact"><thead><tr><th class="c">อันดับ</th><th>โรงเรียน</th><th>คะแนน DLTV</th><th>รูปแบบการใช้</th><th class="r">TV ชำรุด</th><th class="r">จัดสรร</th><th class="r">เครื่องเหลือ</th><th>ผล</th></tr></thead><tbody id="alRows"></tbody></table></div>
+      </section>
     </div>
 
     <div class="page hidden" id="p-proxy"></div>
@@ -947,7 +987,7 @@ const STATUS = {
   approved:  { t: 'อนุมัติแล้ว', c: 'b-green', col: '#12A06A' },
   rejected:  { t: 'ไม่อนุมัติ', c: 'b-red', col: '#E5484D' }
 };
-const DEFAULT_SETTINGS = { fy: '2570', price: 0, budget: 0, minYear: '2563' };
+const DEFAULT_SETTINGS = { fy: '2570', price: 0, budget: 0, minYear: '2563', supply: 0, minScore: 0 };
 const PRODUCT = 'TV 55 นิ้ว พร้อมขาตั้ง';
 
 /* ─── state ─── */
@@ -1052,30 +1092,32 @@ document.addEventListener('keydown', (e) => {
 });
 
 /* ─── scoring ─── */
+/* ─── คะแนนการใช้ DLTV (เต็ม 100) · ใช้จัดลำดับการจัดสรร: คะแนน DLTV มาก่อน ถ้าเท่ากันดูจำนวน TV ชำรุด ─── */
+const DLTV_MODES = { 'ใช้สอนสดตามตารางทุกวิชา': 30, 'ใช้แทนครูในชั้นที่ครูไม่ครบ': 25, 'ใช้สอนสดบางวิชา': 18, 'ใช้คลิปย้อนหลัง / ทบทวนเป็นหลัก': 10 };
 const CRITERIA = [
-  { k: 'cond', t: 'สัดส่วนชั้นที่ TV ชำรุด/ไม่มี', w: 30, col: '#E5484D' },
-  { k: 'teacher', t: 'ครูไม่ครบชั้น ต้องพึ่ง DLTV', w: 20, col: '#F5B301' },
-  { k: 'ratio', t: 'นักเรียนต่อจอที่ใช้ได้', w: 20, col: '#F08C1A' },
-  { k: 'remote', t: 'พื้นที่ห่างไกล / เกาะ / ชายแดน', w: 15, col: '#0EA5A8' },
-  { k: 'ready', t: 'ความพร้อมของห้องเรียน', w: 10, col: '#12A06A' },
-  { k: 'photo', t: 'แนบรูปครบทุกเครื่องที่ชำรุด', w: 5, col: '#7C5CFC' }
+  { k: 'mode', t: 'รูปแบบการใช้ DLTV', w: 30, col: '#2557D6', how: 'สอนสดทุกวิชา 30 · แทนครูที่ขาด 25 · สอนสดบางวิชา 18 · คลิปย้อนหลัง 10' },
+  { k: 'days', t: 'จำนวนวันที่ใช้ต่อสัปดาห์', w: 20, col: '#12A06A', how: '4 คะแนนต่อวัน (5 วัน = 20)' },
+  { k: 'hours', t: 'ชั่วโมงที่ใช้ต่อสัปดาห์ต่อห้อง', w: 20, col: '#0EA5A8', how: '1 คะแนนต่อชั่วโมง (20 ชม.ขึ้นไป = 20)' },
+  { k: 'grades', t: 'สัดส่วนชั้นที่ใช้ DLTV', w: 15, col: '#F08C1A', how: 'ใช้ครบทุกชั้นที่เปิดสอน = 15' },
+  { k: 'subjects', t: 'จำนวนวิชาที่ใช้ DLTV', w: 15, col: '#7C5CFC', how: '3 คะแนนต่อวิชา (5 วิชาขึ้นไป = 15)' }
 ];
 const CRIT_MAX = Math.max(...CRITERIA.map(c => c.w));
-/* ครูไม่ครบชั้น: ได้อย่างน้อย 10 คะแนน และเต็ม 20 เมื่อขาดครู 3 ชั้นขึ้นไป */
-function teacherScore(f) { if (f.teacherFull !== 'ไม่ครบชั้น') return 0; return Math.max(10, 20 * Math.min(num(f.teacherShort) / 3, 1)); }
+function usesDltv(f) { return f.dltvUsing ? f.dltvUsing === 'ใช้อยู่' : !!(f.dltvUse && f.dltvUse !== 'ยังไม่ได้ใช้'); }
 function scoreOf(r) {
-  const f = r.form || {}, rooms = roomsOf(r), n = Math.max(rooms.length, 1);
-  const working = rooms.filter(x => x.state === 'ใช้งานได้').length, broken = brokenRooms(r);
+  const f = r.form || {};
+  if (!usesDltv(f)) return { total: 0, parts: { mode: 0, days: 0, hours: 0, grades: 0, subjects: 0 } };
+  const grades = f.grades || [], used = f.dltvGrades || grades;
   const parts = {
-    cond: 30 * (n - working) / n,
-    teacher: teacherScore(f),
-    ratio: 20 * Math.min(num(f.students) / Math.max(working, 1) / 40, 1),
-    remote: f.special && f.special !== 'ไม่ใช่' ? 15 : 0,
-    ready: 10 * READY_QS.filter(q => (f.ready || {})[q.k] === q.good).length / READY_QS.length,
-    photo: broken.length && broken.every(x => x.photo) ? 5 : 0
+    mode: DLTV_MODES[f.dltvUse] || 0,
+    days: 4 * Math.min(num(f.dltvDays), 5),
+    hours: Math.min(num(f.hoursPlan), 20),
+    grades: grades.length ? 15 * Math.min(used.length / grades.length, 1) : 0,
+    subjects: 3 * Math.min((f.subjects || []).length, 5)
   };
   return { total: Math.round(Object.values(parts).reduce((a, b) => a + b, 0)), parts };
 }
+/* ลำดับการจัดสรร: คะแนน DLTV มากก่อน → TV ชำรุดมากก่อน → ยื่นก่อนได้ก่อน */
+function rankCompare(a, b) { return (b.score || 0) - (a.score || 0) || quotaOf(b) - quotaOf(a) || String(a.submittedAt || a.createdAt || '').localeCompare(String(b.submittedAt || b.createdAt || '')) || String(a.id).localeCompare(String(b.id)); }
 
 /* ═════════ DATA LAYER ═════════ */
 async function api(payload) {
@@ -1158,11 +1200,11 @@ function flatten(r) {
     'id': r.id, 'ปีงบประมาณ': r.fy, 'ลำดับโรงเรียน': r.sid,
     'รหัสกระทรวง': s0.moe ? "'" + s0.moe : '', 'SMIS': s0.smis ? "'" + s0.smis : '',
     'โรงเรียน': s.name || '', 'อำเภอ': s.amphoe || '', 'จังหวัด': s.province || '', 'ภูมิภาค': s.region || '', 'เคยได้รับปี': (s0.years || s0.year || '').split(',').join(', '), 'TV เดิมจากมูลนิธิ': oldTv(s0), 'สังกัด': s0.aff || '', 'ต้นสังกัด': agencyOf(s0.aff), 'ขนาดโรงเรียน': f.schoolSize || regSize(s0), 'ประเภทโรงเรียน': f.schoolType || regType(s0), 'แผนยุบ/ควบรวม': f.mergePlan || '', 'รายละเอียดแผน': [f.mergeWith, f.mergeYear ? 'ปี ' + f.mergeYear : ''].filter(Boolean).join(' · '),
-    'สถานะ': (STATUS[r.status] || {}).t || r.status, 'คะแนน': r.score != null ? r.score : '',
+    'สถานะ': (STATUS[r.status] || {}).t || r.status, 'คะแนน DLTV': r.score != null ? r.score : '', 'อันดับจัดสรร': (r.approval && r.approval.rank) || '',
     'จำนวนห้อง/ชั้น': rooms.length, 'TV ใช้งานได้': rooms.filter(x => x.state === 'ใช้งานได้').length, 'TV ชำรุด (ขอ)': tvBroken(r), 'ไม่มี TV': rooms.filter(x => x.state === 'ไม่มี TV').length,
     'ชั้นที่ชำรุด': brokenRooms(r).map(x => x.name).join(', '), 'อนุมัติ (ชุด)': a.tv || '', 'ชั้นที่อนุมัติ': (a.rooms || []).join(', '),
     'วันที่ยื่น': r.submittedAt || '', 'วันที่อนุมัติ': a.at || '', 'หมายเหตุเจ้าหน้าที่': (r.review && r.review.note) || a.note || '',
-    'ผู้ประสานงาน': f.coordName || '', 'เบอร์โทร': f.coordPhone ? "'" + f.coordPhone : '', 'ครูครบชั้น': f.teacherFull || '', 'ชั้นที่ไม่มีครู': f.teacherFull === 'ไม่ครบชั้น' ? f.teacherShort : '', 'การใช้ DLTV': f.dltvUse || '', 'วิชาที่ใช้ DLTV': (f.subjects || []).join(', '),
+    'ผู้ประสานงาน': f.coordName || '', 'เบอร์โทร': f.coordPhone ? "'" + f.coordPhone : '', 'ครูครบชั้น': f.teacherFull || '', 'ชั้นที่ไม่มีครู': f.teacherFull === 'ไม่ครบชั้น' ? f.teacherShort : '', 'ใช้ DLTV': f.dltvUsing || (usesDltv(f) ? 'ใช้อยู่' : ''), 'การใช้ DLTV': f.dltvUse || '', 'วัน/สัปดาห์': f.dltvDays || '', 'ชม./สัปดาห์': f.hoursPlan || '', 'ชั้นที่ใช้ DLTV': (f.dltvGrades || []).join(', '), 'วิชาที่ใช้ DLTV': (f.subjects || []).join(', '),
     'ผู้อำนวยการ': f.directorName || '', 'ตำแหน่ง ผอ.': f.directorPos || '', 'เบอร์ ผอ.': f.directorPhone ? "'" + f.directorPhone : '',
     'โฟลเดอร์รูป': s.name ? folderName(s0.name ? s0 : s) : '', 'อัปเดตล่าสุด': r.updatedAt || ''
   };
@@ -1201,7 +1243,7 @@ async function reloadAdmin() {
   document.querySelectorAll('.fyText').forEach(el => el.textContent = SETTINGS.fy); document.querySelectorAll('.minYearText').forEach(el => el.textContent = minYear());
   renderAdmin();
 }
-const PAGES = { dash: ['Dashboard', 'ภาพรวมการจัดสรร ' + PRODUCT + ' ทดแทนเครื่องที่ชำรุด'], approve: ['พิจารณาคำขอ', 'ตรวจรูป TV ชำรุดรายชั้น และอนุมัติทีละเครื่อง'], proxy: ['ยื่นคำขอแทนโรงเรียน', 'กรอกแบบคำขอแทนโรงเรียนที่ไม่สะดวกยื่นเอง'], settings: ['ตั้งค่า', 'ปีงบประมาณและราคา'] };
+const PAGES = { alloc: ['จัดสรรอัตโนมัติ', 'ใส่จำนวนเครื่องที่มี ระบบจัดสรรให้ตามลำดับคะแนน DLTV และจำนวน TV ชำรุด'], dash: ['Dashboard', 'ภาพรวมการจัดสรร ' + PRODUCT + ' ทดแทนเครื่องที่ชำรุด'], approve: ['พิจารณาคำขอ', 'ตรวจรูป TV ชำรุดรายชั้น และอนุมัติทีละเครื่อง'], proxy: ['ยื่นคำขอแทนโรงเรียน', 'กรอกแบบคำขอแทนโรงเรียนที่ไม่สะดวกยื่นเอง'], settings: ['ตั้งค่า', 'ปีงบประมาณและราคา'] };
 function aPage(p) {
   UI.apage = p;
   document.querySelectorAll('.nav button').forEach(b => b.classList.toggle('on', b.dataset.p === p));
@@ -1211,6 +1253,7 @@ function aPage(p) {
   $('pgActs').innerHTML = p === 'dash' ? `${refresh}<button class="btn ghost sm" onclick="exportCsv()">${ic('down')}ส่งออก Excel</button><button class="btn sm" onclick="openReportDialog()">${ic('down')}ส่งออก PDF (ผู้บริหาร)</button>` : p === 'proxy' ? '' : refresh;
   if (p === 'proxy') mountForm('admin');
   if (p === 'settings') renderSettings();
+  if (p === 'alloc') renderAlloc();
   window.scrollTo({ top: 0 });
 }
 function mountForm(where) {
@@ -1220,7 +1263,7 @@ function mountForm(where) {
   document.querySelector('.form-side').style.top = where === 'admin' ? '20px' : '84px';
 }
 function renderAdmin() {
-  fillFilters(); renderBannerAdmin(); renderDash(); renderApprove(); renderQuota();
+  fillFilters(); renderBannerAdmin(); renderDash(); renderApprove(); renderQuota(); if (UI.apage === 'alloc') renderAlloc();
   $('cApprove').textContent = curRecs().filter(r => r.status === 'submitted' || r.status === 'reviewed').length || '';
 }
 function renderBannerAdmin() {
@@ -1361,6 +1404,17 @@ function renderDash() {
   catBars('sizeBars', 'size', SIZES, recSize, ['#7FB2FF', '#2557D6', '#1C46B5', '#0B1F45']);
   catBars('typeBars', 'type', TYPES, recType, ['#7C5CFC', '#0EA5A8', '#F08C1A']);
   catBars('planBars', 'plan', PLANS, recPlan, ['#12A06A', '#F08C1A', '#E5484D', '#F5B301']);
+  /* คะแนน DLTV */
+  const dl = active.filter(r => usesDltv(r.form || {}));
+  const bk = [['0–39', 0, 39, '#CBD5E1'], ['40–59', 40, 59, '#F5B301'], ['60–79', 60, 79, '#3B82F6'], ['80–100', 80, 100, '#12A06A']].map(([l, a, b, c]) => { const rr = dl.filter(r => (r.score || 0) >= a && (r.score || 0) <= b); return { l, c, n: rr.length, tv: rr.reduce((x, r) => x + quotaOf(r), 0) }; });
+  const bkm = Math.max(1, ...bk.map(x => x.n));
+  $('dltvAvg').textContent = dl.length ? 'เฉลี่ย ' + (dl.reduce((a, r) => a + (r.score || 0), 0) / dl.length).toFixed(1) + ' คะแนน' : '';
+  $('dltvSub').textContent = `${fmt(dl.length)} โรงเรียนที่ใช้ DLTV · ใช้จัดลำดับการจัดสรร`;
+  $('dltvCols').innerHTML = bk.map(x => `<div data-tip="คะแนน ${x.l}<br><b>${fmt(x.n)}</b> โรงเรียน · TV ชำรุด ${fmt(x.tv)} เครื่อง"><b>${fmt(x.n)}</b><i style="height:${x.n / bkm * 150}px;background:${x.c}"></i></div>`).join('');
+  $('dltvColLabels').innerHTML = bk.map(x => `<span>${x.l} คะแนน</span>`).join('');
+  const md = Object.keys(DLTV_MODES).map((m, i) => { const rr = dl.filter(r => (r.form || {}).dltvUse === m); return { m, n: rr.length, avg: rr.length ? rr.reduce((a, r) => a + (r.score || 0), 0) / rr.length : 0, c: ['#2557D6', '#F08C1A', '#0EA5A8', '#94A3B8'][i] }; });
+  const mdm = Math.max(1, ...md.map(x => x.n));
+  $('dltvModes').innerHTML = md.map(x => `<div class="hbar" style="grid-template-columns:minmax(140px,200px) minmax(0,1fr) 110px" data-tip="<b>${esc(x.m)}</b><br>${fmt(x.n)} โรงเรียน · คะแนนเฉลี่ย ${x.avg.toFixed(1)}"><span style="font-size:13px">${esc(x.m)}</span><div class="track"><i style="width:${pct(x.n, mdm)}%;background:${x.c}"></i></div><b style="font-size:12.5px">${fmt(x.n)} โรง · ${x.avg.toFixed(0)}</b></div>`).join('');
 
   /* ปีที่เคยได้รับ */
   const ySch = SCHOOLS.filter(s => isEligible(s) && schoolMatch(s, 'year')), yRec = curRecs().filter(r => r.status !== 'rejected' && recMatch(r, 'year'));
@@ -1448,9 +1502,21 @@ function buildFormStatic() {
   $('reqForm').addEventListener('change', clr); $('reqForm').addEventListener('input', clr);
 }
 /* แถวตามชั้นที่เลือก: เพิ่มแถวให้ชั้นที่ยังไม่มี และลบแถวที่ยังไม่ได้กรอกของชั้นที่ถูกเอาออก */
+function toggleDltv() {
+  const el = document.querySelector('[name=dltvUsing]:checked'), no = el && el.value === 'ยังไม่ได้ใช้';
+  $('dltvMore').classList.toggle('hidden', !el || no); $('dltvNo').classList.toggle('hidden', !no);
+  if (no) popup({ type: 'warn', title: 'โครงการนี้สำหรับโรงเรียนที่ใช้ DLTV', msg: 'การจัดสรร TV รอบนี้พิจารณาเฉพาะโรงเรียนที่ใช้ DLTV ในการเรียนการสอน<br>หากโรงเรียนยังไม่ได้ใช้ จะยังส่งคำขอไม่ได้' });
+}
+function renderDltvGrades(keep) {
+  const sel = [...document.querySelectorAll('[name=grades]:checked')].map(x => x.value);
+  const cur = keep || [...document.querySelectorAll('[name=dltvGrades]:checked')].map(x => x.value);
+  $('dltvGradeOpts').innerHTML = sel.length ? sel.map(g => `<label class="opt"><input type="checkbox" name="dltvGrades" value="${g}" ${cur.includes(g) ? 'checked' : ''}>${g}</label>`).join('') + `<button type="button" class="btn ghost sm" onclick="document.querySelectorAll('[name=dltvGrades]').forEach(x=>x.checked=true); updateToc()">เลือกทุกชั้น</button>`
+    : '<span class="muted" style="font-size:13px">เลือกระดับชั้นที่เปิดสอนในหัวข้อที่ 1 ก่อน</span>';
+}
 function togglePlan() { const el = document.querySelector('[name=mergePlan]:checked'); $('planMore').classList.toggle('hidden', !el || el.value === 'ไม่มีแผน'); }
 function toggleTeacher() { const el = document.querySelector('[name=teacherFull]:checked'); $('teacherMore').classList.toggle('hidden', !el || el.value !== 'ไม่ครบชั้น'); }
 function syncGradeRows() {
+  renderDltvGrades();
   const sel = [...document.querySelectorAll('[name=grades]:checked')].map(x => x.value);
   UI.rooms = UI.rooms.filter(r => r.custom || sel.includes(r.grade) || r.photo || r.state === 'ชำรุด');
   sel.forEach(g => { if (!UI.rooms.some(r => r.grade === g)) UI.rooms.push(newRoom(g)); });
@@ -1547,7 +1613,7 @@ function sectionDone() {
     1: !!UI.formSchool && checked('grades') && v('students') && v('teachers') && v('schoolSize') && v('schoolType') && checked('mergePlan') && (f.querySelector('[name=mergePlan]:checked').value === 'ไม่มีแผน' || v('mergeWith')),
     2: UI.rooms.length > 0 && UI.rooms.every(r => String(r.name).trim() && r.state) && br.length > 0 && br.every(r => r.photo && r.symptom) && v('reason'),
     3: v('signal') && v('dish') && READY_QS.every(q => checked('ready_' + q.k)),
-    4: checked('teacherFull') && (f.querySelector('[name=teacherFull]:checked').value !== 'ไม่ครบชั้น' || v('teacherShort')) && v('dltvUse') && (v('dltvUse') === 'ยังไม่ได้ใช้' || checked('subjects')),
+    4: checked('teacherFull') && (f.querySelector('[name=teacherFull]:checked').value !== 'ไม่ครบชั้น' || v('teacherShort')) && (f.querySelector('[name=dltvUsing]:checked') || {}).value === 'ใช้อยู่' && v('dltvUse') && v('dltvDays') && v('hoursPlan') && checked('dltvGrades') && checked('subjects'),
     5: v('coordName') && v('coordPhone') && v('directorName') && v('directorPos') && v('directorPhone') && f.certify.checked
   };
 }
@@ -1565,7 +1631,7 @@ function collectForm() {
     rooms: UI.rooms.map(r => ({ grade: r.grade, name: String(r.name).trim(), students: num(r.students), state: r.state, symptom: r.state === 'ชำรุด' ? r.symptom : '', detail: r.state === 'ชำรุด' ? r.detail : '', photo: r.state === 'ชำรุด' ? r.photo : '', photoTag: r.state === 'ชำรุด' ? r.photoTag : '', custom: !!r.custom })),
     reason: v('reason'), signal: v('signal'), dish: v('dish'), internet: v('internet'), ready,
     teacherFull: (f.querySelector('[name=teacherFull]:checked') || {}).value || '', teacherShort: num(v('teacherShort')), combined: v('combined'),
-    dltvUse: v('dltvUse'), hoursPlan: num(v('hoursPlan')), subjects: multi('subjects'), useNote: v('useNote'),
+    dltvUsing: (f.querySelector('[name=dltvUsing]:checked') || {}).value || '', dltvUse: v('dltvUse'), dltvDays: num(v('dltvDays')), hoursPlan: num(v('hoursPlan')), dltvGrades: multi('dltvGrades'), subjects: multi('subjects'), useNote: v('useNote'),
     coordName: v('coordName'), coordPos: v('coordPos'), coordPhone: v('coordPhone'), geo: UI.geo, directorName: v('directorName'), directorPos: v('directorPos'), directorPhone: v('directorPhone'), certify: f.certify.checked
   };
 }
@@ -1574,9 +1640,12 @@ function loadIntoForm(rec) {
   const s = SCHOOL_BY_ID.get(rec.sid) || schoolOf(rec), d = rec.form || {}, f = $('reqForm');
   UI.formSchool = s; UI.editing = clone(rec);
   $('schoolQ').value = s.name; $('schoolBox').innerHTML = schoolBoxHtml(s);
-  ['students', 'teachers', 'special', 'schoolSize', 'schoolType', 'mergeWith', 'mergeYear', 'reason', 'signal', 'dish', 'internet', 'dltvUse', 'hoursPlan', 'teacherShort', 'combined', 'useNote', 'coordName', 'coordPos', 'coordPhone', 'directorName', 'directorPos', 'directorPhone'].forEach(k => { if (f[k] && d[k] != null) f[k].value = d[k]; });
+  ['students', 'teachers', 'special', 'schoolSize', 'schoolType', 'mergeWith', 'mergeYear', 'reason', 'signal', 'dish', 'internet', 'dltvUse', 'dltvDays', 'hoursPlan', 'teacherShort', 'combined', 'useNote', 'coordName', 'coordPos', 'coordPhone', 'directorName', 'directorPos', 'directorPhone'].forEach(k => { if (f[k] && d[k] != null) f[k].value = d[k]; });
   f.querySelectorAll('[name=teacherFull]').forEach(x => x.checked = d.teacherFull === x.value); toggleTeacher();
   f.querySelectorAll('[name=mergePlan]').forEach(x => x.checked = d.mergePlan === x.value); togglePlan();
+  f.querySelectorAll('[name=dltvUsing]').forEach(x => x.checked = (d.dltvUsing || (usesDltv(d) ? 'ใช้อยู่' : '')) === x.value);
+  $('dltvMore').classList.toggle('hidden', !usesDltv(d)); $('dltvNo').classList.add('hidden');
+  renderDltvGrades(d.dltvGrades || d.grades || []);
   if (!d.schoolSize) f.schoolSize.value = regSize(s); if (!d.schoolType) f.schoolType.value = regType(s);
   ['grades', 'subjects'].forEach(n => f.querySelectorAll(`[name="${n}"]`).forEach(x => x.checked = (d[n] || []).includes(x.value)));
   READY_QS.forEach(q => f.querySelectorAll(`[name="ready_${q.k}"]`).forEach(x => x.checked = (d.ready || {})[q.k] === x.value));
@@ -1594,7 +1663,7 @@ function resetForm(ask) {
     $('reqForm').reset(); UI.formSchool = null; UI.rooms = []; UI.geo = null; UI.editing = null;
     $('schoolQ').value = ''; $('schoolBox').innerHTML = ''; $('formStatus').innerHTML = '';
     $('geoText').textContent = 'ใช้ประกอบการวางแผนจัดส่ง'; $('submitBtn').innerHTML = ic('check') + 'ส่งคำขอรับจัดสรร'; $('submitBtn').disabled = false;
-    $('reqForm').querySelectorAll('.invalid').forEach(x => x.classList.remove('invalid')); $('teacherMore').classList.add('hidden'); $('planMore').classList.add('hidden'); renderRooms();
+    $('reqForm').querySelectorAll('.invalid').forEach(x => x.classList.remove('invalid')); $('teacherMore').classList.add('hidden'); $('planMore').classList.add('hidden'); $('dltvMore').classList.add('hidden'); $('dltvNo').classList.add('hidden'); renderDltvGrades([]); renderRooms();
   };
   if (!ask) return go();
   confirmPop('ล้างแบบฟอร์ม?', 'ข้อมูลและรูปที่กรอกไว้จะหายทั้งหมด', 'ล้างข้อมูล', true).then(ok => { if (ok) go(); });
@@ -1608,6 +1677,8 @@ function captureGeo() {
 async function submitRequest() {
   const f = $('reqForm');
   f.querySelectorAll('.invalid').forEach(x => x.classList.remove('invalid'));
+  const du0 = f.querySelector('[name=dltvUsing]:checked');
+  if (du0 && du0.value === 'ยังไม่ได้ใช้') { await popup({ type: 'warn', title: 'ส่งคำขอไม่ได้', msg: 'โครงการนี้จัดสรรเฉพาะโรงเรียนที่ใช้ DLTV ในการเรียนการสอน' }); $('s4').scrollIntoView({ behavior: 'smooth', block: 'start' }); return; }
   const d = sectionDone(), miss = Object.entries(d).filter(([, ok]) => !ok).map(([k]) => k);
   if (miss.length) {
     const tips = [];
@@ -1620,9 +1691,9 @@ async function submitRequest() {
     if (UI.rooms.length && !br.length && UI.rooms.every(r => r.state)) tips.push('ต้องมี TV ที่ชำรุดอย่างน้อย 1 เครื่องจึงจะขอทดแทนได้');
     const noPhoto = br.filter(r => !r.photo).map(r => r.name); if (noPhoto.length) tips.push('แนบรูป TV ชำรุดของชั้น ' + noPhoto.join(', '));
     const noSym = br.filter(r => !r.symptom).map(r => r.name); if (noSym.length) tips.push('เลือกอาการชำรุดของชั้น ' + noSym.join(', '));
-    ['students', 'teachers', 'reason', 'signal', 'dish', 'dltvUse', 'coordName', 'coordPhone', 'directorName', 'directorPhone'].forEach(n => { if (!String(f[n].value).trim()) f[n].classList.add('invalid'); });
-    const names = { 1: 'ข้อมูลโรงเรียน', 2: 'TV รายชั้นเรียน', 3: 'สัญญาณและความพร้อม', 4: 'ครูและการใช้ DLTV', 5: 'ผู้ประสานงานและผู้อำนวยการ' };
-    miss.forEach(k => { if (k === '3' && !READY_QS.every(q => f.querySelector(`[name=ready_${q.k}]:checked`))) tips.push('ตอบคำถามความพร้อมให้ครบ 5 ข้อ'); if (k === '4') { if (!f.querySelector('[name=teacherFull]:checked')) tips.push('ตอบว่ามีครูครบชั้นหรือไม่'); else if (f.querySelector('[name=teacherFull]:checked').value === 'ไม่ครบชั้น' && !f.teacherShort.value) { tips.push('ระบุจำนวนชั้นที่ไม่มีครูประจำชั้น'); f.teacherShort.classList.add('invalid'); } if (f.dltvUse.value && f.dltvUse.value !== 'ยังไม่ได้ใช้' && !f.querySelector('[name=subjects]:checked')) tips.push('เลือกวิชาที่ใช้ DLTV สอนอย่างน้อย 1 วิชา'); } if (k === '5' && !f.certify.checked) tips.push('ติ๊กรับรองข้อมูลโดยผู้อำนวยการ'); });
+    ['students', 'teachers', 'reason', 'signal', 'dish', 'dltvUse', 'dltvDays', 'hoursPlan', 'coordName', 'coordPhone', 'directorName', 'directorPhone'].forEach(n => { if (!String(f[n].value).trim()) f[n].classList.add('invalid'); });
+    const names = { 1: 'ข้อมูลโรงเรียน', 2: 'TV รายชั้นเรียน', 3: 'สัญญาณและความพร้อม', 4: 'การใช้ DLTV และครู', 5: 'ผู้ประสานงานและผู้อำนวยการ' };
+    miss.forEach(k => { if (k === '3' && !READY_QS.every(q => f.querySelector(`[name=ready_${q.k}]:checked`))) tips.push('ตอบคำถามความพร้อมให้ครบ 5 ข้อ'); if (k === '4') { const du = f.querySelector('[name=dltvUsing]:checked'); if (!du) tips.push('ตอบว่าโรงเรียนใช้ DLTV อยู่หรือไม่'); else if (du.value === 'ใช้อยู่') { if (!f.dltvUse.value || !f.dltvDays.value || !f.hoursPlan.value) tips.push('ระบุรูปแบบ วันต่อสัปดาห์ และชั่วโมงที่ใช้ DLTV'); if (!f.querySelector('[name=dltvGrades]:checked')) tips.push('เลือกชั้นที่ใช้ DLTV'); } if (!f.querySelector('[name=teacherFull]:checked')) tips.push('ตอบว่ามีครูครบชั้นหรือไม่'); else if (f.querySelector('[name=teacherFull]:checked').value === 'ไม่ครบชั้น' && !f.teacherShort.value) { tips.push('ระบุจำนวนชั้นที่ไม่มีครูประจำชั้น'); f.teacherShort.classList.add('invalid'); } if (f.dltvUse.value && f.dltvUse.value !== 'ยังไม่ได้ใช้' && !f.querySelector('[name=subjects]:checked')) tips.push('เลือกวิชาที่ใช้ DLTV สอนอย่างน้อย 1 วิชา'); } if (k === '5' && !f.certify.checked) tips.push('ติ๊กรับรองข้อมูลโดยผู้อำนวยการ'); });
     await popup({ type: 'warn', title: 'ยังกรอกข้อมูลไม่ครบ', msg: `หัวข้อที่ต้องแก้: <b>${miss.map(k => names[k]).join(', ')}</b><ul>${[...new Set(tips)].slice(0, 6).map(t => `<li>${esc(t)}</li>`).join('') || '<li>ช่องที่มีกรอบสีแดง</li>'}</ul>`, ok: 'ไปแก้ไข' });
     $('s' + miss[0]).scrollIntoView({ behavior: 'smooth', block: 'start' });
     return;
@@ -1680,6 +1751,109 @@ function unitCards(r, selectable) {
   }).join('')}</div>`;
 }
 
+/* ═════════ จัดสรรอัตโนมัติ ═════════
+   ลำดับ: คะแนน DLTV มาก → TV ชำรุดมาก → ยื่นก่อน
+   ผู้มีสิทธิ์: ใช้ DLTV · ผ่านการตรวจรูปแล้ว (หรือรวมที่ยังไม่ตรวจ ถ้าเลือก) · คะแนน DLTV ถึงขั้นต่ำ */
+UI.alloc = { includeUnreviewed: false, partial: true, limit: 60, plan: null };
+function rankMap() {
+  const m = new Map();
+  curRecs().filter(r => ['submitted', 'returned', 'reviewed', 'approved'].includes(r.status) && usesDltv(r.form || {})).sort(rankCompare).forEach((r, i) => m.set(r.id, i + 1));
+  return m;
+}
+function allocSupply() { return num(SETTINGS.supply); }
+function computeAlloc() {
+  const o = UI.alloc, minScore = num(SETTINGS.minScore);
+  const approvedTv = curRecs().filter(r => r.status === 'approved').reduce((a, r) => a + tvApproved(r), 0);
+  const supply = allocSupply(), left0 = Math.max(0, supply - approvedTv);
+  const statuses = o.includeUnreviewed ? ['reviewed', 'submitted'] : ['reviewed'];
+  const pool = curRecs().filter(r => statuses.includes(r.status) && usesDltv(r.form || {}) && quotaOf(r) > 0).sort(rankCompare);
+  let left = left0;
+  const rows = pool.map(r => {
+    const need = quotaOf(r), sc = r.score || 0;
+    let give = 0, why = '';
+    if (sc < minScore) why = `คะแนน DLTV ต่ำกว่าขั้นต่ำ (${minScore})`;
+    else if (left >= need) give = need;
+    else if (left > 0 && o.partial) { give = left; why = 'ได้บางส่วน (เครื่องหมด)'; }
+    else why = 'เครื่องไม่พอในรอบนี้';
+    left -= give;
+    return { r, need, give, why, left };
+  });
+  const skippedLow = rows.filter(x => x.why.startsWith('คะแนน')).length;
+  const unreviewed = curRecs().filter(r => r.status === 'submitted' && usesDltv(r.form || {})).length;
+  return { supply, approvedTv, left0, rows, given: rows.reduce((a, x) => a + x.give, 0), full: rows.filter(x => x.give && x.give === x.need).length, part: rows.filter(x => x.give && x.give < x.need).length, none: rows.filter(x => !x.give).length, skippedLow, unreviewed, leftAfter: Math.max(0, left) };
+}
+function renderAlloc() {
+  const o = UI.alloc, A = computeAlloc(), price = num(SETTINGS.price);
+  UI.alloc.plan = A;
+  $('alSupply').value = A.supply || '';
+  $('alMin').value = num(SETTINGS.minScore) || '';
+  $('alUnrev').checked = o.includeUnreviewed; $('alPartial').checked = o.partial;
+  const kpi = (cls, l, v, s) => `<div class="kpi ${cls}"><span class="l">${l}</span><span class="v">${v}</span><span class="s">${s}</span></div>`;
+  $('alKpis').innerHTML =
+    kpi('lead', 'เครื่องที่มีให้จัดสรร', `${fmt(A.supply)}<small>ชุด</small>`, A.approvedTv ? `อนุมัติไปแล้ว ${fmt(A.approvedTv)} · เหลือ ${fmt(A.left0)}` : 'ยังไม่ได้อนุมัติ') +
+    kpi('', 'รอบนี้จะจัดสรร', `<span style="color:var(--green-ink)">${fmt(A.given)}</span><small>ชุด</small>`, `${fmt(A.full + A.part)} โรงเรียน${price ? ' · ' + fmt(A.given * price) + ' บาท' : ''}`) +
+    kpi('', 'ได้ครบตามที่ขอ', `${fmt(A.full)}<small>โรง</small>`, A.part ? `ได้บางส่วน ${fmt(A.part)} โรง` : 'ไม่มีโรงเรียนที่ได้บางส่วน') +
+    kpi('', 'ยังไม่ได้รอบนี้', `<span style="color:var(--amber-ink)">${fmt(A.none)}</span><small>โรง</small>`, `ต้องการอีก ${fmt(A.rows.filter(x => x.give < x.need).reduce((a, x) => a + x.need - x.give, 0))} ชุด`);
+  const warn = [];
+  if (!A.supply) warn.push('ใส่จำนวนเครื่องที่มีให้จัดสรรก่อน');
+  if (!o.includeUnreviewed && A.unreviewed) warn.push(`มี ${fmt(A.unreviewed)} โรงเรียนที่ยังไม่ได้ตรวจรูป จึงยังไม่อยู่ในรายการ <a href="#" onclick="event.preventDefault(); UI.apFilter='submitted'; aPage('approve'); renderApprove()">ไปตรวจรูป</a>`);
+  if (A.skippedLow) warn.push(`${fmt(A.skippedLow)} โรงเรียนคะแนน DLTV ต่ำกว่าขั้นต่ำ`);
+  $('alWarn').innerHTML = warn.map(w => `<div class="note b-gold">${ic('alert')}<span>${w}</span></div>`).join('');
+  const shown = A.rows.slice(0, o.limit);
+  $('alRows').innerHTML = A.rows.length ? shown.map((x, i) => {
+    const s = SCHOOL_BY_ID.get(x.r.sid) || schoolOf(x.r), st = x.give === x.need ? ['b-green', 'ได้ครบ'] : x.give ? ['b-gold', 'ได้บางส่วน'] : ['b-gray', 'ยังไม่ได้'];
+    return `<tr class="click${x.give ? '' : ' dim'}" onclick="openRequest('${x.r.id}')"><td class="c"><b>${i + 1}</b></td>
+      <td><b style="font-weight:600">${esc(s.name)}</b>${hasMergePlan(x.r) ? ' <span class="badge b-amber plain">แผนยุบ/ควบรวม</span>' : ''}<br><span class="muted" style="font-size:12px">${esc(codeOf(s))} · จ.${esc(s.province)} · ${badge(x.r.status)}</span></td>
+      <td><span class="score-pill" style="${dltvStyle(x.r.score)}">${x.r.score || 0}</span></td>
+      <td class="muted" style="font-size:12.5px">${esc((x.r.form || {}).dltvUse || '')}</td>
+      <td class="r num"><b>${fmt(x.need)}</b></td><td class="r num"><b style="color:${x.give ? 'var(--green-ink)' : 'var(--ink-3)'}">${fmt(x.give)}</b></td>
+      <td class="r num muted">${fmt(Math.max(0, x.left))}</td>
+      <td><span class="badge ${st[0]} plain">${st[1]}</span>${x.why ? `<br><span class="muted" style="font-size:11.5px">${esc(x.why)}</span>` : ''}</td></tr>`;
+  }).join('') + (A.rows.length > shown.length ? `<tr><td colspan="8" style="text-align:center"><button class="btn ghost sm" onclick="UI.alloc.limit+=100; renderAlloc()">แสดงเพิ่ม (อีก ${fmt(A.rows.length - shown.length)} โรงเรียน)</button></td></tr>` : '')
+    : `<tr><td colspan="8" class="empty">ยังไม่มีคำขอที่พร้อมจัดสรร${A.unreviewed ? ` · มี ${fmt(A.unreviewed)} โรงเรียนรอตรวจรูป` : ''}</td></tr>`;
+  $('alConfirm').disabled = !A.given;
+  $('alConfirm').innerHTML = `${ic('check')}ยืนยันจัดสรร ${fmt(A.given)} ชุด ให้ ${fmt(A.full + A.part)} โรงเรียน`;
+}
+function dltvStyle(sc) { sc = sc || 0; return sc >= 80 ? 'background:var(--green-soft);color:var(--green-ink)' : sc >= 60 ? 'background:var(--primary-soft);color:var(--primary-2)' : sc >= 40 ? 'background:var(--gold-soft);color:var(--gold-ink)' : 'background:#EEF1F6;color:var(--ink-2)'; }
+async function saveAllocSettings() {
+  SETTINGS.supply = num($('alSupply').value); SETTINGS.minScore = num($('alMin').value);
+  try { await saveSettingsRemote(); } catch (e) { return; }
+  renderAlloc(); toast('บันทึกจำนวนเครื่องและเกณฑ์แล้ว');
+}
+function supplyFromBudget() {
+  const price = num(SETTINGS.price), budget = num(SETTINGS.budget);
+  if (!price || !budget) { popup({ type: 'info', title: 'ยังคำนวณไม่ได้', msg: 'ตั้งราคาต่อชุดและงบประมาณทั้งหมดในหน้า “ตั้งค่า” ก่อน' }); return; }
+  $('alSupply').value = Math.floor(budget / price); saveAllocSettings();
+}
+async function confirmAlloc() {
+  const A = computeAlloc(), go = A.rows.filter(x => x.give > 0);
+  if (!go.length) return;
+  const ok = await confirmPop('ยืนยันการจัดสรรอัตโนมัติ', `<div class="hl"><b>${fmt(A.given)} ชุด</b>ให้ ${fmt(go.length)} โรงเรียน</div><br>ได้ครบ ${fmt(A.full)} โรง${A.part ? ` · ได้บางส่วน ${fmt(A.part)} โรง` : ''}<br><span class="muted">โรงเรียนที่ยังไม่ได้ จะคงสถานะ “รออนุมัติ” ไว้สำหรับรอบถัดไป</span>`, 'ยืนยันจัดสรร');
+  if (!ok) return;
+  const round = 'รอบ ' + thDate(nowIso(), true);
+  let n = 0;
+  for (const x of go) {
+    const r = clone(x.r), rooms = brokenRooms(r).map(y => y.name).slice(0, x.give);
+    r.status = 'approved';
+    r.approval = { tv: x.give, rooms, at: todayStr(), note: x.give < x.need ? `จัดสรรอัตโนมัติบางส่วน ${x.give}/${x.need} ชุด` : 'จัดสรรอัตโนมัติ', auto: true, round, rank: A.rows.indexOf(x) + 1, dltvScore: r.score || 0 };
+    if (!r.review) r.review = { note: '', at: nowIso() };
+    addHistory(r, `จัดสรรอัตโนมัติ ${x.give} ชุด (อันดับ ${A.rows.indexOf(x) + 1} · คะแนน DLTV ${r.score || 0})`);
+    n++; if (ONLINE) $('popT') && ($('popT').textContent = `กำลังบันทึก ${n}/${go.length}`);
+    try { await persist('saveRecord', r); } catch (e) { renderAlloc(); return; }
+  }
+  renderAlloc();
+  popup({ type: 'success', title: 'จัดสรรเรียบร้อย', msg: `<div class="hl"><b>${fmt(A.given)} ชุด</b>${fmt(go.length)} โรงเรียน</div><br>ส่งออกรายงาน PDF ได้ที่หน้า Dashboard`, confetti: true });
+}
+function exportAllocCsv() {
+  const A = computeAlloc();
+  if (!A.rows.length) return;
+  const head = ['อันดับ', 'รหัสกระทรวง', 'โรงเรียน', 'อำเภอ', 'จังหวัด', 'สังกัด', 'คะแนน DLTV', 'รูปแบบการใช้ DLTV', 'TV ชำรุด (ขอ)', 'จัดสรร', 'ผล', 'หมายเหตุ'];
+  const cell = (v) => { const s = String(v == null ? '' : v); return /^\d{8,}$/.test(s) ? '="' + s + '"' : /[",\n]/.test(s) ? '"' + s.replace(/"/g, '""') + '"' : s; };
+  const lines = A.rows.map((x, i) => { const s = SCHOOL_BY_ID.get(x.r.sid) || schoolOf(x.r); return [i + 1, s.moe || '', s.name, s.amphoe, s.province, s.aff || '', x.r.score || 0, (x.r.form || {}).dltvUse || '', x.need, x.give, x.give === x.need ? 'ได้ครบ' : x.give ? 'ได้บางส่วน' : 'ยังไม่ได้', x.why].map(cell).join(','); });
+  const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob(['﻿' + [head.join(','), ...lines].join('\r\n')], { type: 'text/csv;charset=utf-8' }));
+  a.download = `ผลจัดสรรอัตโนมัติ_${todayStr()}.csv`; a.click(); setTimeout(() => URL.revokeObjectURL(a.href), 2000);
+}
+
 /* ═════════ APPROVE ═════════ */
 function renderQuota() {
   const recs = curRecs().filter(r => r.status !== 'rejected');
@@ -1689,14 +1863,15 @@ function renderQuota() {
     <div class="bar"><i style="width:${Math.min(100, pct(ok, broken))}%"></i></div>
     <div class="row"><span>อนุมัติแล้ว <b>${fmt(ok)}</b></span><span>รอพิจารณา <b>${fmt(waitN)}</b></span></div>
     ${num(SETTINGS.price) ? `<div class="row"><span>งบที่อนุมัติแล้ว</span><b>${fmt(ok * num(SETTINGS.price))} บาท</b></div>` : ''}`;
-  $('criteria').innerHTML = CRITERIA.map(c => `<div class="crit"><div class="top"><span>${c.t}</span><b>${c.w}</b></div><div class="bar" style="margin:0"><i style="width:${c.w / CRIT_MAX * 100}%;background:${c.col}"></i></div></div>`).join('');
+  $('criteria').innerHTML = CRITERIA.map(c => `<div class="crit" data-tip="${esc(c.how)}"><div class="top"><span>${c.t}</span><b>${c.w}</b></div><div class="bar" style="margin:0"><i style="width:${c.w / CRIT_MAX * 100}%;background:${c.col}"></i></div></div>`).join('');
 }
 const AP_F = [['submitted', 'รอตรวจสอบ', ['submitted']], ['reviewed', 'รออนุมัติ', ['reviewed']], ['returned', 'ส่งกลับแก้ไข', ['returned']], ['approved', 'อนุมัติแล้ว', ['approved']], ['rejected', 'ไม่อนุมัติ', ['rejected']], ['all', 'ทั้งหมด', null]];
 function renderApprove() {
   const recs = curRecs();
   $('apSeg').innerHTML = AP_F.map(([k, t, st]) => `<button class="${UI.apFilter === k ? 'on' : ''}" onclick="UI.apFilter='${k}'; UI.apSel.clear(); UI.apLimit=50; renderApprove()">${t}<span>${fmt(st ? recs.filter(r => st.includes(r.status)).length : recs.length)}</span></button>`).join('');
   const flt = AP_F.find(f => f[0] === UI.apFilter) || AP_F[0], q = $('apSearch').value.trim().toLowerCase(), reg = $('apRegion').value;
-  const rows = recs.filter(r => !flt[2] || flt[2].includes(r.status)).filter(r => { const s = SCHOOL_BY_ID.get(r.sid) || schoolOf(r); return (!reg || s.region === reg) && (!q || (s.name + ' ' + s.province + ' ' + s.amphoe + ' ' + (s.moe || '') + ' ' + (s.smis || '')).toLowerCase().includes(q)); }).sort((a, b) => (b.score || 0) - (a.score || 0));
+  const rows = recs.filter(r => !flt[2] || flt[2].includes(r.status)).filter(r => { const s = SCHOOL_BY_ID.get(r.sid) || schoolOf(r); return (!reg || s.region === reg) && (!q || (s.name + ' ' + s.province + ' ' + s.amphoe + ' ' + (s.moe || '') + ' ' + (s.smis || '')).toLowerCase().includes(q)); }).sort(rankCompare);
+  const RK = rankMap();
   const canSel = ['submitted', 'reviewed'].includes(UI.apFilter);
   $('apAll').disabled = !canSel; $('apAll').checked = false;
   const shown = rows.slice(0, UI.apLimit);
@@ -1712,7 +1887,7 @@ function renderApprove() {
       <td style="font-size:12.5px"><span style="color:var(--green-ink)">ใช้ได้ ${ok}</span> · <span style="color:var(--red-ink)">ชำรุด ${br.length}</span>${none ? ` · ไม่มี ${none}` : ''}<br><span class="muted">${esc(br.map(x => x.name).join(', '))}</span></td>
       <td class="r num"><b style="font-size:16px">${r.status === 'approved' ? fmt(tvApproved(r)) + '<span class="muted" style="font-weight:400;font-size:13px">/' + br.length + '</span>' : br.length}</b></td>
       <td>${photos === br.length && br.length ? `<span class="badge b-green">${photos}/${br.length}</span>` : `<span class="badge b-amber">${photos}/${br.length}</span>`}</td>
-      <td><span class="score-pill" style="${scStyle}">${sc}</span></td>
+      <td><span class="score-pill" style="${dltvStyle(sc)}">${sc}</span>${RK.get(r.id) ? `<br><span class="muted" style="font-size:11.5px">อันดับ ${fmt(RK.get(r.id))}</span>` : !usesDltv(r.form || {}) ? '<br><span class="badge b-red plain">ไม่ใช้ DLTV</span>' : ''}</td>
       <td>${badge(r.status)}</td></tr>`;
   }).join('') + (rows.length > shown.length ? `<tr><td colspan="8" style="text-align:center"><button class="btn ghost sm" onclick="UI.apLimit+=50; renderApprove()">แสดงเพิ่ม (เหลืออีก ${fmt(rows.length - shown.length)} รายการ)</button></td></tr>` : '') : '<tr><td colspan="8" class="empty">ไม่มีคำขอในสถานะนี้</td></tr>';
   renderBulk();
@@ -1753,10 +1928,10 @@ function openRequest(id) {
   const body = `${hasMergePlan(r) ? `<div class="note b-amber">${ic('alert')}<span><b>โรงเรียนแจ้งว่า${esc(recPlan(r))}</b>${f.mergeWith ? ' · ' + esc(f.mergeWith) : ''}${f.mergeYear ? ' (ปี ' + esc(f.mergeYear) + ')' : ''}<br>ควรพิจารณาว่าจะจัดสรรให้หรือย้ายเครื่องไปโรงเรียนที่ควบรวม</span></div>` : ''}
     <div class="dsec"><h3>TV ชำรุดที่แจ้ง ${tvBroken(r)} เครื่อง ${editable ? '<span class="muted" style="font-weight:400;font-size:12.5px">· ติ๊กออกเครื่องที่รูปไม่ชัดหรือไม่ผ่านเกณฑ์</span>' : ''}</h3>${unitCards(r, editable)}</div>
     <div class="dsec"><h3>TV ทุกชั้นเรียน</h3><div class="tbl-box"><table class="compact"><thead><tr><th>ชั้น/ห้อง</th><th class="r">นักเรียน</th><th>สถานะ TV</th><th>อาการ</th></tr></thead><tbody>${rooms.map(x => `<tr><td>${esc(x.name)}</td><td class="r">${fmt(x.students)}</td><td><span class="badge ${x.state === 'ชำรุด' ? 'b-red' : x.state === 'ใช้งานได้' ? 'b-green' : 'b-gray'} plain">${esc(x.state)}</span></td><td>${esc(x.symptom || '')}</td></tr>`).join('')}</tbody></table></div></div>
-    <div class="dsec"><h3>คะแนนลำดับความสำคัญ ${sc.total} / 100</h3><div style="display:flex;flex-direction:column;gap:8px">${CRITERIA.map(c => `<div class="hbar" style="grid-template-columns:minmax(150px,230px) minmax(0,1fr) 54px"><span style="font-size:13px">${c.t}</span><div class="track"><i style="width:${pct(sc.parts[c.k], c.w)}%;background:${c.col}"></i></div><b>${sc.parts[c.k].toFixed(0)}/${c.w}</b></div>`).join('')}</div></div>
+    <div class="dsec"><h3>คะแนนการใช้ DLTV ${sc.total} / 100 ${rankMap().get(r.id) ? '<span class="badge b-blue plain">อันดับ ' + fmt(rankMap().get(r.id)) + '</span>' : ''}</h3>${usesDltv(f) ? `<div style="display:flex;flex-direction:column;gap:8px">${CRITERIA.map(c => `<div class="hbar" style="grid-template-columns:minmax(150px,230px) minmax(0,1fr) 54px" data-tip="${esc(c.how)}"><span style="font-size:13px">${c.t}</span><div class="track"><i style="width:${pct(sc.parts[c.k], c.w)}%;background:${c.col}"></i></div><b>${sc.parts[c.k].toFixed(0)}/${c.w}</b></div>`).join('')}</div>` : '<div class="note b-red">' + ic('alert') + '<span>โรงเรียนแจ้งว่ายังไม่ได้ใช้ DLTV · ไม่อยู่ในเกณฑ์จัดสรร</span></div>'}</div>
     <div class="dsec"><h3>ข้อมูลโรงเรียน</h3>${kv([['รหัสกระทรวง / SMIS', `${esc(s.moe || '—')} / ${esc(s.smis || '—')}`], ['อำเภอ / จังหวัด', esc(s.amphoe + ', ' + s.province)], ['สังกัด', esc(s.aff || '')], ['เป็นเป้าหมายมูลนิธิ', yearLabel(s)], ['TV เดิมจากมูลนิธิ', `55" × ${fmt(s.tv55)} · 49" × ${fmt(s.tv49)}`], ['นักเรียน / ครู', `${fmt(f.students)} / ${fmt(f.teachers)}`], ['ขนาด / ประเภท', esc(recSize(r) + ' · ' + recType(r))], ['ต้นสังกัด', esc(agencyOf(s.aff))], ['แผนยุบ / ควบรวม', hasMergePlan(r) ? `<span class="badge b-amber">${esc(recPlan(r))}</span><br>${esc(f.mergeWith || '')}${f.mergeYear ? ' · ปี ' + esc(f.mergeYear) : ''}` : esc(recPlan(r))], ['พื้นที่พิเศษ', esc(f.special)], ['เหตุผล', esc(f.reason)]])}</div>
     <div class="dsec"><h3>สัญญาณและความพร้อม</h3>${kv([['ช่องทางรับสัญญาณ', esc(f.signal)], ['จานและกล่องรับสัญญาณ', esc(f.dish)], ['อินเทอร์เน็ต', esc(f.internet)]].concat(READY_QS.map(q => [q.t, yn(q)])))}</div>
-    <div class="dsec"><h3>ครูและการใช้ DLTV</h3>${kv([['ครูครบชั้น', f.teacherFull === 'ไม่ครบชั้น' ? `<span class="badge b-amber plain">ไม่ครบ ${fmt(f.teacherShort)} ชั้น</span>${f.combined ? ' ' + esc(f.combined) : ''}` : f.teacherFull ? '<span class="badge b-green plain">ครบทุกชั้น</span>' : ''], ['ใช้ DLTV สอน', esc(f.dltvUse)], ['ชั่วโมง/สัปดาห์/ห้อง', f.hoursPlan ? fmt(f.hoursPlan) : ''], ['วิชาที่ใช้', esc((f.subjects || []).join(', '))], ['รายละเอียดเพิ่มเติม', esc(f.useNote)]])}</div>
+    <div class="dsec"><h3>การใช้ DLTV และครู</h3>${kv([['ครูครบชั้น', f.teacherFull === 'ไม่ครบชั้น' ? `<span class="badge b-amber plain">ไม่ครบ ${fmt(f.teacherShort)} ชั้น</span>${f.combined ? ' ' + esc(f.combined) : ''}` : f.teacherFull ? '<span class="badge b-green plain">ครบทุกชั้น</span>' : ''], ['ใช้ DLTV', usesDltv(f) ? '<span class="badge b-green plain">ใช้อยู่</span>' : '<span class="badge b-red plain">ยังไม่ได้ใช้</span>'], ['รูปแบบการใช้', esc(f.dltvUse)], ['วันต่อสัปดาห์', f.dltvDays ? fmt(f.dltvDays) + ' วัน' : ''], ['ชั่วโมง/สัปดาห์/ห้อง', f.hoursPlan ? fmt(f.hoursPlan) : ''], ['ชั้นที่ใช้ DLTV', esc((f.dltvGrades || []).join(', '))], ['วิชาที่ใช้', esc((f.subjects || []).join(', '))], ['รายละเอียดเพิ่มเติม', esc(f.useNote)]])}</div>
     <div class="dsec"><h3>ผู้ประสานงานและผู้อำนวยการ</h3>${kv([['ผู้ประสานงาน', esc(f.coordName) + (f.coordPos ? ' (' + esc(f.coordPos) + ')' : '')], ['เบอร์ผู้ประสานงาน', esc(f.coordPhone)], ['ผู้อำนวยการ', esc(f.directorName) + (f.directorPos ? '<br><span class="muted">' + esc(f.directorPos) + '</span>' : '')], ['เบอร์ผู้อำนวยการ', esc(f.directorPhone)], ['พิกัด', f.geo ? `<a href="https://www.google.com/maps?q=${f.geo.lat},${f.geo.lng}" target="_blank" rel="noopener">${f.geo.lat.toFixed(5)}, ${f.geo.lng.toFixed(5)}</a>` : ''], ['โฟลเดอร์รูปใน Drive', esc(folderName(s))]])}</div>
     ${editable ? `<div class="dsec"><h3>หมายเหตุถึงโรงเรียน</h3><label class="fld">จำเป็นเมื่อส่งกลับแก้ไข เช่น “รูปชั้น ป.3 ไม่เห็นหน้าจอ”<textarea class="inp" id="ap_note" rows="2">${esc(r.review && r.review.note || '')}</textarea></label></div>` : ''}
     ${r.approval ? `<div class="dsec"><h3>ผลการอนุมัติ</h3>${kv([['จำนวน', `<b>${tvApproved(r)} ชุด</b>`], ['ชั้นที่อนุมัติ', esc((r.approval.rooms || []).join(', '))], ['วันที่อนุมัติ', thDate(r.approval.at)], ['หมายเหตุ', esc(r.approval.note)]])}</div>` : ''}
@@ -1850,6 +2025,9 @@ function buildReport(opt) {
   if (topYr && topYr.tv) findings.push(`กลุ่มโรงเรียนเป้าหมาย${topYr.label} แจ้ง TV ชำรุดมากที่สุด ${fmt(topYr.tv)} เครื่อง จาก ${fmt(topYr.req)} โรงเรียน`);
   const sc = {}; active.forEach(r => brokenRooms(r).forEach(x => { const k = x.symptom || 'ไม่ระบุ'; sc[k] = (sc[k] || 0) + 1; }));
   const se = Object.entries(sc).sort((a, b) => b[1] - a[1]);
+  const dlR = active.filter(r => usesDltv(r.form || {}));
+  if (dlR.length) findings.push(`คะแนนการใช้ DLTV เฉลี่ย ${(dlR.reduce((a, r) => a + (r.score || 0), 0) / dlR.length).toFixed(1)} จาก 100 · โรงเรียนที่ได้ 80 คะแนนขึ้นไป ${fmt(dlR.filter(r => (r.score || 0) >= 80).length)} แห่ง`);
+  if (num(SETTINGS.supply)) findings.push(`เครื่องที่มีให้จัดสรร ${fmt(SETTINGS.supply)} ชุด จัดสรรไปแล้ว ${fmt(tvApp)} ชุด คงเหลือ ${fmt(Math.max(0, num(SETTINGS.supply) - tvApp))} ชุด · จัดลำดับตามคะแนนการใช้ DLTV แล้วจึงดูจำนวน TV ชำรุด`);
   const mergeF = active.filter(hasMergePlan).length;
   if (mergeF) findings.push(`มี ${fmt(mergeF)} โรงเรียนที่แจ้งว่ามีแผนยุบหรือควบรวม ควรพิจารณาประกอบการอนุมัติ`);
   const shortN = active.filter(r => (r.form || {}).teacherFull === 'ไม่ครบชั้น').length;
@@ -1883,8 +2061,8 @@ function buildReport(opt) {
   const sizeR = cat(SIZES, recSize), typeR = cat(TYPES, recType), planR = cat(PLANS, recPlan);
   const mergeN = active.filter(hasMergePlan).length;
   const listRows = (arr, approved) => arr.map(r => ({ r, s: SCHOOL_BY_ID.get(r.sid) || schoolOf(r) }))
-    .sort((a, b) => (a.s.province || '').localeCompare(b.s.province || '', 'th') || (a.s.aff || '').localeCompare(b.s.aff || '', 'th') || (a.s.name || '').localeCompare(b.s.name || '', 'th'))
-    .map((x, i) => `<tr><td class="c">${i + 1}</td><td><b>${esc(x.s.name)}</b><br><span class="sm">${esc(x.s.moe || x.s.smis || '')} · อ.${esc(x.s.amphoe || '')} จ.${esc(x.s.province || '')}</span></td><td class="sm">${esc(x.s.aff || '')}<br>${esc(recSize(x.r).replace('ขนาด', ''))} · ${esc(recType(x.r))}</td><td class="c">${esc(String(x.s.years || x.s.year || '—').split(',').join(', '))}</td><td class="r">${fmt(oldTv(x.s))}${oldTv(x.s) ? `<br><span class="sm">55"×${fmt(x.s.tv55)} 49"×${fmt(x.s.tv49)}</span>` : ''}</td><td class="r"><b>${fmt(quotaOf(x.r))}</b></td>${approved ? `<td class="r"><b>${fmt(tvApproved(x.r))}</b></td><td class="sm">${esc((x.r.approval.rooms || []).join(', '))}</td>` : `<td class="sm">${esc(brokenRooms(x.r).map(y => y.name).join(', '))}</td><td class="sm">${esc(STATUS[x.r.status].t)}</td>`}</tr>${hasMergePlan(x.r) ? `<tr class="mp"><td></td><td colspan="7">⚠ ${esc(recPlan(x.r))}${x.r.form.mergeWith ? ' · ' + esc(x.r.form.mergeWith) : ''}${x.r.form.mergeYear ? ' (ปี ' + esc(x.r.form.mergeYear) + ')' : ''}</td></tr>` : ''}`).join('');
+    .sort((a, b) => rankCompare(a.r, b.r))
+    .map((x, i) => `<tr><td class="c">${i + 1}</td><td><b>${esc(x.s.name)}</b><br><span class="sm">${esc(x.s.moe || x.s.smis || '')} · อ.${esc(x.s.amphoe || '')} จ.${esc(x.s.province || '')}</span></td><td class="sm">${esc(x.s.aff || '')}<br>${esc(recSize(x.r).replace('ขนาด', ''))} · ${esc(recType(x.r))}</td><td class="c">${esc(String(x.s.years || x.s.year || '—').split(',').join(', '))}</td><td class="r">${fmt(oldTv(x.s))}${oldTv(x.s) ? `<br><span class="sm">55"×${fmt(x.s.tv55)} 49"×${fmt(x.s.tv49)}</span>` : ''}</td><td class="r">${x.r.score || 0}${x.r.approval && x.r.approval.rank ? `<br><span class="sm">อันดับ ${x.r.approval.rank}</span>` : ''}</td><td class="r"><b>${fmt(quotaOf(x.r))}</b></td>${approved ? `<td class="r"><b>${fmt(tvApproved(x.r))}</b></td><td class="sm">${esc((x.r.approval.rooms || []).join(', '))}</td>` : `<td class="sm">${esc(brokenRooms(x.r).map(y => y.name).join(', '))}</td><td class="sm">${esc(STATUS[x.r.status].t)}</td>`}</tr>${hasMergePlan(x.r) ? `<tr class="mp"><td></td><td colspan="8">⚠ ${esc(recPlan(x.r))}${x.r.form.mergeWith ? ' · ' + esc(x.r.form.mergeWith) : ''}${x.r.form.mergeYear ? ' (ปี ' + esc(x.r.form.mergeYear) + ')' : ''}</td></tr>` : ''}`).join('');
 
   const html = `<!DOCTYPE html><html lang="th"><head><meta charset="UTF-8"><title>รายงานจัดสรร TV 55 นิ้ว ปีงบ ${esc(SETTINGS.fy)} - ${esc(scopeText)}</title>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -1986,11 +2164,11 @@ tr.tot td { background: #FFF6DC !important; font-weight: 700; border-top: 1.5px 
   <p class="note">หมายเหตุ: โควตาของแต่ละโรงเรียนเท่ากับจำนวน TV ที่โรงเรียนแจ้งว่าชำรุดพร้อมรูปถ่ายรายชั้น เจ้าหน้าที่พิจารณาอนุมัติรายเครื่องจากรูปถ่าย${price ? ` · คำนวณงบประมาณที่ ${fmt(price)} บาทต่อชุด` : ''}</p>
 
   ${opt.withApproved ? `<div class="pb"></div><h2>รายชื่อโรงเรียนที่อนุมัติแล้ว ${fmt(appr.length)} แห่ง รวม ${fmt(tvApp)} ชุด</h2>
-  <table class="list"><thead><tr><th class="c">ที่</th><th>โรงเรียน / รหัส</th><th>สังกัด · ขนาด · ประเภท</th><th class="c">เคยได้รับปี</th><th class="r">TV เดิม (เครื่อง)</th><th class="r">ชำรุด / ขอเพิ่ม</th><th class="r">อนุมัติ (ชุด)</th><th>ชั้นที่ได้รับ</th></tr></thead>
-  <tbody>${listRows(appr, true) || '<tr><td colspan="8" class="c">ยังไม่มีโรงเรียนที่อนุมัติ</td></tr>'}${appr.length ? `<tr class="tot"><td colspan="4">รวม</td><td class="r">${fmt(appr.reduce((a, r) => a + oldTv(SCHOOL_BY_ID.get(r.sid) || {}), 0))}</td><td class="r">${fmt(appr.reduce((a, r) => a + quotaOf(r), 0))}</td><td class="r">${fmt(tvApp)}</td><td></td></tr>` : ''}</tbody></table>` : ''}
+  <table class="list"><thead><tr><th class="c">ที่</th><th>โรงเรียน / รหัส</th><th>สังกัด · ขนาด · ประเภท</th><th class="c">เคยได้รับปี</th><th class="r">TV เดิม (เครื่อง)</th><th class="r">คะแนน DLTV</th><th class="r">ชำรุด / ขอเพิ่ม</th><th class="r">อนุมัติ (ชุด)</th><th>ชั้นที่ได้รับ</th></tr></thead>
+  <tbody>${listRows(appr, true) || '<tr><td colspan="9" class="c">ยังไม่มีโรงเรียนที่อนุมัติ</td></tr>'}${appr.length ? `<tr class="tot"><td colspan="4">รวม</td><td class="r">${fmt(appr.reduce((a, r) => a + oldTv(SCHOOL_BY_ID.get(r.sid) || {}), 0))}</td><td></td><td class="r">${fmt(appr.reduce((a, r) => a + quotaOf(r), 0))}</td><td class="r">${fmt(tvApp)}</td><td></td></tr>` : ''}</tbody></table>` : ''}
   ${opt.withPending ? `<div class="pb"></div><h2>รายชื่อโรงเรียนที่รอพิจารณา ${fmt(pend.length)} แห่ง รวม ${fmt(tvPend)} เครื่อง</h2>
-  <table class="list"><thead><tr><th class="c">ที่</th><th>โรงเรียน / รหัส</th><th>สังกัด · ขนาด · ประเภท</th><th class="c">เคยได้รับปี</th><th class="r">TV เดิม (เครื่อง)</th><th class="r">ชำรุด / ขอเพิ่ม</th><th>ชั้นที่ชำรุด</th><th>สถานะ</th></tr></thead>
-  <tbody>${listRows(pend, false) || '<tr><td colspan="8" class="c">ไม่มีโรงเรียนที่รอพิจารณา</td></tr>'}</tbody></table>` : ''}
+  <table class="list"><thead><tr><th class="c">ที่</th><th>โรงเรียน / รหัส</th><th>สังกัด · ขนาด · ประเภท</th><th class="c">เคยได้รับปี</th><th class="r">TV เดิม (เครื่อง)</th><th class="r">คะแนน DLTV</th><th class="r">ชำรุด / ขอเพิ่ม</th><th>ชั้นที่ชำรุด</th><th>สถานะ</th></tr></thead>
+  <tbody>${listRows(pend, false) || '<tr><td colspan="9" class="c">ไม่มีโรงเรียนที่รอพิจารณา</td></tr>'}</tbody></table>` : ''}
 
   <div class="sign"><div>ผู้จัดทำรายงาน<br>(......................................................)<br>ตำแหน่ง ..............................................</div><div>ผู้รับรอง / ผู้บริหาร<br>(......................................................)<br>ตำแหน่ง ..............................................</div></div>
 </div>
@@ -2017,7 +2195,7 @@ async function seedDemo() {
   if (ONLINE) return;
   if (RECORDS.length && !await confirmPop('แทนที่ข้อมูลทดลอง?', 'ข้อมูลทดลองเดิมจะถูกแทนที่ด้วยข้อมูลตัวอย่าง 420 โรงเรียน', 'ใส่ข้อมูลตัวอย่าง')) return;
   let seed = 11; const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647, pick = (a) => a[Math.floor(rnd() * a.length)];
-  SETTINGS = { fy: '2570', price: 25000, budget: 30000000 };
+  SETTINGS = { fy: '2570', price: 25000, budget: 30000000, minYear: '2563', supply: 600, minScore: 0 };
   const pool = SCHOOLS.filter(isEligible).sort(() => rnd() - .5).slice(0, 420), day = (n) => addDays('2026-08-01', n);
   RECORDS = pool.map((s, i) => {
     const grades = GRADES.slice(rnd() < .5 ? 0 : 3, 9);
@@ -2025,12 +2203,12 @@ async function seedDemo() {
     if (!rooms.some(r => r.state === 'ชำรุด')) Object.assign(rooms[0], { state: 'ชำรุด', symptom: 'เปิดไม่ติด' });
     const ready = {}; READY_QS.forEach(q => ready[q.k] = rnd() < .8 ? q.good : (q.good === 'yes' ? 'no' : 'yes'));
     const plan = rnd() < .82 ? 'ไม่มีแผน' : pick(PLANS.slice(1));
-    const form = { product: PRODUCT, grades, students: s.students || 60, teachers: s.teachers || 6, schoolSize: regSize(s) || 'ขนาดเล็ก', schoolType: regType(s), mergePlan: plan, mergeWith: plan === 'ไม่มีแผน' ? '' : 'ควบรวมกับโรงเรียนใกล้เคียง', mergeYear: plan === 'ไม่มีแผน' ? '' : '2571', special: rnd() < .2 ? pick(['พื้นที่สูง / ห่างไกล', 'เกาะ', 'ชายแดน']) : 'ไม่ใช่', rooms, reason: 'TV เดิมชำรุด', signal: pick(['จานดาวเทียม', 'ทั้งสองช่องทาง']), dish: pick(['ใช้ได้ครบทุกห้อง', 'ใช้ได้บางห้อง']), internet: pick(['Wi-Fi ครอบคลุมทุกห้อง', 'บางห้อง', 'ไม่มี']), ready, teacherFull: rnd() < .55 ? 'ไม่ครบชั้น' : 'ครบชั้น', teacherShort: 1 + Math.floor(rnd() * 3), combined: '', dltvUse: pick(['ใช้สอนสดตามตารางทุกวิชา', 'ใช้สอนสดบางวิชา', 'ใช้แทนครูในชั้นที่ครูไม่ครบ']), hoursPlan: 15 + Math.floor(rnd() * 12), subjects: SUBJECTS.filter(() => rnd() < .5), useNote: '', coordName: s.coord || 'ผู้ประสานงาน', coordPos: 'ครู', coordPhone: s.phone || '', geo: null, directorName: s.director || 'ผู้อำนวยการ', directorPos: 'ผู้อำนวยการโรงเรียน', directorPhone: '08x-xxx-xxxx', certify: true };
+    const form = { product: PRODUCT, grades, students: s.students || 60, teachers: s.teachers || 6, schoolSize: regSize(s) || 'ขนาดเล็ก', schoolType: regType(s), mergePlan: plan, mergeWith: plan === 'ไม่มีแผน' ? '' : 'ควบรวมกับโรงเรียนใกล้เคียง', mergeYear: plan === 'ไม่มีแผน' ? '' : '2571', special: rnd() < .2 ? pick(['พื้นที่สูง / ห่างไกล', 'เกาะ', 'ชายแดน']) : 'ไม่ใช่', rooms, reason: 'TV เดิมชำรุด', signal: pick(['จานดาวเทียม', 'ทั้งสองช่องทาง']), dish: pick(['ใช้ได้ครบทุกห้อง', 'ใช้ได้บางห้อง']), internet: pick(['Wi-Fi ครอบคลุมทุกห้อง', 'บางห้อง', 'ไม่มี']), ready, teacherFull: rnd() < .55 ? 'ไม่ครบชั้น' : 'ครบชั้น', teacherShort: 1 + Math.floor(rnd() * 3), combined: '', dltvUsing: 'ใช้อยู่', dltvUse: pick(Object.keys(DLTV_MODES)), dltvDays: pick([5, 5, 5, 4, 3, 2]), hoursPlan: 4 + Math.floor(rnd() * 22), dltvGrades: grades.filter(() => rnd() < .8), subjects: SUBJECTS.filter(() => rnd() < .5), useNote: '', coordName: s.coord || 'ผู้ประสานงาน', coordPos: 'ครู', coordPhone: s.phone || '', geo: null, directorName: s.director || 'ผู้อำนวยการ', directorPos: 'ผู้อำนวยการโรงเรียน', directorPhone: '08x-xxx-xxxx', certify: true };
     const r = { id: 'D' + i, fy: '2570', sid: s.sid, code: schoolKey(s), sids: allSids(s), school: { name: s.name, amphoe: s.amphoe, province: s.province, region: s.region, smis: s.smis, moe: s.moe, year: s.year }, status: 'submitted', createdAt: day(i % 60) + 'T09:00:00.000Z', submittedAt: day(i % 60), form, history: [] };
     const br = rooms.filter(x => x.state === 'ชำรุด').map(x => x.name);
     r.history.unshift({ at: r.createdAt, text: `ยื่นคำขอ ${br.length} ชุด`, by: 'โรงเรียน' });
     r.score = scoreOf(r).total;
-    const roll = rnd(), st = roll < .25 ? 'submitted' : roll < .42 ? 'reviewed' : roll < .47 ? 'returned' : roll < .5 ? 'rejected' : 'approved';
+    const roll = rnd(), st = roll < .18 ? 'submitted' : roll < .75 ? 'reviewed' : roll < .8 ? 'returned' : roll < .83 ? 'rejected' : 'approved';
     r.status = st;
     if (st === 'returned') r.review = { note: 'รูปชั้น ' + br[0] + ' ไม่เห็นหน้าจอ กรุณาถ่ายใหม่', at: day(70) + 'T10:00:00.000Z' };
     if (st === 'reviewed') r.review = { note: '', at: day(65 + i % 20) + 'T10:00:00.000Z' };
